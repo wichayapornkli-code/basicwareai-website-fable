@@ -11,7 +11,7 @@
     "titleAccent": "无限",
     "titlePart1b": "全球",
     "titlePart2": "机遇，以AI驱动",
-    "subtitle": "通过专为全球化企业打造的单一 API，\n访问全球顶级 AI 模型。",
+    "subtitle": "通过专为全球化企业打造的单一 API，访问全球顶级 AI 模型。",
     "cta": "阅读案例"
   },
   "cta": {
@@ -37,11 +37,26 @@
     "learnMore": "了解更多",
     "readMore": "了解更多",
     "grid": [
-      { "title": "统一 Token 管理", "tagline": "部署效率提升 400%。" },
-      { "title": "AI 内容与增长", "tagline": "受众增长 40 倍，新增营收 400 万美元。" },
-      { "title": "AI 教育", "tagline": "在 10 余个国家认证 AI 人才。" },
-      { "title": "AI 数字员工", "tagline": "客户满意度提升 85%，全天候运营。" },
-      { "title": "Buddy System", "tagline": "在 10 余个国家认证 AI 人才。" }
+      {
+        "title": "统一 Token 管理",
+        "tagline": "部署效率提升 400%。"
+      },
+      {
+        "title": "AI 内容与增长",
+        "tagline": "受众增长 40 倍，新增营收 400 万美元。"
+      },
+      {
+        "title": "AI 教育",
+        "tagline": "在 10 余个国家认证 AI 人才。"
+      },
+      {
+        "title": "AI 数字员工",
+        "tagline": "客户满意度提升 85%，全天候运营。"
+      },
+      {
+        "title": "Buddy System",
+        "tagline": "在 10 余个国家认证 AI 人才。"
+      }
     ],
     "cards": [
       {

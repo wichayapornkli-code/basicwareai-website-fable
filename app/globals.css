@@ -214,6 +214,14 @@ html.dark .bw-grain {
   transform: scale(1.05);
 }
 
+/* ── Hero photo variants ──────────────────────────────────── */
+/* Accent-blue serif words disappear into the blue-sky photos;
+   the dark glow keeps them legible over the white seed swirl too */
+.bw-hero-on-image .bw-display em {
+  color: #cfe8ff;
+  text-shadow: 0 2px 18px rgba(2, 24, 68, 0.75), 0 0 44px rgba(2, 24, 68, 0.5);
+}
+
 /* ── Hero fallback (no WebGL) ─────────────────────────────── */
 .bw-hero-fallback {
   background:

@@ -11,7 +11,7 @@
     "titleAccent": "Infinite",
     "titlePart1b": " Global",
     "titlePart2": "Opportunities with AI",
-    "subtitle": "Access the world's top AI models through a single API\nbuilt for enterprises going global with Basicware.",
+    "subtitle": "Access the world's top AI models through a single API built for enterprises going global with Basicware.",
     "cta": "Read the stories"
   },
   "cta": {
@@ -37,11 +37,26 @@
     "learnMore": "Learn more",
     "readMore": "Read More",
     "grid": [
-      { "title": "Centralized Token Control", "tagline": "Operational efficiency up 400% across deployments." },
-      { "title": "AI Content & Growth", "tagline": "40x audience growth. $4M in new revenue." },
-      { "title": "AI Education", "tagline": "Certifying AI talent across 10+ countries." },
-      { "title": "AI Digital Employees", "tagline": "Customer satisfaction up 85%. Around the clock." },
-      { "title": "Buddy System", "tagline": "Certifying AI talent across 10+ countries." }
+      {
+        "title": "Centralized Token Control",
+        "tagline": "Operational efficiency up 400% across deployments."
+      },
+      {
+        "title": "AI Content & Growth",
+        "tagline": "40x audience growth. $4M in new revenue."
+      },
+      {
+        "title": "AI Education",
+        "tagline": "Certifying AI talent across 10+ countries."
+      },
+      {
+        "title": "AI Digital Employees",
+        "tagline": "Customer satisfaction up 85%. Around the clock."
+      },
+      {
+        "title": "Buddy System",
+        "tagline": "Certifying AI talent across 10+ countries."
+      }
     ],
     "cards": [
       {
