@@ -1,0 +1,208 @@
+{
+  "nav": {
+    "whatWeDo": "What we do",
+    "solutions": "Products",
+    "successStories": "Success Stories",
+    "about": "About",
+    "getStarted": "Get in touch"
+  },
+  "hero": {
+    "titlePart1": "Unlock ",
+    "titleAccent": "Infinite",
+    "titlePart1b": " Global",
+    "titlePart2": "Opportunities with AI",
+    "subtitle": "Access the world's top AI models through a single API\nbuilt for enterprises going global with Basicware.",
+    "cta": "Read the stories"
+  },
+  "cta": {
+    "eyebrow": "· Next step ·",
+    "title": "Ready to see more?",
+    "subtitle": "100+ projects. 10+ countries. Results that speak for themselves.",
+    "button": "Read our success stories",
+    "tagline": "Based in Hong Kong · Working across Southeast Asia and beyond"
+  },
+  "partnership": {
+    "eyebrow": "· Strategic Partnership ·",
+    "title": "Powered by the world's leading AI and cloud platforms",
+    "partnerTitle": "Official BytePlus Global Distributor",
+    "partnerBody1": "In strategic cooperation with Volcano Engine (ByteDance), jointly promoting the commercialization of AI solutions and co-building the AI infrastructure ecosystem.",
+    "partnerBody2": "Exclusive channel partner for the ByteDance + Pearson AI certification system in the Asia-Pacific region."
+  },
+  "practice": {
+    "eyebrow": "· Practice areas ·",
+    "titleLine1": "What we can",
+    "titleLine2": "build together.",
+    "subtitle": "Four practice areas. One approach. Sit beside the team, understand the goal, and build until the outcome lands.",
+    "cta": "View solutions",
+    "learnMore": "Learn more",
+    "readMore": "Read More",
+    "grid": [
+      { "title": "Centralized Token Control", "tagline": "Operational efficiency up 400% across deployments." },
+      { "title": "AI Content & Growth", "tagline": "40x audience growth. $4M in new revenue." },
+      { "title": "AI Education", "tagline": "Certifying AI talent across 10+ countries." },
+      { "title": "AI Digital Employees", "tagline": "Customer satisfaction up 85%. Around the clock." },
+      { "title": "Buddy System", "tagline": "Certifying AI talent across 10+ countries." }
+    ],
+    "cards": [
+      {
+        "num": "/ 01",
+        "title": "AI Commerce",
+        "body": "AI-powered marketing and growth across the full funnel — from content creation and ad placement to conversion optimization. AIGC production, TikTok/Douyin growth services, and data-driven e-commerce operations for brands, merchants, and agencies."
+      },
+      {
+        "num": "/ 02",
+        "title": "AI Agent",
+        "body": "Deploy intelligent digital employees that don't just chat — they execute. OpenClaw enables one-click deployment of AI agents across customer support, sales, HR, finance, operations, and R&D — with 24/7 multi-channel integration."
+      },
+      {
+        "num": "/ 03",
+        "title": "AI Education",
+        "body": "Building the AI talent pipeline for Asia-Pacific. Online and offline certification programs co-developed with ByteDance and Pearson, delivered through government and university partnerships across Hong Kong, Macau, Malaysia, and Southeast Asia."
+      },
+      {
+        "num": "/ 04",
+        "title": "Centralized Token Control",
+        "body": "One API, every model. BasicRouter unifies access to 10+ global AI foundation models — Qwen, Doubao, DeepSeek, GPT, Gemini, Claude — with enterprise-grade security, real-time cost analytics, and flexible multi-cloud billing."
+      }
+    ]
+  },
+  "worldwide": {
+    "eyebrow": "· Worldwide Operations ·",
+    "titleBlue": "Present in 10+ countries.",
+    "titleDark": "Delivering from a dozen operation and development centers.",
+    "body": "From strategic hubs in Hong Kong, Shenzhen, and Taiwan to regional offices across Southeast Asia."
+  },
+  "outcomes": {
+    "eyebrow": "· Customer outcomes ·",
+    "titleBlue": "The Buddy model,",
+    "titleDark": "in practice.",
+    "subtitle": "From government to gaming, education to e-commerce.\nWe've co-built with partners in Hong Kong, ASEAN and beyond.",
+    "liveCount": "37 AI projects",
+    "liveLabel": " happening right now",
+    "cta": "All success stories",
+    "cards": [
+      {
+        "category": "HR Technology",
+        "location": "Thailand",
+        "headline": "A Hong Kong enterprise's HR system was built to record. We rebuilt it to think.",
+        "body": "Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks."
+      },
+      {
+        "category": "HR Technology",
+        "location": "Hong Kong → ASEAN",
+        "headline": "A Hong Kong enterprise's HR system was built to record. We rebuilt it to think.",
+        "body": "Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks."
+      },
+      {
+        "category": "HR Technology",
+        "location": "Singapore",
+        "headline": "A Hong Kong enterprise's HR system was built to record. We rebuilt it to think.",
+        "body": "Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Unlock Infinite Global Opportunities with AI",
+    "subtagline": "Based in Hong Kong · Working across Southeast Asia and beyond",
+    "copyright": "All rights reserved."
+  },
+  "successStories": {
+    "sectionTitle": "A few stories",
+    "sectionEyebrow": "Success Stories",
+    "sectionBody": "Across hospitality, gaming, education, and enterprise — here's what AI transformation looks like in practice.",
+    "resultsTitle": "The Results Speak",
+    "stat1Label": "Customer Satisfaction",
+    "stat2Label": "Content Efficiency",
+    "stat3Label": "Query Efficiency",
+    "stat4Label": "Operational Efficiency",
+    "ctaEyebrow": "NEXT",
+    "ctaTitle": "Want results like these?",
+    "ctaButton": "Talk to us"
+  },
+  "contact": {
+    "eyebrow": "· Get in touch ·",
+    "title": "Let's build something great together.",
+    "body": "Tell us what you're working on. Whether you're starting from scratch or scaling an existing operation — we'll help you find the right move.",
+    "tagline": "Based in Hong Kong · Working across Southeast Asia and beyond",
+    "form": {
+      "name": "Full name",
+      "email": "Email address",
+      "company": "Company",
+      "message": "What are you working on?",
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "successTitle": "Message sent.",
+      "successBody": "We'll be in touch within one business day.",
+      "errorBody": "Something went wrong. Please try again."
+    }
+  },
+  "successHero": {
+    "line1": "Proof,",
+    "line2": "not promises"
+  },
+  "solutionsHero": {
+    "line1": "We make ",
+    "line1Accent": "AI work",
+    "line2": "for your business"
+  },
+  "about": {
+    "story": {
+      "eyebrow": "About us",
+      "title": "Our story",
+      "p1": "Basicware was founded on a simple observation: the AI landscape was moving fast, but most businesses were being left behind — not because they lacked ambition, but because they lacked a guide.",
+      "p2": "We set out to change that. Headquartered in Hong Kong, we built a company that sits at the intersection of the world's leading AI technologies and the businesses that need them most. From day one, our mission has been navigation — helping organizations find the right path through an increasingly complex AI ecosystem, and walking that path with them.",
+      "p3": "Today we operate across more than 10 countries, with offices spanning Shenzhen, Taiwan, Malaysia, Vietnam, Japan, Indonesia, and Cambodia. We've delivered over 30 AI projects across hospitality, gaming, government, education, and enterprise — and we're just getting started.",
+      "stat1Value": "10+",
+      "stat1Label": "Countries",
+      "stat2Value": "30+",
+      "stat2Label": "AI projects delivered",
+      "stat3Value": "7+",
+      "stat3Label": "Offices across Asia"
+    },
+    "values": {
+      "eyebrow": "What drives us",
+      "title": "What drives us",
+      "subtitle": "Four principles that shape how we work with every client, in every market.",
+      "cards": [
+        {
+          "title": "Clarity over complexity",
+          "body": "AI should make business simpler, not harder. We cut through the noise and give our clients a clear, confident path forward."
+        },
+        {
+          "title": "Partnership over transactions",
+          "body": "We don't hand over a solution and walk away. We stay in it — through implementation, integration, and beyond."
+        },
+        {
+          "title": "Outcomes over activity",
+          "body": "We measure our success by our clients' results. Not by deliverables, hours, or effort — by the growth, efficiency, and opportunity we unlock."
+        },
+        {
+          "title": "Global reach, local depth",
+          "body": "We operate globally because AI opportunity is global. But we show up locally — with teams on the ground who understand the markets, cultures, and industries we serve."
+        }
+      ]
+    },
+    "team": {
+      "eyebrow": "Meet the team",
+      "title": "Meet the team",
+      "subtitle": "The leaders who built Basicware from the ground up — and who stay close to every client engagement.",
+      "members": [
+        {
+          "name": "Paul Yung",
+          "title": "Chief Executive Officer",
+          "bio": "Paul brings over 25 years of technology leadership to Basicware. As former COO of an Amazon subsidiary, he led the AWS business across Hong Kong, Macau, and Taiwan from its early days to hundreds of millions in revenue. He founded Basicware to give every business access to the kind of AI infrastructure that was once reserved for the world's largest companies."
+        },
+        {
+          "name": "Zane Wang",
+          "title": "Chief Strategy Officer",
+          "bio": "Zane has spent his career at the intersection of investment, strategy, and enterprise development. As former President of Zhongzhi International Investment and advisor to multiple listed companies in China, he brings the commercial judgment and network that helps Basicware's clients move with confidence. He holds an EMBA from both Tsinghua and Peking University."
+        },
+        {
+          "name": "Fox Zhang",
+          "title": "Chief Marketing Officer",
+          "bio": "Fox leads Basicware's market presence and growth strategy across Asia-Pacific. With a background spanning securities, investment management, and corporate leadership, he brings a sharp commercial lens to everything the brand communicates. He holds an EMBA from Tsinghua University."
+        }
+      ]
+    }
+  }
+}

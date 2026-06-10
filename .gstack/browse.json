@@ -1,0 +1,9 @@
+{
+  "pid": 45003,
+  "port": 25240,
+  "token": "e47a0f5f-0f0b-450b-9414-664810b42a35",
+  "startedAt": "2026-06-10T18:47:00.120Z",
+  "serverPath": "/Users/muri/.claude/skills/gstack/browse/src/server.ts",
+  "mode": "launched",
+  "configHash": "303a7eeccc03078b"
+}
