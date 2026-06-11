@@ -69,7 +69,6 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  // Photo variants sit on saturated blue skies, so the copy flips to white
   const onImage = variant !== "aurora";
   const isImage = variant === "image";
   const isParallax = variant === "parallax";
@@ -122,18 +121,16 @@ export default function Hero() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          // Photo variants: copy sits in the sky (image centered, parallax
-          // top-right) while the meta row stays pinned at the bottom.
-          justifyContent: onImage ? "space-between" : "flex-end",
-          padding: onImage
+          justifyContent: isImage ? "space-between" : "flex-end",
+          padding: isImage
             ? "clamp(110px, 15vh, 170px) clamp(24px, 5vw, 80px) clamp(28px, 4vh, 48px)"
             : "0 clamp(24px, 5vw, 80px) clamp(36px, 6vh, 72px)",
         }}
       >
         <div
           style={{
-            // Image: dead-center of the hero. Parallax: everything on the right.
             margin: isImage ? "auto 0" : undefined,
+            transform: isImage ? "translateY(-100px)" : isParallax ? "translateY(40px)" : undefined,
             textAlign: isImage ? "center" : isParallax ? "right" : undefined,
           }}
         >
@@ -146,23 +143,40 @@ export default function Hero() {
           <h1
             className="bw-display"
             style={{
-              fontSize: "clamp(46px, 8.2vw, 138px)",
+              fontSize: isParallax ? "clamp(36px, 5.8vw, 96px)" : "clamp(46px, 8.2vw, 138px)",
               color: cText,
               textShadow: onImage ? "0 2px 28px rgba(2,24,68,0.35)" : undefined,
             }}
           >
-            <span className="bw-line-mask">
-              <span data-hero-line style={{ display: "block" }}>
-                {t("titlePart1")}
-                <em>{t("titleAccent")}</em>
-                {t("titlePart1b")}
-              </span>
-            </span>
-            <span className="bw-line-mask">
-              <span data-hero-line style={{ display: "block" }}>
-                {t("titlePart2")}
-              </span>
-            </span>
+            {isParallax ? (
+              <>
+                <span className="bw-line-mask">
+                  <span data-hero-line style={{ display: "block" }}>
+                    {t("titlePart1")}<em>{t("titleAccent")}</em>
+                  </span>
+                </span>
+                <span className="bw-line-mask">
+                  <span data-hero-line style={{ display: "block" }}>
+                    {t("titlePart1b").trim()} {t("titlePart2")}
+                  </span>
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="bw-line-mask">
+                  <span data-hero-line style={{ display: "block" }}>
+                    {t("titlePart1")}
+                    <em>{t("titleAccent")}</em>
+                    {t("titlePart1b")}
+                  </span>
+                </span>
+                <span className="bw-line-mask">
+                  <span data-hero-line style={{ display: "block" }}>
+                    {t("titlePart2")}
+                  </span>
+                </span>
+              </>
+            )}
           </h1>
 
           {/* Subtitle + CTAs */}
@@ -172,72 +186,76 @@ export default function Hero() {
               flexWrap: "wrap",
               // Image: subtitle and CTAs stack centered under the headline.
               // Parallax: they stack against the right edge.
-              flexDirection: onImage ? "column" : "row",
-              alignItems: isImage ? "center" : "flex-end",
-              justifyContent: onImage ? "flex-start" : "space-between",
+              flexDirection: isImage ? "column" : "row",
+              alignItems: isImage ? "center" : isParallax ? "flex-end" : "flex-end",
+              justifyContent: isImage ? "flex-start" : "space-between",
               gap: "28px",
               marginTop: "clamp(28px, 4.5vh, 52px)",
             }}
           >
-            <p
-              data-hero-fade
-              style={{
-                margin: 0,
-                maxWidth: "440px",
-                fontSize: "clamp(15px, 1.2vw, 18px)",
-                lineHeight: 1.6,
-                color: cMuted,
-                textShadow: onImage ? "0 1px 16px rgba(2,24,68,0.7)" : undefined,
-              }}
-            >
-              {t("subtitle")}
-            </p>
+            {!isParallax && (
+              <p
+                data-hero-fade
+                style={{
+                  margin: 0,
+                  maxWidth: "440px",
+                  fontSize: "clamp(15px, 1.2vw, 18px)",
+                  lineHeight: 1.6,
+                  color: cMuted,
+                  textShadow: isImage ? "0 1px 16px rgba(2,24,68,0.7)" : undefined,
+                }}
+              >
+                {t("subtitle")}
+              </p>
+            )}
 
-            <div data-hero-fade style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-              <Magnetic>
-                <Link
-                  href={`/${locale}/success-stories`}
-                  className="bw-btn"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "12px",
-                    backgroundColor: onImage ? "#fff" : "var(--c-accent)",
-                    color: onImage ? "#0a2a6b" : "#fff",
-                    borderRadius: "60px",
-                    padding: "16px 30px",
-                    textDecoration: "none",
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    letterSpacing: "-0.01em",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {t("cta")}
-                  <img
-                    src={onImage ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"}
-                    alt=""
-                    width={13}
-                    height={13}
-                    style={{ display: "block" }}
-                  />
-                </Link>
-              </Magnetic>
-              <Magnetic strength={0.25}>
-                <Link
-                  href={`/${locale}/contact`}
-                  className="bw-link"
-                  style={{
-                    color: cText,
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {tNav("getStarted")}
-                </Link>
-              </Magnetic>
-            </div>
+            {!isParallax && (
+              <div data-hero-fade style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <Magnetic>
+                  <Link
+                    href={`/${locale}/success-stories`}
+                    className="bw-btn"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "12px",
+                      backgroundColor: onImage ? "#fff" : "var(--c-accent)",
+                      color: onImage ? "#0a2a6b" : "#fff",
+                      borderRadius: "60px",
+                      padding: "16px 30px",
+                      textDecoration: "none",
+                      fontWeight: 600,
+                      fontSize: "15px",
+                      letterSpacing: "-0.01em",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {t("cta")}
+                    <img
+                      src={onImage ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"}
+                      alt=""
+                      width={13}
+                      height={13}
+                      style={{ display: "block" }}
+                    />
+                  </Link>
+                </Magnetic>
+                <Magnetic strength={0.25}>
+                  <Link
+                    href={`/${locale}/contact`}
+                    className="bw-link"
+                    style={{
+                      color: cText,
+                      fontWeight: 600,
+                      fontSize: "15px",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {tNav("getStarted")}
+                  </Link>
+                </Magnetic>
+              </div>
+            )}
           </div>
         </div>
 
