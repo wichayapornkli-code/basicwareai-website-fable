@@ -130,7 +130,7 @@ export default function Hero() {
         <div
           style={{
             margin: isImage ? "auto 0" : undefined,
-            transform: isImage ? "translateY(-100px)" : isParallax ? "translateY(40px)" : undefined,
+            transform: isImage ? "translateY(-170px)" : isParallax ? "translateY(40px)" : undefined,
             textAlign: isImage ? "center" : isParallax ? "right" : undefined,
           }}
         >
@@ -143,12 +143,12 @@ export default function Hero() {
           <h1
             className="bw-display"
             style={{
-              fontSize: isParallax ? "clamp(36px, 5.8vw, 96px)" : "clamp(46px, 8.2vw, 138px)",
+              fontSize: isParallax ? "clamp(36px, 5.8vw, 96px)" : isImage ? "clamp(36px, 6vw, 100px)" : "clamp(46px, 8.2vw, 138px)",
               color: cText,
               textShadow: onImage ? "0 2px 28px rgba(2,24,68,0.35)" : undefined,
             }}
           >
-            {isParallax ? (
+            {!isImage ? (
               <>
                 <span className="bw-line-mask">
                   <span data-hero-line style={{ display: "block" }}>
@@ -209,7 +209,7 @@ export default function Hero() {
               </p>
             )}
 
-            {!isParallax && (
+            {!isParallax && !isImage && (
               <div data-hero-fade style={{ display: "flex", alignItems: "center", gap: "20px" }}>
                 <Magnetic>
                   <Link
