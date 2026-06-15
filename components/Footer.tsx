@@ -1,11 +1,15 @@
+"use client";
+
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import DarkModeToggle from "@/components/DarkModeToggle";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 export default function Footer() {
   const t = useTranslations("nav");
   const tf = useTranslations("footer");
   const locale = useLocale();
+  const { isMobile } = useBreakpoint();
 
   const links = [
     { href: `/${locale}/solutions`, label: t("solutions") },
@@ -28,10 +32,11 @@ export default function Footer() {
       <div
         style={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
-          alignItems: "flex-end",
+          alignItems: isMobile ? "flex-start" : "flex-end",
           flexWrap: "wrap",
-          gap: "40px",
+          gap: "clamp(24px, 3vw, 40px)",
           paddingBottom: "clamp(48px, 5vw, 80px)",
           borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
@@ -97,7 +102,7 @@ export default function Footer() {
           padding: "clamp(36px, 4vw, 56px) 0",
         }}
       >
-        <nav style={{ display: "flex", gap: "clamp(24px, 3vw, 48px)", flexWrap: "wrap" }}>
+        <nav style={{ display: "flex", gap: "clamp(12px, 2vw, 48px)", flexWrap: "wrap" }}>
           {links.map(({ href, label }) => (
             <Link
               key={href}
@@ -132,7 +137,7 @@ export default function Footer() {
           style={{
             margin: 0,
             fontWeight: 800,
-            fontSize: "clamp(64px, 14.5vw, 230px)",
+            fontSize: "clamp(36px, 14.5vw, 230px)",
             lineHeight: 0.78,
             letterSpacing: "-0.045em",
             whiteSpace: "nowrap",

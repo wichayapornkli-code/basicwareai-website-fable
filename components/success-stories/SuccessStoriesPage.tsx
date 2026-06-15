@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CASE_STUDIES, type CaseStudy } from "@/lib/case-studies";
 import { useDark } from "@/components/ThemeProvider";
 import AccentWords from "@/components/anim/AccentWords";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -262,6 +263,7 @@ export default function SuccessStoriesPage() {
   const locale = useLocale();
   const t = useTranslations("successStories");
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
   const fullCards = CASE_STUDIES.filter((s) => s.size === "full");
   const halfCards = CASE_STUDIES.filter((s) => s.size === "half");
 
@@ -273,11 +275,12 @@ export default function SuccessStoriesPage() {
         style={{
           maxWidth: "1080px",
           margin: "0 auto",
-          padding: "clamp(40px, 5vw, 70px) 40px",
+          padding: "clamp(40px, 5vw, 70px) clamp(20px, 5vw, 40px)",
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          gap: "40px",
+          gap: "clamp(20px, 3vw, 40px)",
         }}
       >
         <h2
@@ -295,8 +298,8 @@ export default function SuccessStoriesPage() {
             display: "flex",
             flexDirection: "column",
             gap: "9px",
-            width: "365px",
-            flexShrink: 0,
+            width: isMobile ? "100%" : "365px",
+            flexShrink: isMobile ? undefined : 0,
           }}
         >
           <p className="bw-eyebrow" style={{ color: "var(--c-accent)" }}>
@@ -323,7 +326,7 @@ export default function SuccessStoriesPage() {
         style={{
           maxWidth: "1080px",
           margin: "0 auto",
-          padding: "0 40px clamp(60px, 7vw, 120px)",
+          padding: "0 clamp(20px, 5vw, 40px) clamp(60px, 7vw, 120px)",
           display: "flex",
           flexDirection: "column",
           gap: "36px",
@@ -331,7 +334,7 @@ export default function SuccessStoriesPage() {
       >
         <CaseStudyCard study={fullCards[0]} locale={locale} />
 
-        <div style={{ display: "flex", gap: "36px", alignItems: "flex-start" }}>
+        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: "36px", alignItems: "flex-start" }}>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "36px" }}>
             <CaseStudyCard study={halfCards[0]} locale={locale} />
             <CaseStudyCard study={halfCards[2]} locale={locale} />
@@ -349,7 +352,7 @@ export default function SuccessStoriesPage() {
       <div
         style={{
           backgroundColor: isDark ? "#0d0d0d" : "#fff",
-          padding: "clamp(40px, 5vw, 80px) 40px",
+          padding: "clamp(40px, 5vw, 80px) clamp(20px, 5vw, 40px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -373,11 +376,12 @@ export default function SuccessStoriesPage() {
             borderRadius: "32px",
             padding: "12px",
             display: "flex",
+            flexDirection: isMobile ? "column" : "row",
             gap: "12px",
             width: "100%",
             maxWidth: "867px",
             boxSizing: "border-box",
-            minHeight: "304px",
+            minHeight: isMobile ? "auto" : "304px",
           }}
         >
           {/* Left column */}

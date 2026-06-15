@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import LogoScroller from "@/components/home/LogoScroller";
 import { useDark } from "@/components/ThemeProvider";
 import AccentWords from "@/components/anim/AccentWords";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const TEAM_PHOTOS = ["Paul", "Zane", "Fox"];
 
@@ -20,6 +21,7 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
 export default function AboutPage() {
   const t = useTranslations("about");
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
 
   return (
     <>
@@ -81,7 +83,7 @@ export default function AboutPage() {
               </p>
 
               {/* p2 + p3 — two columns */}
-              <div style={{ display: "flex", gap: "32px", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: "32px", flexWrap: "wrap" }}>
                 {[2, 3].map((i) => (
                   <p
                     key={i}
@@ -176,7 +178,7 @@ export default function AboutPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
               gap: "2px",
               backgroundColor: isDark ? "#1a1a1a" : "#e2e2e2",
               borderRadius: "24px",

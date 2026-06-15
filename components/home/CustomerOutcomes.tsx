@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const CARDS = [
   { id: 0, color: "#16b19a", flag: "🇹🇭", num: "01", rotate: "-2.69deg", floatAnim: "float-a 4.2s ease-in-out infinite", zBase: 1, marginLeft: "0px" },
@@ -20,6 +21,7 @@ const CARD_SHADOW_HOVER =
 export default function CustomerOutcomes() {
   const t = useTranslations("outcomes");
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
@@ -112,13 +114,14 @@ export default function CustomerOutcomes() {
       <div
         style={{
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: isMobile ? "center" : "center",
           justifyContent: "center",
-          gap: "0",
+          gap: isMobile ? "20px" : "0",
           width: "100%",
           maxWidth: "1080px",
           padding: "40px 0 60px",
-          perspective: "1200px",
+          perspective: isMobile ? undefined : "1200px",
         }}
       >
         {CARDS.map((card) => {
@@ -136,13 +139,13 @@ export default function CustomerOutcomes() {
                   ? "rotate(0deg) scale(1.04)"
                   : isOtherHovered
                   ? `rotate(${card.rotate}) scale(0.97)`
-                  : `rotate(${card.rotate})`,
+                  : isMobile ? "none" : `rotate(${card.rotate})`,
                 transition: "transform 0.4s cubic-bezier(0.34,1.56,0.64,1)",
                 zIndex: isHovered ? 10 : card.zBase,
                 position: "relative",
                 cursor: "pointer",
                 flexShrink: 0,
-                marginLeft: card.marginLeft,
+                marginLeft: isMobile ? "0" : card.marginLeft,
               }}
             >
             {/* Inner: handles the continuous float animation */}
@@ -160,7 +163,7 @@ export default function CustomerOutcomes() {
                   border: "2px solid rgba(255,255,255,0.24)",
                   borderRadius: "24px",
                   padding: "clamp(20px, 2.5vw, 40px)",
-                  width: "clamp(240px, 21vw, 340px)",
+                  width: isMobile ? "clamp(300px, 90vw, 400px)" : "clamp(240px, 21vw, 340px)",
                   display: "flex",
                   flexDirection: "column",
                   gap: "11px",

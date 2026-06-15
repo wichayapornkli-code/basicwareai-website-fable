@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDark } from "@/components/ThemeProvider";
@@ -56,11 +56,21 @@ export default function ScrollHero({
   const containerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
+  const [isSmall] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 1024 : false
+  );
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const allCharSpans = gsap.utils.toArray<HTMLSpanElement>("[data-char]");
       const accentSpans = gsap.utils.toArray<HTMLSpanElement>("[data-char-accent]");
+
+      if (isSmall) {
+        // Show text in end state immediately — no scroll-driven reveal on mobile/tablet
+        gsap.set(allCharSpans, { opacity: 1 });
+        gsap.set(accentSpans, { color: accentColor });
+        return;
+      }
 
       gsap.set(allCharSpans, { opacity: 0.3 });
       gsap.set(accentSpans, { color: "#ffffff" });
@@ -92,11 +102,11 @@ export default function ScrollHero({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [accentColor]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
-    <div ref={containerRef} style={{ height: "280vh", position: "relative" }}>
+    <div ref={containerRef} style={{ height: isSmall ? "auto" : "280vh", position: "relative" }}>
       <div
         ref={pinnedRef}
         style={{

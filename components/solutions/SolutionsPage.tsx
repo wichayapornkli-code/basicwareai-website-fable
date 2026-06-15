@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDark } from "@/components/ThemeProvider";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -161,6 +162,7 @@ const FONT = '"Plus Jakarta Sans", sans-serif';
 
 export default function SolutionsPage() {
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
   const [activeTab, setActiveTab] = useState(0);
   const solution = SOLUTIONS[activeTab];
   const imageLeft = activeTab % 2 === 1;
@@ -170,6 +172,10 @@ export default function SolutionsPage() {
   const activeTabRef = useRef(0);
 
   useEffect(() => {
+    // Check viewport once at mount — never re-run on resize to avoid GSAP
+    // pin conflicting with React's DOM reconciliation (removeChild crash)
+    if (window.innerWidth < 768) return;
+
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: scrollContainerRef.current,
@@ -204,7 +210,7 @@ export default function SolutionsPage() {
     }
 
     return () => ctx.revert();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div style={{ backgroundColor: isDark ? "#0d0d0d" : "#ffffff", overflowX: "hidden", position: "relative", zIndex: 20 }}>
@@ -212,16 +218,18 @@ export default function SolutionsPage() {
       {/* ── Scroll container ─────────────────────────────────────────── */}
       <div
         ref={scrollContainerRef}
-        style={{ height: `${SOLUTIONS.length * 75}vh` }}
+        style={{ height: isMobile ? "auto" : `${SOLUTIONS.length * 75}vh` }}
       >
         <div
           ref={pinnedRef}
           style={{
             backgroundColor: isDark ? "#0d0d0d" : "#ffffff",
-            height: "100vh",
+            height: isMobile ? "auto" : "100vh",
             width: "100%",
             display: "flex",
-            alignItems: "center",
+            alignItems: isMobile ? "flex-start" : "center",
+            paddingTop: isMobile ? "clamp(80px, 12vw, 120px)" : undefined,
+            paddingBottom: isMobile ? "clamp(40px, 6vw, 60px)" : undefined,
             boxSizing: "border-box",
           }}
         >
@@ -247,41 +255,74 @@ export default function SolutionsPage() {
               Four ways <em>we help</em>
             </h2>
 
-            {/* Pill tab nav — scroll-driven, no click */}
-            <div
-              style={{
-                display: "flex",
-                gap: 8,
-                marginBottom: "clamp(12px, 1.5vw, 20px)",
-              }}
-            >
-              {SOLUTIONS.map((s, i) => (
-                <button
-                  key={s.id}
+            {/* Pill tab nav (desktop) / dropdown (mobile) */}
+            {isMobile ? (
+              <div style={{ marginBottom: "clamp(12px, 1.5vw, 20px)", position: "relative" }}>
+                <select
+                  value={activeTab}
+                  onChange={(e) => setActiveTab(Number(e.target.value))}
                   style={{
-                    flex: 1,
-                    background: activeTab === i
-                      ? (isDark ? "#e0e0e0" : "#191c26")
-                      : (isDark ? "#2a2a2a" : "#fff"),
-                    border: "none",
+                    width: "100%",
+                    padding: "12px 40px 12px 16px",
                     borderRadius: 8,
-                    padding: "12px 20px",
-                    cursor: "default",
+                    border: `1px solid ${isDark ? "rgba(255,255,255,0.12)" : "#e0e0e0"}`,
+                    backgroundColor: isDark ? "#2a2a2a" : "#fff",
+                    color: isDark ? "#e0e0e0" : "#141414",
                     fontFamily: FONT,
-                    fontWeight: activeTab === i ? 600 : 400,
-                    fontSize: "clamp(12px, 1.1vw, 20px)",
-                    color: activeTab === i
-                      ? (isDark ? "#191c26" : "#fff")
-                      : (isDark ? "rgba(255,255,255,0.4)" : "rgba(25,28,38,0.4)"),
+                    fontWeight: 600,
+                    fontSize: "15px",
                     letterSpacing: "-0.22px",
-                    whiteSpace: "nowrap",
-                    transition: "background 0.2s ease, color 0.2s ease, font-weight 0.2s ease",
+                    appearance: "none",
+                    WebkitAppearance: "none",
+                    cursor: "pointer",
+                    outline: "none",
                   }}
                 >
-                  {s.title}
-                </button>
-              ))}
-            </div>
+                  {SOLUTIONS.map((s, i) => (
+                    <option key={s.id} value={i}>{s.title}</option>
+                  ))}
+                </select>
+                <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: isDark ? "#e0e0e0" : "#141414", fontSize: 12 }}>
+                  ▾
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "nowrap",
+                  gap: 8,
+                  marginBottom: "clamp(12px, 1.5vw, 20px)",
+                }}
+              >
+                {SOLUTIONS.map((s, i) => (
+                  <button
+                    key={s.id}
+                    style={{
+                      flex: 1,
+                      background: activeTab === i
+                        ? (isDark ? "#e0e0e0" : "#191c26")
+                        : (isDark ? "#2a2a2a" : "#fff"),
+                      border: "none",
+                      borderRadius: 8,
+                      padding: "12px 20px",
+                      cursor: "default",
+                      fontFamily: FONT,
+                      fontWeight: activeTab === i ? 600 : 400,
+                      fontSize: "clamp(12px, 1.1vw, 20px)",
+                      color: activeTab === i
+                        ? (isDark ? "#191c26" : "#fff")
+                        : (isDark ? "rgba(255,255,255,0.4)" : "rgba(25,28,38,0.4)"),
+                      letterSpacing: "-0.22px",
+                      whiteSpace: "nowrap",
+                      transition: "background 0.2s ease, color 0.2s ease, font-weight 0.2s ease",
+                    }}
+                  >
+                    {s.title}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Card grid */}
             <div
@@ -295,10 +336,10 @@ export default function SolutionsPage() {
               }}
             >
               {/* Row 1: description + image (order alternates per product) */}
-              <div style={{ display: "flex", gap: 8, flexDirection: imageLeft ? "row-reverse" : "row" }}>
+              <div style={{ display: "flex", gap: 8, flexDirection: isMobile ? "column" : (imageLeft ? "row-reverse" : "row") }}>
                 <div
                   style={{
-                    flex: "0 0 59%",
+                    flex: isMobile ? "0 0 100%" : "0 0 59%",
                     backgroundColor: isDark ? "#252525" : "#ffffff",
                     borderRadius: 20,
                     padding: "40px 32px",
@@ -321,29 +362,31 @@ export default function SolutionsPage() {
                   </p>
                 </div>
 
-                <div
-                  style={{
-                    flex: 1,
-                    backgroundColor: isDark ? "#1e1e1e" : "#fff",
-                    borderRadius: 20,
-                    minHeight: "clamp(200px, 22vw, 295px)",
-                    overflow: "hidden",
-                    position: "relative",
-                  }}
-                >
-                  <img
-                    src={solution.imageSrc}
-                    alt=""
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                  />
-                </div>
+                {!isMobile && (
+                  <div
+                    style={{
+                      flex: 1,
+                      backgroundColor: isDark ? "#1e1e1e" : "#fff",
+                      borderRadius: 20,
+                      minHeight: "clamp(200px, 22vw, 295px)",
+                      overflow: "hidden",
+                      position: "relative",
+                    }}
+                  >
+                    <img
+                      src={solution.imageSrc}
+                      alt=""
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Row 2: testimonial + bullets (order alternates per product) */}
-              <div style={{ display: "flex", gap: 8, flexDirection: imageLeft ? "row-reverse" : "row" }}>
+              <div style={{ display: "flex", gap: 8, flexDirection: isMobile ? "column" : (imageLeft ? "row-reverse" : "row") }}>
                 <div
                   style={{
-                    flex: "0 0 38%",
+                    flex: isMobile ? "0 0 100%" : "0 0 38%",
                     backgroundColor: isDark ? "#252525" : "#ffffff",
                     borderRadius: 20,
                     padding: "40px 32px",
@@ -452,10 +495,11 @@ export default function SolutionsPage() {
             borderRadius: 32,
             padding: 12,
             display: "flex",
+            flexDirection: isMobile ? "column" : "row",
             gap: 12,
-            height: "clamp(260px, 28vw, 380px)",
+            height: isMobile ? "auto" : "clamp(260px, 28vw, 380px)",
             maxWidth: 900,
-            width: "calc(100% - 80px)",
+            width: "calc(100% - clamp(40px, 10vw, 80px))",
             boxSizing: "border-box",
           }}
         >

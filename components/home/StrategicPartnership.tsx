@@ -1,10 +1,12 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 export default function StrategicPartnership() {
   const t = useTranslations("partnership");
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
 
   return (
     <section
@@ -23,14 +25,15 @@ export default function StrategicPartnership() {
           borderRadius: "24px",
           overflow: "hidden",
           display: "flex",
-          maxHeight: "70vh",
-          minHeight: "clamp(300px, 42vw, 70vh)",
+          flexDirection: isMobile ? "column" : "row",
+          maxHeight: isMobile ? "none" : "70vh",
+          minHeight: isMobile ? "auto" : "clamp(300px, 42vw, 70vh)",
         }}
       >
         {/* Left half — text */}
         <div
           style={{
-            flex: "0 0 50%",
+            flex: isMobile ? "0 0 100%" : "0 0 50%",
             padding: "clamp(36px, 5%, 72px)",
             display: "flex",
             flexDirection: "column",
@@ -82,7 +85,7 @@ export default function StrategicPartnership() {
         </div>
 
         {/* Right half — video */}
-        <div style={{ flex: "0 0 50%", position: "relative", overflow: "hidden" }}>
+        <div style={{ flex: isMobile ? "0 0 100%" : "0 0 50%", position: "relative", overflow: "hidden", minHeight: isMobile ? "220px" : undefined }}>
           <video
             autoPlay
             muted

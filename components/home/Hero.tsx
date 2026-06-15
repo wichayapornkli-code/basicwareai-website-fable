@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroCanvas from "./HeroCanvas";
 import HeroParallax from "./HeroParallax";
 import Magnetic from "@/components/anim/Magnetic";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,6 +19,7 @@ export default function Hero() {
   const t = useTranslations("hero");
   const tNav = useTranslations("nav");
   const locale = useLocale();
+  const { isMobile } = useBreakpoint();
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [variant, setVariant] = useState<HeroVariant>("aurora");
@@ -34,23 +36,27 @@ export default function Hero() {
   };
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const lines = gsap.utils.toArray<HTMLElement>("[data-hero-line]");
-      const fades = gsap.utils.toArray<HTMLElement>("[data-hero-fade]");
+    const isSmall = window.innerWidth < 1024;
 
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-      tl.fromTo(
-        lines,
-        { yPercent: 115 },
-        { yPercent: 0, duration: 1.4, stagger: 0.12 },
-        0.15
-      );
-      tl.fromTo(
-        fades,
-        { y: 28, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.1, stagger: 0.1, ease: "power3.out" },
-        0.7
-      );
+    const ctx = gsap.context(() => {
+      if (!isSmall) {
+        const lines = gsap.utils.toArray<HTMLElement>("[data-hero-line]");
+        const fades = gsap.utils.toArray<HTMLElement>("[data-hero-fade]");
+
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        tl.fromTo(
+          lines,
+          { yPercent: 115 },
+          { yPercent: 0, duration: 1.4, stagger: 0.12 },
+          0.15
+        );
+        tl.fromTo(
+          fades,
+          { y: 28, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.1, stagger: 0.1, ease: "power3.out" },
+          0.7
+        );
+      }
 
       // Drift the block up and out as the user scrolls past
       gsap.to(contentRef.current, {
@@ -83,7 +89,7 @@ export default function Hero() {
       style={{
         position: "relative",
         height: "100svh",
-        minHeight: "640px",
+        minHeight: isMobile ? "560px" : "640px",
         overflow: "hidden",
         backgroundColor: "var(--c-bg)",
       }}
@@ -130,7 +136,7 @@ export default function Hero() {
         <div
           style={{
             margin: isImage ? "auto 0" : undefined,
-            transform: isImage ? "translateY(-170px)" : isParallax ? "translateY(40px)" : undefined,
+            transform: isImage ? (isMobile ? "translateY(-60px)" : "translateY(-170px)") : isParallax ? "translateY(40px)" : undefined,
             textAlign: isImage ? "center" : isParallax ? "right" : undefined,
           }}
         >
@@ -210,7 +216,7 @@ export default function Hero() {
             )}
 
             {!isParallax && !isImage && (
-              <div data-hero-fade style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+              <div data-hero-fade style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: "clamp(12px, 2vw, 20px)" }}>
                 <Magnetic>
                   <Link
                     href={`/${locale}/success-stories`}

@@ -2,12 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
 export default function WorldwideOperations() {
   const t = useTranslations("worldwide");
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
 
   return (
     <section
@@ -25,26 +27,33 @@ export default function WorldwideOperations() {
           borderRadius: "24px",
           overflow: "hidden",
           position: "relative",
-          height: "clamp(320px, 34vw, 480px)",
+          height: isMobile ? "auto" : "clamp(320px, 34vw, 480px)",
           display: "flex",
-          alignItems: "center",
+          flexDirection: isMobile ? "column" : undefined,
+          alignItems: isMobile ? "flex-start" : "center",
         }}
       >
-        {/* Map — left side, tilted, overflowing */}
+        {/* Map */}
         <div
           style={{
-            position: "absolute",
-            left: "-22%",
-            top: "-15%",
-            width: "60%",
-            height: "130%",
+            position: isMobile ? "relative" : "absolute",
+            left: isMobile ? undefined : "-22%",
+            top: isMobile ? undefined : "-15%",
+            width: isMobile ? "100%" : "60%",
+            height: isMobile ? "200px" : "130%",
+            overflow: "hidden",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             pointerEvents: "none",
+            flexShrink: 0,
           }}
         >
-          <div style={{ transform: "rotate(-8deg)", flexShrink: 0, width: "120%" }}>
+          <div style={{
+            transform: isMobile ? "rotate(-4deg) scale(1.3)" : "rotate(-8deg)",
+            flexShrink: 0,
+            width: isMobile ? "140%" : "120%",
+          }}>
             <div
               style={{
                 position: "relative",
@@ -69,18 +78,20 @@ export default function WorldwideOperations() {
           </div>
         </div>
 
-        {/* Text — right side, vertically centered */}
+        {/* Text */}
         <div
           style={{
-            position: "absolute",
-            left: "58%",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "38%",
+            position: isMobile ? "relative" : "absolute",
+            left: isMobile ? undefined : "58%",
+            top: isMobile ? undefined : "50%",
+            transform: isMobile ? undefined : "translateY(-50%)",
+            width: isMobile ? "100%" : "38%",
             display: "flex",
             flexDirection: "column",
             gap: "14px",
             color: "#fff",
+            padding: isMobile ? "28px 28px 36px" : undefined,
+            boxSizing: "border-box",
           }}
         >
           <p className="bw-eyebrow" style={{ color: "rgba(255,255,255,0.7)" }}>
@@ -91,7 +102,7 @@ export default function WorldwideOperations() {
             <h2
               className="bw-display"
               style={{
-                fontSize: "clamp(26px, 3vw, 46px)",
+                fontSize: isMobile ? "clamp(24px, 6vw, 36px)" : "clamp(26px, 3vw, 46px)",
                 color: "#fff",
               }}
             >
@@ -117,7 +128,7 @@ export default function WorldwideOperations() {
                 marginTop: "8px",
                 fontFamily: FONT,
                 fontWeight: 400,
-                fontSize: "clamp(17px, 1.4vw, 22px)",
+                fontSize: "clamp(15px, 1.4vw, 22px)",
                 lineHeight: 1.5,
                 letterSpacing: "-0.176px",
                 opacity: 0.75,

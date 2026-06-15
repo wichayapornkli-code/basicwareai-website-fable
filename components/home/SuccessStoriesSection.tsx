@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useDark } from "@/components/ThemeProvider";
 import Reveal from "@/components/anim/Reveal";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -100,6 +101,7 @@ function LogoStrip({ bg, isDark }: { bg: string; isDark: boolean }) {
 
 export default function SuccessStoriesSection() {
   const { isDark } = useDark();
+  const { isMobile } = useBreakpoint();
   const [activeIndex, setActiveIndex] = useState(0);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -141,7 +143,7 @@ export default function SuccessStoriesSection() {
           alignItems: "center",
           textAlign: "center",
           gap: "14px",
-          padding: "clamp(60px, 6vw, 102px) 40px 0",
+          padding: "clamp(60px, 6vw, 102px) clamp(20px, 5vw, 40px) 0",
         }}
       >
         <p className="bw-eyebrow">Success stories</p>
@@ -172,7 +174,7 @@ export default function SuccessStoriesSection() {
         style={{
           maxWidth: "774px",
           margin: "clamp(32px, 4vw, 48px) auto 0",
-          padding: "0 40px",
+          padding: "0 clamp(20px, 5vw, 40px)",
           boxSizing: "content-box",
         }}
       >
@@ -191,6 +193,7 @@ export default function SuccessStoriesSection() {
           <div
             style={{
               display: "flex",
+              flexDirection: isMobile ? "column" : "row",
               alignItems: "stretch",
             }}
           >
@@ -198,7 +201,7 @@ export default function SuccessStoriesSection() {
             <div
               style={{
                 flex: 1,
-                padding: "40px 32px",
+                padding: isMobile ? "28px 24px" : "40px 32px",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -264,8 +267,8 @@ export default function SuccessStoriesSection() {
             <div
               style={{
                 flexShrink: 0,
-                width: "clamp(180px, 27vw, 343px)",
-                aspectRatio: "1 / 1",
+                width: isMobile ? "100%" : "clamp(180px, 27vw, 343px)",
+                aspectRatio: isMobile ? "16 / 9" : "1 / 1",
                 overflow: "hidden",
                 position: "relative",
               }}
@@ -347,7 +350,7 @@ export default function SuccessStoriesSection() {
         style={{
           maxWidth: "774px",
           margin: "0 auto",
-          padding: "0 40px",
+          padding: "0 clamp(20px, 5vw, 40px)",
           boxSizing: "content-box",
         }}
       >
@@ -365,7 +368,7 @@ export default function SuccessStoriesSection() {
               left: 0,
               top: 0,
               bottom: 0,
-              width: "100px",
+              width: "clamp(40px, 8vw, 100px)",
               background: `linear-gradient(to right, ${bg}, transparent)`,
               zIndex: 1,
               pointerEvents: "none",
