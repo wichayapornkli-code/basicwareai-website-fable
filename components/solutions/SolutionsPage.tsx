@@ -477,9 +477,9 @@ export default function SolutionsPage() {
               </div>
             </div>
 
-            {/* Full-width Read more button */}
+            {/* Full-width CTA button */}
             <Link
-              href={`/${locale}/solutions/${solution.id}`}
+              href={solution.id === "multicloud" ? `/${locale}/contact` : `/${locale}/solutions/${solution.id}`}
               className="bw-btn"
               style={{
                 display: "flex",
@@ -499,7 +499,7 @@ export default function SolutionsPage() {
                 marginTop: "clamp(8px, 1vw, 12px)",
               }}
             >
-              Read more
+              {solution.id === "multicloud" ? "Get in touch" : "Read more"}
               <img src={isDark ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"} alt="" width={20} height={13} style={{ display: "block" }} />
             </Link>
           </div>
@@ -605,10 +605,10 @@ export default function SolutionsPage() {
               Let&apos;s find your fastest path to <em style={{ color: "inherit" }}>AI growth</em>
             </h2>
           </div>
-          <a href="#contact" className="bw-btn" style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#141414", borderRadius: 40, padding: "16px 32px", textDecoration: "none", color: "#fff", fontFamily: FONT, fontWeight: 500, fontSize: "14px", letterSpacing: "-0.154px", whiteSpace: "nowrap" }}>
+          <Link href={`/${locale}/contact`} className="bw-btn" style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#141414", borderRadius: 40, padding: "16px 32px", textDecoration: "none", color: "#fff", fontFamily: FONT, fontWeight: 500, fontSize: "14px", letterSpacing: "-0.154px", whiteSpace: "nowrap" }}>
             Talk to us
             <img src="/assets/arrow-white.svg" alt="" width={13} height={13} style={{ display: "block" }} />
-          </a>
+          </Link>
         </div>
       </section>
     </div>

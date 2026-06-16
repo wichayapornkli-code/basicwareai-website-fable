@@ -537,8 +537,8 @@ export default function SuccessStoriesPage() {
           >
             <AccentWords text={t("ctaTitle")} count={2} emStyle={{ color: "#6cb8ff" }} />
           </h2>
-          <a
-            href="#contact"
+          <Link
+            href={`/${locale}/contact`}
             className="bw-btn"
             style={{
               display: "flex",
@@ -558,7 +558,7 @@ export default function SuccessStoriesPage() {
           >
             {t("ctaButton")}
             <img src="/assets/arrow.svg" alt="" width={13} height={13} style={{ display: "block" }} />
-          </a>
+          </Link>
         </div>
       </div>
     </div>
