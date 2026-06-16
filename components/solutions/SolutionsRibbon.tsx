@@ -1,6 +1,10 @@
 "use client";
 
+import { useBreakpoint } from "@/hooks/useBreakpoint";
+
 export default function SolutionsRibbon() {
+  const { isMobile } = useBreakpoint();
+  if (isMobile) return null;
   return (
     <div
       style={{
