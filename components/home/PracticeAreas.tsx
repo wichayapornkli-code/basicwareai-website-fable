@@ -43,15 +43,6 @@ const CARD_H = 144;
 const CARD_GAP = 18;
 const LIST_H = IMAGES.length * CARD_H + (IMAGES.length - 1) * CARD_GAP;
 
-function setMask(el: HTMLElement, progress: number) {
-  const atStart = progress <= 0.02;
-  const atEnd   = progress >= 0.98;
-  const top = atStart ? "black 0%," : "transparent 0%, black 22%,";
-  const bot = atEnd   ? "black 100%" : "black 78%, transparent 100%";
-  const mask = `linear-gradient(to bottom, ${top} ${bot})`;
-  el.style.setProperty("-webkit-mask-image", mask);
-  el.style.setProperty("mask-image", mask);
-}
 
 export default function PracticeAreas() {
   const t = useTranslations("practice");
@@ -84,8 +75,6 @@ export default function PracticeAreas() {
       return;
     }
 
-    if (listWrapperRef.current) setMask(listWrapperRef.current, 0);
-
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -95,9 +84,6 @@ export default function PracticeAreas() {
           scrub: 1,
           pin: pinnedRef.current,
           pinSpacing: false,
-          onUpdate: (self) => {
-            if (listWrapperRef.current) setMask(listWrapperRef.current, self.progress);
-          },
         },
       });
 
@@ -324,8 +310,6 @@ export default function PracticeAreas() {
                 position: "relative",
                 height: "50vh",
                 overflow: "hidden",
-                WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)",
-                maskImage: "linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)",
               }}
             >
               <div

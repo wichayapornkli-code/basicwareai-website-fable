@@ -231,7 +231,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
               color: isDark ? "#90c0f0" : "#011e5b",
             }}
           >
-            {study.headline}
+            {study.shortHeadline}
           </p>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {study.tags.map((tag) => (
