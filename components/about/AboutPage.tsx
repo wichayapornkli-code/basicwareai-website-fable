@@ -107,7 +107,7 @@ export default function AboutPage() {
 
           {/* Image */}
           <img
-            src="/assets/about_01.avif"
+            src="/assets/about_01.png"
             alt=""
             style={{
               display: "block",
@@ -241,7 +241,7 @@ export default function AboutPage() {
             {["about_02", "about_03"].map((name) => (
               <img
                 key={name}
-                src={`/assets/${name}.avif`}
+                src={`/assets/${name}.png`}
                 alt=""
                 style={{
                   flex: 1,
@@ -318,7 +318,7 @@ export default function AboutPage() {
           >
             {[0, 1, 2, 3, 4].map((i) => {
               const name = t(`team.members.${i}.name`);
-              const hasPhoto = i < 3;
+              const hasPhoto = true;
               return (
                 <div
                   key={i}

@@ -6,6 +6,7 @@ import WorldwideOperations from "@/components/home/WorldwideOperations";
 import PracticeAreas from "@/components/home/PracticeAreas";
 import StrategicPartnership from "@/components/home/StrategicPartnership";
 import CtaSection from "@/components/home/CtaSection";
+import NewsSection from "@/components/home/NewsSection";
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
         <Hero />
         <SuccessStoriesSection />
         <PracticeAreas />
+        <NewsSection />
         <WorldwideOperations />
         <StrategicPartnership />
         <CtaSection />
