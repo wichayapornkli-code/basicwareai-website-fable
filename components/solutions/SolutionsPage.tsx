@@ -477,9 +477,9 @@ export default function SolutionsPage() {
               </div>
             </div>
 
-            {/* Full-width CTA button */}
-            <a
-              href="#contact"
+            {/* Full-width Read more button */}
+            <Link
+              href={`/${locale}/solutions/${solution.id}`}
               className="bw-btn"
               style={{
                 display: "flex",
@@ -499,9 +499,9 @@ export default function SolutionsPage() {
                 marginTop: "clamp(8px, 1vw, 12px)",
               }}
             >
-              Talk to us
-              <img src="/assets/arrow-white.svg" alt="" width={20} height={13} style={{ display: "block" }} />
-            </a>
+              Read more
+              <img src={isDark ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"} alt="" width={20} height={13} style={{ display: "block" }} />
+            </Link>
           </div>
         </div>
       </div>
