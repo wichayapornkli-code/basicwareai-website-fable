@@ -276,38 +276,8 @@ export default function SolutionsPage() {
               Five ways <em>we help</em>
             </h2>
 
-            {/* Pill tab nav (desktop) / dropdown (mobile) */}
-            {isMobile ? (
-              <div style={{ marginBottom: "clamp(12px, 1.5vw, 20px)", position: "relative" }}>
-                <select
-                  value={activeTab}
-                  onChange={(e) => setActiveTab(Number(e.target.value))}
-                  style={{
-                    width: "100%",
-                    padding: "12px 40px 12px 16px",
-                    borderRadius: 8,
-                    border: `1px solid ${isDark ? "rgba(255,255,255,0.12)" : "#e0e0e0"}`,
-                    backgroundColor: isDark ? "#2a2a2a" : "#fff",
-                    color: isDark ? "#e0e0e0" : "#141414",
-                    fontFamily: FONT,
-                    fontWeight: 600,
-                    fontSize: "15px",
-                    letterSpacing: "-0.22px",
-                    appearance: "none",
-                    WebkitAppearance: "none",
-                    cursor: "pointer",
-                    outline: "none",
-                  }}
-                >
-                  {SOLUTIONS.map((s, i) => (
-                    <option key={s.id} value={i}>{s.title}</option>
-                  ))}
-                </select>
-                <div style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none", color: isDark ? "#e0e0e0" : "#141414", fontSize: 12 }}>
-                  ▾
-                </div>
-              </div>
-            ) : (
+            {/* Pill tab nav (desktop only) */}
+            {!isMobile && (
               <div
                 style={{
                   display: "flex",
@@ -345,168 +315,170 @@ export default function SolutionsPage() {
               </div>
             )}
 
-            {/* Card grid */}
-            <div
-              style={{
-                backgroundColor: isDark ? "#1a1a1a" : "#f9f9f9",
-                borderRadius: 24,
-                padding: 8,
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-              }}
-            >
-              {/* Row 1: description + image (order alternates per product) */}
-              <div style={{ display: "flex", gap: 8, flexDirection: isMobile ? "column" : (imageLeft ? "row-reverse" : "row") }}>
-                <div
-                  style={{
-                    flex: isMobile ? "0 0 100%" : "0 0 59%",
-                    backgroundColor: isDark ? "#252525" : "#ffffff",
-                    borderRadius: 20,
-                    padding: "40px 32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    justifyContent: "center",
-                    minHeight: "clamp(200px, 22vw, 295px)",
-                    boxSizing: "border-box",
-                  }}
-                >
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(18px, 2vw, 32px)", letterSpacing: "-0.352px", color: isDark ? "#79b8ff" : "#318ff5", lineHeight: "normal" }}>
-                    {solution.title}
-                  </p>
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(13px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#d0d0d0" : "#141414", lineHeight: "normal" }}>
-                    {solution.shortDesc}
-                  </p>
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(13px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: "#a9a9a9", lineHeight: "normal" }}>
-                    {solution.longDesc}
-                  </p>
-                  <Link
-                    href={`/${locale}/solutions/${solution.id}`}
-                    style={{
-                      alignSelf: "flex-start",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: FONT,
-                      fontWeight: 600,
-                      fontSize: "clamp(12px, 1vw, 14px)",
-                      color: isDark ? "#79b8ff" : "#0148ae",
-                      textDecoration: "none",
-                      letterSpacing: "-0.01em",
-                      marginTop: "4px",
-                    }}
-                  >
-                    Learn more →
-                  </Link>
-                </div>
-
-                {!isMobile && (
+            {/* Card grids — all stacked on mobile, active one on desktop */}
+            {(isMobile ? SOLUTIONS : [solution]).map((sol, solIdx) => {
+              const imgLeft = (isMobile ? solIdx : activeTab) % 2 === 1;
+              return (
+                <div key={sol.id} style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: isMobile && solIdx > 0 ? 24 : 0 }}>
                   <div
                     style={{
-                      flex: 1,
-                      backgroundColor: isDark ? "#1e1e1e" : "#fff",
-                      borderRadius: 20,
-                      minHeight: "clamp(200px, 22vw, 295px)",
-                      overflow: "hidden",
-                      position: "relative",
+                      backgroundColor: isDark ? "#1a1a1a" : "#f9f9f9",
+                      borderRadius: 24,
+                      padding: 8,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 8,
                     }}
                   >
-                    <img
-                      src={solution.imageSrc}
-                      alt=""
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                    />
+                    {/* Row 1: description + image (order alternates per product) */}
+                    <div style={{ display: "flex", gap: 8, flexDirection: isMobile ? "column" : (imgLeft ? "row-reverse" : "row") }}>
+                      <div
+                        style={{
+                          flex: isMobile ? "0 0 100%" : "0 0 59%",
+                          backgroundColor: isDark ? "#252525" : "#ffffff",
+                          borderRadius: 20,
+                          padding: "40px 32px",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 12,
+                          justifyContent: "center",
+                          minHeight: "clamp(200px, 22vw, 295px)",
+                          boxSizing: "border-box",
+                        }}
+                      >
+                        <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(18px, 2vw, 32px)", letterSpacing: "-0.352px", color: isDark ? "#79b8ff" : "#318ff5", lineHeight: "normal" }}>
+                          {sol.title}
+                        </p>
+                        <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(13px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#d0d0d0" : "#141414", lineHeight: "normal" }}>
+                          {sol.shortDesc}
+                        </p>
+                        <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(13px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: "#a9a9a9", lineHeight: "normal" }}>
+                          {sol.longDesc}
+                        </p>
+                        <Link
+                          href={`/${locale}/solutions/${sol.id}`}
+                          style={{
+                            alignSelf: "flex-start",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "6px",
+                            fontFamily: FONT,
+                            fontWeight: 600,
+                            fontSize: "clamp(12px, 1vw, 14px)",
+                            color: isDark ? "#79b8ff" : "#0148ae",
+                            textDecoration: "none",
+                            letterSpacing: "-0.01em",
+                            marginTop: "4px",
+                          }}
+                        >
+                          Learn more →
+                        </Link>
+                      </div>
+
+                      {!isMobile && (
+                        <div
+                          style={{
+                            flex: 1,
+                            backgroundColor: isDark ? "#1e1e1e" : "#fff",
+                            borderRadius: 20,
+                            minHeight: "clamp(200px, 22vw, 295px)",
+                            overflow: "hidden",
+                            position: "relative",
+                          }}
+                        >
+                          <img
+                            src={sol.imageSrc}
+                            alt=""
+                            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Row 2: testimonial + bullets */}
+                    <div style={{ display: "flex", gap: 8, flexDirection: isMobile ? "column" : (imgLeft ? "row-reverse" : "row") }}>
+                      {sol.testimonialQuote && (
+                        <div
+                          style={{
+                            flex: isMobile ? "0 0 100%" : "0 0 38%",
+                            backgroundColor: isDark ? "#252525" : "#ffffff",
+                            borderRadius: 20,
+                            padding: "40px 32px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 24,
+                            justifyContent: "center",
+                            minHeight: "clamp(180px, 22vw, 295px)",
+                            boxSizing: "border-box",
+                          }}
+                        >
+                          <div>
+                            <p style={{ margin: "0 0 8px", fontFamily: FONT, fontStyle: "italic", fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: 1.5 }}>
+                              {sol.testimonialQuote}
+                            </p>
+                            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414", lineHeight: 1.5 }}>
+                              {sol.testimonialAuthor}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      <div
+                        style={{
+                          flex: 1,
+                          backgroundColor: isDark ? "#252525" : "#ffffff",
+                          borderRadius: 20,
+                          padding: "40px 32px",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 12,
+                          justifyContent: "center",
+                          minHeight: "clamp(180px, 22vw, 295px)",
+                          boxSizing: "border-box",
+                        }}
+                      >
+                        <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(14px, 1.4vw, 20px)", letterSpacing: "-0.22px", color: isDark ? "#e0e0e0" : "#282828", lineHeight: "normal" }}>
+                          {sol.bulletsTitle}
+                        </p>
+                        <ul style={{ margin: 0, padding: "0 0 0 20px", display: "flex", flexDirection: "column", gap: 4 }}>
+                          {sol.bullets.map((b, i) => (
+                            <li key={i} style={{ fontFamily: FONT, fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: "normal" }}>
+                              {b}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                )}
-              </div>
 
-              {/* Row 2: testimonial + bullets (order alternates per product) */}
-              <div style={{ display: "flex", gap: 8, flexDirection: isMobile ? "column" : (imageLeft ? "row-reverse" : "row") }}>
-                {solution.testimonialQuote && (
-                <div
-                  style={{
-                    flex: isMobile ? "0 0 100%" : "0 0 38%",
-                    backgroundColor: isDark ? "#252525" : "#ffffff",
-                    borderRadius: 20,
-                    padding: "40px 32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 24,
-                    justifyContent: "center",
-                    minHeight: "clamp(180px, 22vw, 295px)",
-                    boxSizing: "border-box",
-                  }}
-                >
-                  <img
-                    src={solution.testimonialIconSrc}
-                    alt=""
-                    style={{ width: 66, height: 66, display: "block", objectFit: "cover", borderRadius: "50%", flexShrink: 0 }}
-                  />
-                  <div>
-                    <p style={{ margin: "0 0 8px", fontFamily: FONT, fontStyle: "italic", fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: 1.5 }}>
-                      {solution.testimonialQuote}
-                    </p>
-                    <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414", lineHeight: 1.5 }}>
-                      {solution.testimonialAuthor}
-                    </p>
-                  </div>
+                  {/* Full-width CTA button */}
+                  <a
+                    href="#contact"
+                    className="bw-btn"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 10,
+                      backgroundColor: isDark ? "#e0e0e0" : "#191c26",
+                      borderRadius: 40,
+                      padding: "16px 24px",
+                      textDecoration: "none",
+                      color: isDark ? "#191c26" : "#fff",
+                      fontFamily: FONT,
+                      fontWeight: 600,
+                      fontSize: "clamp(16px, 1.4vw, 20px)",
+                      letterSpacing: "-0.22px",
+                      whiteSpace: "nowrap",
+                      marginTop: "clamp(8px, 1vw, 12px)",
+                    }}
+                  >
+                    Talk to us
+                    <img src="/assets/arrow-white.svg" alt="" width={20} height={13} style={{ display: "block" }} />
+                  </a>
                 </div>
-                )}
-
-                <div
-                  style={{
-                    flex: 1,
-                    backgroundColor: isDark ? "#252525" : "#ffffff",
-                    borderRadius: 20,
-                    padding: "40px 32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    justifyContent: "center",
-                    minHeight: "clamp(180px, 22vw, 295px)",
-                    boxSizing: "border-box",
-                  }}
-                >
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(14px, 1.4vw, 20px)", letterSpacing: "-0.22px", color: isDark ? "#e0e0e0" : "#282828", lineHeight: "normal" }}>
-                    {solution.bulletsTitle}
-                  </p>
-                  <ul style={{ margin: 0, padding: "0 0 0 20px", display: "flex", flexDirection: "column", gap: 4 }}>
-                    {solution.bullets.map((b, i) => (
-                      <li key={i} style={{ fontFamily: FONT, fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: "normal" }}>
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Full-width CTA button */}
-            <a
-              href="#contact"
-              className="bw-btn"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 10,
-                backgroundColor: isDark ? "#e0e0e0" : "#191c26",
-                borderRadius: 40,
-                padding: "16px 24px",
-                textDecoration: "none",
-                color: isDark ? "#191c26" : "#fff",
-                fontFamily: FONT,
-                fontWeight: 600,
-                fontSize: "clamp(16px, 1.4vw, 20px)",
-                letterSpacing: "-0.22px",
-                whiteSpace: "nowrap",
-                marginTop: "clamp(8px, 1vw, 12px)",
-              }}
-            >
-              Talk to us
-              <img src="/assets/arrow-white.svg" alt="" width={20} height={13} style={{ display: "block" }} />
-            </a>
+              );
+            })}
           </div>
         </div>
       </div>
