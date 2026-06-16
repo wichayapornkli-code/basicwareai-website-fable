@@ -186,8 +186,8 @@ export default function PracticeAreas() {
                       margin: 0,
                       fontFamily: '"Plus Jakarta Sans", sans-serif',
                       fontWeight: 600,
-                      fontSize: "18px",
-                      letterSpacing: "-0.2px",
+                      fontSize: "15px",
+                      letterSpacing: "-0.165px",
                       color: "#141414",
                     }}
                   >
@@ -198,8 +198,8 @@ export default function PracticeAreas() {
                       margin: 0,
                       fontFamily: '"Plus Jakarta Sans", sans-serif',
                       fontWeight: 400,
-                      fontSize: "13px",
-                      letterSpacing: "-0.14px",
+                      fontSize: "11px",
+                      letterSpacing: "-0.12px",
                       color: "#141414",
                       opacity: 0.75,
                     }}
@@ -351,8 +351,8 @@ export default function PracticeAreas() {
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
                           fontWeight: 600,
-                          fontSize: "24px",
-                          letterSpacing: "-0.264px",
+                          fontSize: "18px",
+                          letterSpacing: "-0.2px",
                           color: "#141414",
                           whiteSpace: "nowrap",
                         }}
@@ -364,8 +364,8 @@ export default function PracticeAreas() {
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
                           fontWeight: 400,
-                          fontSize: "16px",
-                          letterSpacing: "-0.176px",
+                          fontSize: "13px",
+                          letterSpacing: "-0.14px",
                           color: "#141414",
                           whiteSpace: "nowrap",
                         }}

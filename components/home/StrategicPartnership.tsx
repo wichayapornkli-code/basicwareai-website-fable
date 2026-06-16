@@ -26,7 +26,6 @@ export default function StrategicPartnership() {
           overflow: "hidden",
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
-          maxHeight: isMobile ? "none" : "70vh",
           minHeight: isMobile ? "auto" : "clamp(300px, 42vw, 70vh)",
         }}
       >

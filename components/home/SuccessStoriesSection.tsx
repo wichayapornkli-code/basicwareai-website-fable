@@ -338,29 +338,6 @@ export default function SuccessStoriesSection() {
               </div>
             </div>
 
-            {/* Right — photo */}
-            <div
-              style={{
-                flexShrink: 0,
-                width: isMobile ? "100%" : "clamp(180px, 27vw, 343px)",
-                aspectRatio: isMobile ? "16 / 9" : "1 / 1",
-                overflow: "hidden",
-                position: "relative",
-              }}
-            >
-              <img
-                src={card.photo}
-                alt=""
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
-            </div>
           </div>
 
           {/* Bottom — stats bar */}
