@@ -3,6 +3,7 @@
     "whatWeDo": "我们的服务",
     "solutions": "解决方案",
     "successStories": "成功案例",
+    "news": "最新消息",
     "about": "关于我们",
     "getStarted": "立即联系"
   },
@@ -156,6 +157,21 @@
     "line1": "我们让 ",
     "line1Accent": "AI 为您",
     "line2": "的业务赋能"
+  },
+  "newsHero": {
+    "line1": "田野新鲜事。"
+  },
+  "homeNews": {
+    "viewAll": "查看全部"
+  },
+  "newsPage": {
+    "sectionTitleLine1": "来自",
+    "sectionTitleAccent": "Basicware",
+    "sectionEyebrow": "新闻与新闻稿",
+    "sectionBody": "Basicware 在 AI、云端与企业转型领域的最新动态、合作伙伴关系与一线见闻。",
+    "filterLabel": "显示以下标签的文章",
+    "clearFilter": "清除标签筛选",
+    "emptyFilter": "没有符合此标签的文章。"
   },
   "about": {
     "story": {

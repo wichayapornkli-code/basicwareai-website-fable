@@ -55,6 +55,7 @@ export default function Navbar() {
   const links = [
     { href: `/${locale}/solutions`, label: t("solutions") },
     { href: `/${locale}/success-stories`, label: t("successStories") },
+    { href: `/${locale}/news`, label: t("news") },
     { href: `/${locale}/about`, label: t("about") },
   ];
 

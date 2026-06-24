@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import NewsArticleTags from "@/components/news/NewsArticleTags";
+import type { NewsArticle } from "@/lib/news";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -51,7 +53,13 @@ const MACRO_ZH = [
   },
 ];
 
-export default function PressRelease3HK({ locale }: { locale: string }) {
+export default function PressRelease3HK({
+  locale,
+  tags = [],
+}: {
+  locale: string;
+  tags?: NewsArticle["tags"];
+}) {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
   const isZh = locale === "zh";
@@ -67,53 +75,6 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
 
   return (
     <div style={{ backgroundColor: bg, minHeight: "100vh" }}>
-
-      {/* ── Hero banner ──────────────────────────────────────────────── */}
-      <div
-        style={{
-          backgroundColor: accent,
-          padding: isMobile
-            ? "120px 24px 48px"
-            : "140px clamp(40px, 6vw, 80px) 64px",
-        }}
-      >
-        <div style={{ maxWidth: "860px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "20px" }}>
-          <p
-            className="bw-eyebrow"
-            style={{ color: "rgba(255,255,255,0.65)" }}
-          >
-            {isZh ? "· 新闻稿 ·" : "· Press Release ·"}
-          </p>
-          <h1
-            style={{
-              margin: 0,
-              fontFamily: FONT,
-              fontWeight: 700,
-              fontSize: "var(--fs-heading-xl)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.03em",
-              color: "#fff",
-            }}
-          >
-            {isZh
-              ? "和記電訊香港與Basicware AI達成戰略性聯盟\n攜手阿里雲　引領全港電訊業踏入AI Token新紀元"
-              : "Hutchison Telecom and Basicware AI Form Strategic Alliance with Alibaba Cloud"}
-          </h1>
-          <p
-            style={{
-              margin: 0,
-              fontFamily: FONT,
-              fontWeight: 400,
-              fontSize: "var(--fs-body-sm)",
-              color: "rgba(255,255,255,0.6)",
-              letterSpacing: "0.02em",
-            }}
-          >
-            {isZh ? "香港，2026年6月17日" : "Hong Kong, 17 June 2026"}
-          </p>
-        </div>
-      </div>
-
       {/* ── Content ──────────────────────────────────────────────────── */}
       <div
         style={{
@@ -126,7 +87,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
       >
         {/* Back */}
         <Link
-          href={`/${locale}`}
+          href={`/${locale}/news`}
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -139,7 +100,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             marginBottom: "48px",
           }}
         >
-          {isZh ? "← 返回首页" : "← Back to home"}
+          {isZh ? "← 返回新闻" : "← Back to news"}
         </Link>
 
         {/* Stats strip */}
@@ -325,37 +286,19 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             : "Against this macro backdrop, Hutchison Telecom's newly announced AI Token programme marks a groundbreaking milestone for Hong Kong's telecommunications sector. It also signals the official arrival of the Telco-as-AI-Platform era within Hong Kong's mobile market."}
         </p>
 
-        {/* Partner row */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "10px",
-            paddingTop: "12px",
-            borderTop: `1px solid ${border}`,
-          }}
-        >
-          {(isZh
-            ? ["3HK / 3SUPREME", "阿里云 Alibaba Cloud", "Basicware AI"]
-            : ["3HK / 3SUPREME", "Alibaba Cloud", "Basicware AI"]
-          ).map((name) => (
-            <span
-              key={name}
-              style={{
-                fontFamily: FONT,
-                fontWeight: 600,
-                fontSize: "var(--fs-body-sm)",
-                color: accent,
-                border: `1px solid ${accent}`,
-                borderRadius: "30px",
-                padding: "6px 16px",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {name}
-            </span>
-          ))}
-        </div>
+        {tags.length > 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              paddingTop: "12px",
+              borderTop: `1px solid ${border}`,
+            }}
+          >
+            <NewsArticleTags tags={tags} />
+          </div>
+        ) : null}
       </div>
     </div>
   );

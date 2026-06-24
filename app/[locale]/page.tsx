@@ -16,9 +16,9 @@ export default function HomePage() {
         <Hero />
         <SuccessStoriesSection />
         <PracticeAreas />
-        <NewsSection />
         <WorldwideOperations />
         <StrategicPartnership />
+        <NewsSection />
         <CtaSection />
       </main>
       <Footer />

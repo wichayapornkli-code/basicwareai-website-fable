@@ -3,6 +3,7 @@
     "whatWeDo": "What we do",
     "solutions": "Products",
     "successStories": "Success Stories",
+    "news": "News",
     "about": "About",
     "getStarted": "Get in touch"
   },
@@ -156,6 +157,21 @@
     "line1": "We make ",
     "line1Accent": "AI work",
     "line2": "for your business"
+  },
+  "newsHero": {
+    "line1": "Fresh from the field."
+  },
+  "homeNews": {
+    "viewAll": "View all"
+  },
+  "newsPage": {
+    "sectionTitleLine1": "The latest from",
+    "sectionTitleAccent": "Basicware",
+    "sectionEyebrow": "News & Press release",
+    "sectionBody": "Updates, partnerships, and field notes from Basicware's work across AI, cloud, and enterprise transformation.",
+    "filterLabel": "Showing articles tagged",
+    "clearFilter": "Clear tag filter",
+    "emptyFilter": "No articles match this tag."
   },
   "about": {
     "story": {

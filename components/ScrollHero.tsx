@@ -61,19 +61,30 @@ export default function ScrollHero({
   );
 
   useEffect(() => {
+    if (!containerRef.current || !pinnedRef.current) return;
+
     const ctx = gsap.context(() => {
-      const allCharSpans = gsap.utils.toArray<HTMLSpanElement>("[data-char]");
-      const accentSpans = gsap.utils.toArray<HTMLSpanElement>("[data-char-accent]");
+      const allCharSpans = gsap.utils.toArray<HTMLSpanElement>("[data-char]", containerRef.current);
+      const accentSpans = gsap.utils.toArray<HTMLSpanElement>(
+        "[data-char-accent]",
+        containerRef.current,
+      );
+
+      if (allCharSpans.length === 0) return;
 
       if (isSmall) {
         // Show text in end state immediately — no scroll-driven reveal on mobile/tablet
         gsap.set(allCharSpans, { opacity: 1 });
-        gsap.set(accentSpans, { color: accentColor });
+        if (accentSpans.length > 0) {
+          gsap.set(accentSpans, { color: accentColor });
+        }
         return;
       }
 
       gsap.set(allCharSpans, { opacity: 0.3 });
-      gsap.set(accentSpans, { color: "#ffffff" });
+      if (accentSpans.length > 0) {
+        gsap.set(accentSpans, { color: "#ffffff" });
+      }
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -86,23 +97,27 @@ export default function ScrollHero({
         },
       });
 
-      tl.to(allCharSpans, { opacity: 1, stagger: 0.07, ease: "none", duration: 0.07 }, 0)
-        .to(accentSpans, { color: accentColor, ease: "none", duration: 2 }, 0);
+      tl.to(allCharSpans, { opacity: 1, stagger: 0.07, ease: "none", duration: 0.07 }, 0);
+      if (accentSpans.length > 0) {
+        tl.to(accentSpans, { color: accentColor, ease: "none", duration: 2 }, 0);
+      }
 
-      gsap.to(bgRef.current, {
-        yPercent: -8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "bottom bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      if (bgRef.current) {
+        gsap.to(bgRef.current, {
+          yPercent: -8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "bottom bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [accentColor, isSmall]);
 
   return (
     <>

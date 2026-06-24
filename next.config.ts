@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  async redirects() {
+    return [
+      {
+        source: "/:locale(en|zh)/press-releases/3hk-alibaba-basicware-alliance",
+        destination: "/:locale/news/3hk-alibaba-basicware-alliance",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);

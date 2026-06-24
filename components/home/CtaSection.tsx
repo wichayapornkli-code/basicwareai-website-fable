@@ -17,10 +17,13 @@ export default function CtaSection() {
         position: "relative",
         backgroundColor: "var(--c-bg)",
         overflow: "hidden",
-        minHeight: "90vh",
+        minHeight: "clamp(520px, 75vh, 720px)",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
+        paddingTop: "clamp(32px, 5vw, 56px)",
+        paddingBottom: "clamp(160px, 22vw, 300px)",
+        boxSizing: "border-box",
       }}
     >
       {/* Centered text + CTA */}
