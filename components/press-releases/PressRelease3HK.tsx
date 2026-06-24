@@ -67,39 +67,28 @@ const YANG_LONGSHENG_QUOTE = {
   },
 };
 
-const PRICING_ROWS_EN = [
-  {
-    fee: "$338",
-    data: "30GB Asia Pacific shared data^",
-    glasses: "New customers: $388\nExisting customers (upgrade or renewal): $0",
-    other: "Free two-year travel insurance and a Shenzhen indoor ski resort ticket with round trip shuttle bus tickets",
-    contract: "36 months",
-  },
-  {
-    fee: "$418",
-    data: "30GB Worldwide shared data^",
-    glasses: "",
-    other: "",
-    contract: "",
-  },
+const PRICING_PLANS_EN = [
+  { fee: "$338", data: "30GB Asia Pacific shared data^" },
+  { fee: "$418", data: "30GB Worldwide shared data^" },
 ];
 
-const PRICING_ROWS_ZH = [
-  {
-    fee: "$338",
-    data: "30GB 亞太數據^",
-    glasses: "新上台客戶︰ $388\n現有客戶升級/續約︰ $0",
-    other: "送 2 年免費旅遊保險及深圳室內滑雪場門票連來回直通巴士票",
-    contract: "36 個月",
-  },
-  {
-    fee: "$418",
-    data: "30GB 全球數據^",
-    glasses: "",
-    other: "",
-    contract: "",
-  },
+const PRICING_SHARED_EN = {
+  glasses: "New customers: $388\nExisting customers (upgrade or renewal): $0",
+  other:
+    "Free two-year travel insurance and a Shenzhen indoor ski resort ticket with a set of round trip shuttle bus tickets",
+  contract: "36 months",
+};
+
+const PRICING_PLANS_ZH = [
+  { fee: "$338", data: "30GB 亞太數據^" },
+  { fee: "$418", data: "30GB 全球數據^" },
 ];
+
+const PRICING_SHARED_ZH = {
+  glasses: "新上台客戶︰ $388\n現有客戶升級/續約︰ $0",
+  other: "送 2 年免費旅遊保險及深圳室內滑雪場門票連來回直通巴士票",
+  contract: "36 個月",
+};
 
 const ENTERPRISE_BULLETS_EN = [
   "Enterprise customers who register for Alibaba Cloud's desktop AI productivity agent QoderWork on or before 31 August 2026 will enjoy a 10% discount on the first month's subscription fee.",
@@ -247,7 +236,8 @@ export default function PressRelease3HK({
   const raymondHo = isZh ? RAYMOND_HO_QUOTE.zh : RAYMOND_HO_QUOTE.en;
   const yangLongsheng = isZh ? YANG_LONGSHENG_QUOTE.zh : YANG_LONGSHENG_QUOTE.en;
   const officialLink = isZh ? OFFICIAL_LINKS.tc : OFFICIAL_LINKS.en;
-  const pricingRows = isZh ? PRICING_ROWS_ZH : PRICING_ROWS_EN;
+  const pricingPlans = isZh ? PRICING_PLANS_ZH : PRICING_PLANS_EN;
+  const pricingShared = isZh ? PRICING_SHARED_ZH : PRICING_SHARED_EN;
   const enterpriseBullets = isZh ? ENTERPRISE_BULLETS_ZH : ENTERPRISE_BULLETS_EN;
 
   const pricingHeaders = isZh
@@ -434,9 +424,9 @@ export default function PressRelease3HK({
                     key={header}
                     style={{
                       padding: "12px 14px",
-                      textAlign: "left",
+                      textAlign: "center",
                       fontWeight: 700,
-                      borderBottom: `1px solid ${border}`,
+                      border: `1px solid ${border}`,
                       whiteSpace: "nowrap",
                     }}
                   >
@@ -446,30 +436,67 @@ export default function PressRelease3HK({
               </tr>
             </thead>
             <tbody>
-              {pricingRows.map((row, i) => (
+              {pricingPlans.map((row, i) => (
                 <tr key={i}>
-                  <td style={{ padding: "12px 14px", borderBottom: `1px solid ${border}`, verticalAlign: "top" }}>
+                  <td
+                    style={{
+                      padding: "12px 14px",
+                      border: `1px solid ${border}`,
+                      textAlign: "center",
+                      verticalAlign: "middle",
+                    }}
+                  >
                     {row.fee}
-                  </td>
-                  <td style={{ padding: "12px 14px", borderBottom: `1px solid ${border}`, verticalAlign: "top" }}>
-                    {row.data}
                   </td>
                   <td
                     style={{
                       padding: "12px 14px",
-                      borderBottom: `1px solid ${border}`,
-                      verticalAlign: "top",
-                      whiteSpace: "pre-line",
+                      border: `1px solid ${border}`,
+                      textAlign: "center",
+                      verticalAlign: "middle",
                     }}
                   >
-                    {row.glasses}
+                    {row.data}
                   </td>
-                  <td style={{ padding: "12px 14px", borderBottom: `1px solid ${border}`, verticalAlign: "top" }}>
-                    {row.other}
-                  </td>
-                  <td style={{ padding: "12px 14px", borderBottom: `1px solid ${border}`, verticalAlign: "top" }}>
-                    {row.contract}
-                  </td>
+                  {i === 0 ? (
+                    <>
+                      <td
+                        rowSpan={pricingPlans.length}
+                        style={{
+                          padding: "12px 14px",
+                          border: `1px solid ${border}`,
+                          textAlign: "center",
+                          verticalAlign: "middle",
+                          whiteSpace: "pre-line",
+                        }}
+                      >
+                        {pricingShared.glasses}
+                      </td>
+                      <td
+                        rowSpan={pricingPlans.length}
+                        style={{
+                          padding: "12px 14px",
+                          border: `1px solid ${border}`,
+                          textAlign: "center",
+                          verticalAlign: "middle",
+                        }}
+                      >
+                        {pricingShared.other}
+                      </td>
+                      <td
+                        rowSpan={pricingPlans.length}
+                        style={{
+                          padding: "12px 14px",
+                          border: `1px solid ${border}`,
+                          textAlign: "center",
+                          verticalAlign: "middle",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {pricingShared.contract}
+                      </td>
+                    </>
+                  ) : null}
                 </tr>
               ))}
             </tbody>

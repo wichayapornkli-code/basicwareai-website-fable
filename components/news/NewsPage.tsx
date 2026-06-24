@@ -4,10 +4,8 @@ import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { NEWS_ARTICLES, paginateNewsArticles } from "@/lib/news";
 import { withNewsMocks } from "@/lib/news-mock";
-import { decodeNewsTag } from "@/lib/news-tags";
 import NewsArticleCard from "@/components/news/NewsArticleCard";
 import NewsMockToggle from "@/components/news/NewsMockToggle";
-import NewsTagFilterBar from "@/components/news/NewsTagFilterBar";
 import Pagination from "@/components/news/Pagination";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
@@ -23,13 +21,10 @@ export default function NewsPage() {
   const searchParams = useSearchParams();
   const { showMock, setShowMock } = useNewsMock();
   const page = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
-  const activeTag = decodeNewsTag(searchParams.get("tag"));
   const listingArticles = withNewsMocks(NEWS_ARTICLES, showMock);
-  const { articles, totalPages, currentPage, totalCount } = paginateNewsArticles(
+  const { articles, totalPages, currentPage } = paginateNewsArticles(
     listingArticles,
     page,
-    undefined,
-    activeTag,
   );
 
   return (
@@ -38,9 +33,8 @@ export default function NewsPage() {
         style={{
           maxWidth: "1080px",
           margin: "0 auto",
-          padding: activeTag
-            ? "clamp(140px, 14vw, 200px) clamp(20px, 5vw, 40px) clamp(24px, 3vw, 32px)"
-            : "clamp(140px, 14vw, 200px) clamp(20px, 5vw, 40px) clamp(48px, 6vw, 70px)",
+          padding:
+            "clamp(140px, 14vw, 200px) clamp(20px, 5vw, 40px) clamp(48px, 6vw, 70px)",
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
@@ -110,8 +104,6 @@ export default function NewsPage() {
         </div>
       </div>
 
-      {activeTag ? <NewsTagFilterBar tag={activeTag} /> : null}
-
       <div
         style={{
           maxWidth: "1080px",
@@ -136,19 +128,6 @@ export default function NewsPage() {
             <NewsArticleCard article={article} locale={locale} />
           </div>
         ))}
-
-        {totalCount === 0 ? (
-          <p
-            style={{
-              margin: 0,
-              fontFamily: FONT,
-              fontSize: "var(--fs-body)",
-              color: isDark ? "#909090" : "#757575",
-            }}
-          >
-            {t("emptyFilter")}
-          </p>
-        ) : null}
       </div>
 
       <div style={{ paddingBottom: "clamp(60px, 7vw, 100px)" }}>

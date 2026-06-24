@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { formatNewsDate, type NewsArticle } from "@/lib/news";
-import { encodeNewsTag } from "@/lib/news-tags";
 import NewsThumbnail from "@/components/news/NewsThumbnail";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import type { CSSProperties } from "react";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -35,57 +34,23 @@ type Props = {
   locale: string;
 };
 
-function NewsCardTag({
-  tag,
-  locale,
-  isDark,
-}: {
-  tag: string;
-  locale: string;
-  isDark: boolean;
-}) {
-  const [hovered, setHovered] = useState(false);
-
-  const color = hovered
-    ? isDark
-      ? COLOR_TITLE.dark
-      : "#015ac6"
-    : isDark
-      ? COLOR_MUTED.dark
-      : COLOR_MUTED.light;
-
-  const borderColor = hovered
-    ? isDark
-      ? "rgba(108, 184, 255, 0.65)"
-      : "#015ac6"
-    : isDark
-      ? COLOR_TAG_BORDER.dark
-      : COLOR_TAG_BORDER.light;
-
+function NewsCardTag({ tag, isDark }: { tag: string; isDark: boolean }) {
   return (
-    <Link
-      href={`/${locale}/news?tag=${encodeNewsTag(tag)}`}
-      className="bw-news-card-tag"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+    <span
       style={{
-        border: `1px solid ${borderColor}`,
+        border: `1px solid ${isDark ? COLOR_TAG_BORDER.dark : COLOR_TAG_BORDER.light}`,
         borderRadius: "30px",
         padding: "4px 12px",
         fontFamily: FONT,
         fontWeight: 500,
         fontSize: "var(--fs-caption)",
-        color,
+        color: isDark ? COLOR_MUTED.dark : COLOR_MUTED.light,
         lineHeight: 1.35,
         whiteSpace: "nowrap",
-        textDecoration: "none",
-        position: "relative",
-        zIndex: 2,
-        transition: `color 150ms ease, border-color 150ms ease`,
       }}
     >
       {tag}
-    </Link>
+    </span>
   );
 }
 
@@ -198,11 +163,10 @@ export default function NewsArticleCard({ article, locale }: Props) {
               display: "flex",
               gap: CARD_TAG_GAP,
               flexWrap: "wrap",
-              pointerEvents: "auto",
             }}
           >
             {article.tags.map((tag) => (
-              <NewsCardTag key={tag} tag={tag} locale={locale} isDark={isDark} />
+              <NewsCardTag key={tag} tag={tag} isDark={isDark} />
             ))}
           </div>
         </div>

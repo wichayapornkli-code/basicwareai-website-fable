@@ -47,33 +47,28 @@ export const NEWS_ARTICLES: NewsArticle[] = [
   },
 ];
 
-import { filterNewsByTag } from "@/lib/news-tags";
-
 export function getNewsArticle(slug: string): NewsArticle | undefined {
   return NEWS_ARTICLES.find((article) => article.slug === slug);
 }
 
-export function paginateNews(page: number, pageSize = PAGE_SIZE, tag?: string | null) {
-  return paginateNewsArticles(NEWS_ARTICLES, page, pageSize, tag);
+export function paginateNews(page: number, pageSize = PAGE_SIZE) {
+  return paginateNewsArticles(NEWS_ARTICLES, page, pageSize);
 }
 
 export function paginateNewsArticles(
   articles: NewsArticle[],
   page: number,
   pageSize = PAGE_SIZE,
-  tag?: string | null,
 ) {
-  const filtered = filterNewsByTag(articles, tag);
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(articles.length / pageSize));
   const currentPage = Math.min(Math.max(1, page), totalPages);
   const start = (currentPage - 1) * pageSize;
 
   return {
-    articles: filtered.slice(start, start + pageSize),
+    articles: articles.slice(start, start + pageSize),
     totalPages,
     currentPage,
-    totalCount: filtered.length,
-    activeTag: tag ?? null,
+    totalCount: articles.length,
   };
 }
 

@@ -1,5 +1,6 @@
 {
   "nav": {
+    "home": "Home",
     "whatWeDo": "What we do",
     "solutions": "Products",
     "successStories": "Success Stories",
@@ -171,10 +172,7 @@
     "sectionTitleLine1": "The latest from",
     "sectionTitleAccent": "Basicware",
     "sectionEyebrow": "News & Press Release",
-    "sectionBody": "Updates, partnerships, and field notes from Basicware's work across AI, cloud, and enterprise transformation.",
-    "filterLabel": "Showing articles tagged",
-    "clearFilter": "Clear tag filter",
-    "emptyFilter": "No articles match this tag."
+    "sectionBody": "Updates, partnerships, and field notes from Basicware's work across AI, cloud, and enterprise transformation."
   },
   "pressRelease3hk": {
     "officialHeading": "Official release",
