@@ -1,8 +1,9 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
+import Breadcrumb from "@/components/Breadcrumb";
 import { type CaseStudy } from "@/lib/case-studies";
 import { useDark } from "@/components/ThemeProvider";
 import { consumeHeroTransition } from "@/lib/heroTransition";
@@ -35,6 +36,8 @@ export default function CaseStudyDetailPage({
   locale: string;
 }) {
   const { isDark } = useDark();
+  const t = useTranslations("nav");
+  const tb = useTranslations("breadcrumb");
   const heroRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -99,23 +102,15 @@ export default function CaseStudyDetailPage({
           padding: "clamp(48px, 6vw, 96px) 40px clamp(80px, 9vw, 160px)",
         }}
       >
-        {/* Back */}
-        <Link
-          href={`/${locale}/success-stories`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontFamily: FONT,
-            fontWeight: 500,
-            fontSize: "var(--fs-body-sm)",
-            color: muted,
-            textDecoration: "none",
-            marginBottom: "48px",
-          }}
-        >
-          ← Back to Success Stories
-        </Link>
+        <Breadcrumb
+          style={{ marginBottom: "48px" }}
+          homeHref={`/${locale}`}
+          homeLabel={tb("home")}
+          items={[
+            { label: t("successStories"), href: `/${locale}/success-stories` },
+            { label: study.logoAlt },
+          ]}
+        />
 
         {/* Logo + tags row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px", marginBottom: "32px" }}>

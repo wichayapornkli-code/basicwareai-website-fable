@@ -7,6 +7,9 @@
     "about": "关于我们",
     "getStarted": "立即联系"
   },
+  "breadcrumb": {
+    "home": "首页"
+  },
   "hero": {
     "titlePart1": "解锁",
     "titleAccent": "无限",

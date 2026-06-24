@@ -10,6 +10,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 export default function Navbar() {
   const t = useTranslations("nav");
+  const tb = useTranslations("breadcrumb");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -89,6 +90,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href={`/${locale}`}
+          aria-label={tb("home")}
           style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}
         >
           <Image

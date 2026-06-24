@@ -7,6 +7,9 @@
     "about": "About",
     "getStarted": "Get in touch"
   },
+  "breadcrumb": {
+    "home": "Home"
+  },
   "hero": {
     "titlePart1": "AI Enabling ",
     "titleAccent": "Infinite",

@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import Reveal from "@/components/anim/Reveal";
+import Breadcrumb from "@/components/Breadcrumb";
 import { type Product } from "@/lib/products";
+import { useTranslations } from "next-intl";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -17,6 +19,8 @@ export default function ProductDetailPage({
 }) {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
+  const t = useTranslations("nav");
+  const tb = useTranslations("breadcrumb");
   const isZh = locale === "zh";
   const copy = isZh ? product.zh : product.en;
 
@@ -104,21 +108,14 @@ export default function ProductDetailPage({
           padding: "clamp(24px, 3vw, 40px) clamp(20px, 5vw, 40px) 0",
         }}
       >
-        <Link
-          href={`/${locale}/solutions`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontFamily: FONT,
-            fontWeight: 500,
-            fontSize: "var(--fs-body-sm)",
-            color: muted,
-            textDecoration: "none",
-          }}
-        >
-          ← Solutions
-        </Link>
+        <Breadcrumb
+          homeHref={`/${locale}`}
+          homeLabel={tb("home")}
+          items={[
+            { label: t("solutions"), href: `/${locale}/solutions` },
+            { label: product.brandName },
+          ]}
+        />
       </div>
 
       {/* ── Problem Statement ─────────────────────────────────────────── */}

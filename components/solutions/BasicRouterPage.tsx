@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import Reveal from "@/components/anim/Reveal";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 const HERO_COLOR = "#0148ae";
@@ -29,7 +31,6 @@ const COPY = {
       { title: "Data security and compliance risks", body: "Unregulated cross-border data transmission, coupled with inconsistent security standards among vendors, create major obstacles for compliance audits and risk management." },
       { title: "High latency and poor stability for overseas calls", body: "Cross-border networks suffer from high latency and severe fluctuations, leading to inconsistent business performance across regions." },
     ],
-    backLabel: "← Solutions",
   },
   zh: {
     eyebrow: "BasicRouter · Basicware",
@@ -51,7 +52,6 @@ const COPY = {
       { title: "数据安全与合规风险", body: "数据跨境传输与存储不可控，不同平台安全标准不一，合规审计与风险管理难度大。" },
       { title: "海外调用延迟高、稳定性差", body: "跨境网络延迟高、波动大，服务可用性受地域和链路影响，业务体验不稳定。" },
     ],
-    backLabel: "← 解决方案",
   },
 };
 
@@ -70,6 +70,8 @@ const MODELS = [
 export default function BasicRouterPage({ locale }: { locale: string }) {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
+  const t = useTranslations("nav");
+  const tb = useTranslations("breadcrumb");
   const isZh = locale === "zh";
   const copy = isZh ? COPY.zh : COPY.en;
 
@@ -152,21 +154,14 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
           padding: "clamp(24px, 3vw, 40px) clamp(20px, 5vw, 40px) 0",
         }}
       >
-        <Link
-          href={`/${locale}/solutions`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontFamily: FONT,
-            fontWeight: 500,
-            fontSize: "var(--fs-body-sm)",
-            color: muted,
-            textDecoration: "none",
-          }}
-        >
-          {copy.backLabel}
-        </Link>
+        <Breadcrumb
+          homeHref={`/${locale}`}
+          homeLabel={tb("home")}
+          items={[
+            { label: t("solutions"), href: `/${locale}/solutions` },
+            { label: "BasicRouter" },
+          ]}
+        />
       </div>
 
       {/* ── Product Description ───────────────────────────────────────── */}

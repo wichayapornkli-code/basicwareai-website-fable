@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import Breadcrumb from "@/components/Breadcrumb";
 import NewsArticleTags from "@/components/news/NewsArticleTags";
 import type { NewsArticle } from "@/lib/news";
 
@@ -56,12 +57,16 @@ const MACRO_ZH = [
 export default function PressRelease3HK({
   locale,
   tags = [],
+  articleTitle,
 }: {
   locale: string;
   tags?: NewsArticle["tags"];
+  articleTitle?: string;
 }) {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
+  const t = useTranslations("nav");
+  const tb = useTranslations("breadcrumb");
   const isZh = locale === "zh";
 
   const bg = isDark ? "#0d0d0d" : "#fff";
@@ -85,23 +90,15 @@ export default function PressRelease3HK({
             : "clamp(48px, 6vw, 80px) clamp(40px, 6vw, 80px) clamp(80px, 9vw, 140px)",
         }}
       >
-        {/* Back */}
-        <Link
-          href={`/${locale}/news`}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "6px",
-            fontFamily: FONT,
-            fontWeight: 500,
-            fontSize: "var(--fs-body-sm)",
-            color: muted,
-            textDecoration: "none",
-            marginBottom: "48px",
-          }}
-        >
-          {isZh ? "← 返回新闻" : "← Back to news"}
-        </Link>
+        <Breadcrumb
+          style={{ marginBottom: "48px" }}
+          homeHref={`/${locale}`}
+          homeLabel={tb("home")}
+          items={[
+            { label: t("news"), href: `/${locale}/news` },
+            ...(articleTitle ? [{ label: articleTitle }] : []),
+          ]}
+        />
 
         {/* Stats strip */}
         <div

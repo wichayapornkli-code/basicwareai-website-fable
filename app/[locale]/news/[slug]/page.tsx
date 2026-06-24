@@ -22,12 +22,14 @@ export default async function NewsArticleRoute({
   const DetailComponent = DETAIL_COMPONENTS[article.detail];
   if (!DetailComponent) notFound();
 
+  const articleTitle = locale === "zh" ? article.zh.title : article.en.title;
+
   return (
     <>
       <Navbar />
       <main>
         <NewsArticleCover article={article} locale={locale} />
-        <DetailComponent locale={locale} tags={article.tags} />
+        <DetailComponent locale={locale} tags={article.tags} articleTitle={articleTitle} />
       </main>
       <Footer />
     </>
