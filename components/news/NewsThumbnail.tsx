@@ -9,6 +9,8 @@ type Props = {
   fullWidth?: boolean;
 };
 
+const DEFAULT_THUMB_SRC = "/assets/news_default_thumbnail.jpg";
+
 const THUMB_STYLE: CSSProperties = {
   position: "relative",
   width: "min(100%, 309px)",
@@ -34,40 +36,17 @@ export default function NewsThumbnail({
     ...(aspectRatio ? { aspectRatio } : {}),
   };
 
-  if (coverSrc) {
-    return (
-      <div className={wrapClass} style={style}>
-        <img
-          src={coverSrc}
-          alt={alt}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-      </div>
-    );
-  }
+  const src = coverSrc ?? DEFAULT_THUMB_SRC;
 
   return (
-    <div
-      className={wrapClass}
-      style={{
-        ...style,
-        backgroundColor: "#0148ae",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className={wrapClass} style={style}>
       <img
-        src="/assets/logo_white.png"
-        alt=""
+        src={src}
+        alt={alt}
         style={{
-          width: "86px",
-          height: "auto",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
           display: "block",
         }}
       />

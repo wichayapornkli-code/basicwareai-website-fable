@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useLocale } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
@@ -166,6 +166,159 @@ function LogoStrip({ bg, isDark }: { bg: string; isDark: boolean }) {
   );
 }
 
+type CardBodyProps = {
+  card: Card;
+  isMobile: boolean;
+  textPrimary: string;
+  textSecondary: string;
+  borderColor: string;
+  statDivider: string;
+};
+
+function SuccessStoryCardBody({
+  card,
+  isMobile,
+  textPrimary,
+  textSecondary,
+  borderColor,
+  statDivider,
+}: CardBodyProps) {
+  return (
+    <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          alignItems: "stretch",
+        }}
+      >
+        <div
+          style={{
+            flex: 1,
+            padding: isMobile ? "28px 24px" : "40px 32px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: "32px",
+            minWidth: 0,
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontFamily: FONT,
+              fontWeight: 500,
+              fontSize: "var(--fs-body-lg)",
+              lineHeight: 1.6,
+              letterSpacing: "-0.18px",
+              color: textPrimary,
+              display: "-webkit-box",
+              WebkitLineClamp: 6,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              minHeight: "9.6em",
+            }}
+          >
+            &ldquo;{card.quote}&rdquo;
+          </p>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: "16px",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: FONT,
+                  fontWeight: 700,
+                  fontStyle: "italic",
+                  fontSize: "var(--fs-caption)",
+                  letterSpacing: "-0.132px",
+                  color: textPrimary,
+                }}
+              >
+                {card.author}
+              </p>
+              <p
+                style={{
+                  margin: 0,
+                  fontFamily: FONT,
+                  fontWeight: 400,
+                  fontStyle: "italic",
+                  fontSize: "var(--fs-caption)",
+                  letterSpacing: "-0.132px",
+                  color: textSecondary,
+                }}
+              >
+                {card.role}
+              </p>
+            </div>
+            <span style={{ fontSize: "24px", lineHeight: 1 }}>{card.flag}</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          borderTop: `1px solid ${borderColor}`,
+        }}
+      >
+        {card.stats.map((stat, i) => (
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              padding: "clamp(20px, 3vw, 40px)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "2px",
+              borderRight: i < card.stats.length - 1 ? `1px solid ${statDivider}` : "none",
+            }}
+          >
+            <p
+              style={{
+                margin: 0,
+                fontFamily: FONT,
+                fontWeight: 700,
+                fontSize: "var(--fs-heading-md)",
+                lineHeight: 1.5,
+                letterSpacing: "-0.264px",
+                color: textPrimary,
+                textAlign: "center",
+              }}
+            >
+              {stat.value}
+            </p>
+            <p
+              style={{
+                margin: 0,
+                fontFamily: FONT,
+                fontWeight: 400,
+                fontSize: "var(--fs-caption)",
+                lineHeight: 1.5,
+                letterSpacing: "-0.132px",
+                color: textSecondary,
+                textAlign: "center",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function SuccessStoriesSection() {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
@@ -175,7 +328,9 @@ export default function SuccessStoriesSection() {
   const copy = isZh ? SECTION_COPY.zh : SECTION_COPY.en;
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const [stageHeight, setStageHeight] = useState<number | undefined>(undefined);
   const cardRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
 
   const bg = isDark ? "#111111" : "#f9f9f9";
   const cardBg = isDark ? "#1a1a1a" : "#ffffff";
@@ -184,10 +339,60 @@ export default function SuccessStoriesSection() {
   const textPrimary = isDark ? "#e0e0e0" : "#141414";
   const textSecondary = isDark ? "#a0a0a0" : "rgba(20,20,20,0.4)";
 
+  const cardBodyProps = {
+    isMobile,
+    textPrimary,
+    textSecondary,
+    borderColor,
+    statDivider,
+  };
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const root = measureRef.current;
+      if (!root) return;
+      const cards = root.querySelectorAll("[data-measure-card]");
+      let max = 0;
+      cards.forEach((el) => {
+        max = Math.max(max, (el as HTMLElement).offsetHeight);
+      });
+      if (max > 0) setStageHeight(max);
+    };
+
+    measure();
+
+    let timeout: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(measure, 150);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      clearTimeout(timeout);
+    };
+  }, [CARDS, isMobile, isDark, locale]);
+
   useEffect(() => {
+    setActiveIndex(0);
+    const card = cardRef.current;
+    if (card) gsap.set(card, { opacity: 1, y: 0 });
+  }, [locale]);
+
+  useEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const id = setInterval(() => {
       const card = cardRef.current;
       if (!card) return;
+
+      if (prefersReducedMotion) {
+        setActiveIndex((i) => (i + 1) % CARDS.length);
+        return;
+      }
+
       gsap.to(card, {
         opacity: 0,
         y: 14,
@@ -195,7 +400,11 @@ export default function SuccessStoriesSection() {
         ease: "power2.in",
         onComplete: () => {
           setActiveIndex((i) => (i + 1) % CARDS.length);
-          gsap.fromTo(card, { opacity: 0, y: -14 }, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" });
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: -14 },
+            { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+          );
         },
       });
     }, 5000);
@@ -203,6 +412,18 @@ export default function SuccessStoriesSection() {
   }, [CARDS.length]);
 
   const card = CARDS[activeIndex];
+
+  const measureShellStyle: React.CSSProperties = {
+    backgroundColor: cardBg,
+    borderRadius: "12px",
+    overflow: "hidden",
+    boxShadow: isDark ? "0 2px 24px rgba(0,0,0,0.4)" : "0 2px 24px rgba(0,0,0,0.06)",
+  };
+
+  const cardShellStyle: React.CSSProperties = {
+    ...measureShellStyle,
+    ...(stageHeight ? { minHeight: stageHeight } : {}),
+  };
 
   return (
     <section style={{ backgroundColor: bg }}>
@@ -218,7 +439,11 @@ export default function SuccessStoriesSection() {
         }}
       >
         <p className="bw-eyebrow">{copy.eyebrow}</p>
-        <Reveal as="h2" className="bw-display" style={{ fontSize: "var(--fs-heading-xl)" }}>
+        <Reveal
+          as="h2"
+          className="bw-display"
+          style={{ fontSize: "var(--fs-heading-xl)", lineHeight: 1.08 }}
+        >
           {isZh ? copy.title : <>{copy.title.split("the best")[0]}<em>the best</em></>}
         </Reveal>
         <Reveal
@@ -247,154 +472,35 @@ export default function SuccessStoriesSection() {
           margin: "clamp(32px, 4vw, 48px) auto 0",
           padding: "0 clamp(20px, 5vw, 40px)",
           boxSizing: "content-box",
+          position: "relative",
         }}
       >
+        {/* Off-screen measurement of all slides */}
         <div
-          ref={cardRef}
+          ref={measureRef}
+          aria-hidden
           style={{
-            backgroundColor: cardBg,
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: isDark
-              ? "0 2px 24px rgba(0,0,0,0.4)"
-              : "0 2px 24px rgba(0,0,0,0.06)",
+            visibility: "hidden",
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            pointerEvents: "none",
+            zIndex: -1,
           }}
         >
-          {/* Top row: quote + photo */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: isMobile ? "column" : "row",
-              alignItems: "stretch",
-            }}
-          >
-            {/* Left — quote */}
-            <div
-              style={{
-                flex: 1,
-                padding: isMobile ? "28px 24px" : "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                gap: "32px",
-                minWidth: 0,
-              }}
-            >
-              <p
-                style={{
-                  margin: 0,
-                  fontFamily: FONT,
-                  fontWeight: 500,
-                  fontSize: "var(--fs-body-lg)",
-                  lineHeight: 1.6,
-                  letterSpacing: "-0.18px",
-                  color: textPrimary,
-                  display: "-webkit-box",
-                  WebkitLineClamp: 6,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                &ldquo;{card.quote}&rdquo;
-              </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "flex-end",
-                  justifyContent: "space-between",
-                  gap: "16px",
-                }}
-              >
-                <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontFamily: FONT,
-                      fontWeight: 700,
-                      fontStyle: "italic",
-                      fontSize: "var(--fs-caption)",
-                      letterSpacing: "-0.132px",
-                      color: textPrimary,
-                    }}
-                  >
-                    {card.author}
-                  </p>
-                  <p
-                    style={{
-                      margin: 0,
-                      fontFamily: FONT,
-                      fontWeight: 400,
-                      fontStyle: "italic",
-                      fontSize: "var(--fs-caption)",
-                      letterSpacing: "-0.132px",
-                      color: textSecondary,
-                    }}
-                  >
-                    {card.role}
-                  </p>
-                </div>
-                <span style={{ fontSize: "24px", lineHeight: 1 }}>{card.flag}</span>
-              </div>
+          {CARDS.map((c, i) => (
+            <div key={i} data-measure-card style={measureShellStyle}>
+              <SuccessStoryCardBody card={c} {...cardBodyProps} />
             </div>
-
-          </div>
-
-          {/* Bottom — stats bar */}
-          <div
-            style={{
-              display: "flex",
-              borderTop: `1px solid ${borderColor}`,
-            }}
-          >
-            {card.stats.map((stat, i) => (
-              <div
-                key={i}
-                style={{
-                  flex: 1,
-                  padding: "clamp(20px, 3vw, 40px)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "2px",
-                  borderRight: i < card.stats.length - 1 ? `1px solid ${statDivider}` : "none",
-                }}
-              >
-                <p
-                  style={{
-                    margin: 0,
-                    fontFamily: FONT,
-                    fontWeight: 700,
-                    fontSize: "var(--fs-heading-md)",
-                    lineHeight: 1.5,
-                    letterSpacing: "-0.264px",
-                    color: textPrimary,
-                    textAlign: "center",
-                  }}
-                >
-                  {stat.value}
-                </p>
-                <p
-                  style={{
-                    margin: 0,
-                    fontFamily: FONT,
-                    fontWeight: 400,
-                    fontSize: "var(--fs-caption)",
-                    lineHeight: 1.5,
-                    letterSpacing: "-0.132px",
-                    color: textSecondary,
-                    textAlign: "center",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
 
+        <div style={{ minHeight: stageHeight }}>
+          <div ref={cardRef} style={cardShellStyle}>
+            <SuccessStoryCardBody card={card} {...cardBodyProps} />
+          </div>
+        </div>
       </div>
 
       {/* ── Logo scroller ───────────────────────────────────────────── */}

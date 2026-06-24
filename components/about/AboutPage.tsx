@@ -529,13 +529,19 @@ export default function AboutPage() {
                 {t("story.p1")}
               </p>
 
-              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: "32px", flexWrap: "wrap" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                  maxWidth: "56ch",
+                }}
+              >
                 {[2, 3].map((i) => (
                   <p
                     key={i}
                     style={{
                       margin: 0,
-                      flex: "1 1 0",
                       fontFamily: FONT,
                       fontWeight: 400,
                       fontSize: "var(--fs-body)",
@@ -613,9 +619,10 @@ export default function AboutPage() {
               <div
                 style={{
                   display: "flex",
-                  flexDirection: isMobile ? "column" : "row",
-                  gap: "clamp(24px, 4vw, 40px)",
-                  textAlign: isMobile ? "center" : "left",
+                  flexDirection: "column",
+                  gap: "16px",
+                  maxWidth: "56ch",
+                  marginInline: "auto",
                 }}
               >
                 {[2, 3].map((i) => (
@@ -623,7 +630,6 @@ export default function AboutPage() {
                     key={i}
                     style={{
                       margin: 0,
-                      flex: "1 1 0",
                       fontFamily: FONT,
                       fontWeight: 400,
                       fontSize: "var(--fs-body)",

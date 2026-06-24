@@ -4,9 +4,10 @@ import { formatNewsDate, getNewsArticleCoverHeadlines, type NewsArticle } from "
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { useDark } from "@/components/ThemeProvider";
 import { useTranslations } from "next-intl";
+import NewsArticleShare from "@/components/news/NewsArticleShare";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
-const ACCENT = "#0148ae";
+const DEFAULT_COVER_SRC = "/assets/news_default_cover.jpg";
 
 type Props = {
   article: NewsArticle;
@@ -22,21 +23,14 @@ export default function NewsArticleCover({ article, locale }: Props) {
   const dateLabel = isZh
     ? `香港，${formatNewsDate(article.publishedAt, locale)}`
     : `Hong Kong, ${formatNewsDate(article.publishedAt, locale)}`;
-
-  const onCoverImage = Boolean(article.coverSrc);
-  const headlineColor = onCoverImage ? (isDark ? "#fff" : "#111110") : "#fff";
-  const subheadColor = onCoverImage
-    ? isDark
-      ? "rgba(255,255,255,0.75)"
-      : "#4a4a4a"
-    : "rgba(255,255,255,0.82)";
+  const hasCustomCover = Boolean(article.coverSrc);
 
   const titleBlock = (
     <>
       <p
         className="bw-eyebrow"
         style={{
-          color: onCoverImage
+          color: hasCustomCover
             ? isDark
               ? "var(--c-accent)"
               : "#015ac6"
@@ -54,7 +48,7 @@ export default function NewsArticleCover({ article, locale }: Props) {
             fontSize: "var(--fs-heading-xl)",
             lineHeight: 1.08,
             letterSpacing: "-0.03em",
-            color: headlineColor,
+            color: hasCustomCover ? (isDark ? "#fff" : "#111110") : "#fff",
           }}
         >
           {headline}
@@ -68,33 +62,49 @@ export default function NewsArticleCover({ article, locale }: Props) {
               fontSize: "var(--fs-heading-sm)",
               lineHeight: 1.35,
               letterSpacing: "-0.01em",
-              color: subheadColor,
+              color: hasCustomCover
+                ? isDark
+                  ? "rgba(255,255,255,0.75)"
+                  : "#4a4a4a"
+                : "rgba(255,255,255,0.82)",
             }}
           >
             {subhead}
           </p>
         ) : null}
       </div>
-      <p
+      <div
         style={{
-          margin: 0,
-          fontFamily: FONT,
-          fontWeight: 400,
-          fontSize: "var(--fs-body-sm)",
-          color: onCoverImage
-            ? isDark
-              ? "#909090"
-              : "#757575"
-            : "rgba(255,255,255,0.6)",
-          letterSpacing: "0.02em",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "16px",
+          width: "100%",
         }}
       >
-        {dateLabel}
-      </p>
+        <p
+          style={{
+            margin: 0,
+            fontFamily: FONT,
+            fontWeight: 400,
+            fontSize: "var(--fs-body-sm)",
+            color: hasCustomCover
+              ? isDark
+                ? "#909090"
+                : "#757575"
+              : "rgba(255,255,255,0.6)",
+            letterSpacing: "0.02em",
+          }}
+        >
+          {dateLabel}
+        </p>
+        <NewsArticleShare onLight={!hasCustomCover} />
+      </div>
     </>
   );
 
-  if (article.coverSrc) {
+  if (hasCustomCover) {
     return (
       <div style={{ backgroundColor: isDark ? "#0d0d0d" : "#fff" }}>
         <div
@@ -148,11 +158,33 @@ export default function NewsArticleCover({ article, locale }: Props) {
   return (
     <div
       style={{
-        backgroundColor: ACCENT,
+        position: "relative",
         padding: isMobile ? "120px 24px 48px" : "140px clamp(40px, 6vw, 80px) 64px",
+        overflow: "hidden",
       }}
     >
-      <div style={{ maxWidth: "860px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "20px" }}>
+      <img
+        src={DEFAULT_COVER_SRC}
+        alt=""
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          maxWidth: "860px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
         {titleBlock}
       </div>
     </div>

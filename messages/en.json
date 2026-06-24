@@ -19,6 +19,16 @@
     "subtitle": "Connect with the world's leading AI technologies, expert consultants, and a global business network",
     "cta": "Read the stories"
   },
+  "home": {
+    "brandStory": {
+      "eyebrow": "· Brand story ·",
+      "title": "AI Business Co-Creation",
+      "p1": "Basicware AI partners with world-class top AI large model (LLM) developers through commercial research and application, focusing on being an AI business co-creation partner for global clients and building a bridge between clients and business value with an enterprise community mindset.",
+      "p2": "We focus on AI technology implementation, abandon superficial technical concepts, integrate cutting-edge AI technologies into clients' entire business processes with the world's latest top AI technologies and agile iteration capabilities, solve pain points such as difficult technology landing, weak business transformation and blocked cross-border expansion, and move forward side by side with clients as partners.",
+      "p3": "The brand adheres to the core propositions of client success, global cutting-edge tech confidence, and global symbiosis. Embracing the world's latest cutting-edge AI technologies and facing the global market, we help enterprises break geographical and industry barriers, optimize business processes and explore growth space. In the future, we will continue to take AI as the bond to jointly build a business ecosystem and expand global markets with global clients, unlocking unlimited corporate potential.",
+      "link": "Our full story"
+    }
+  },
   "cta": {
     "eyebrow": "· Next step ·",
     "title": "Ready to see more?",

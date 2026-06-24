@@ -21,7 +21,7 @@ export function getHomeNewsArticles(): NewsArticle[] {
 /**
  * To add an article with a custom image, set `coverSrc` — it is used for both
  * the listing thumbnail and the detail page cover. Omit it to use the default
- * blue logo thumbnail and blue headline banner on the detail page.
+ * logo thumbnail and gradient cover image on the detail page.
  * Set `description` on en/zh for the listing card excerpt under the title.
  */
 export const NEWS_ARTICLES: NewsArticle[] = [
