@@ -101,7 +101,7 @@ export default function Navbar() {
             style={{
               fontFamily: "var(--font-sans)",
               fontWeight: 600,
-              fontSize: "16px",
+              fontSize: "var(--fs-body)",
               color: "var(--c-text)",
               letterSpacing: "-0.02em",
               whiteSpace: "nowrap",
@@ -120,7 +120,7 @@ export default function Navbar() {
               alignItems: "center",
               fontFamily: "var(--font-sans)",
               fontWeight: 500,
-              fontSize: "15px",
+              fontSize: "var(--fs-body)",
               whiteSpace: "nowrap",
             }}
           >
@@ -171,7 +171,7 @@ export default function Navbar() {
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontWeight: 600,
-                  fontSize: "13px",
+                  fontSize: "var(--fs-body-sm)",
                   color: "#ffffff",
                   whiteSpace: "nowrap",
                 }}
@@ -285,7 +285,7 @@ export default function Navbar() {
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontWeight: 600,
-                  fontSize: "24px",
+                  fontSize: "var(--fs-heading-md)",
                   color: "var(--c-text)",
                   textDecoration: "none",
                   padding: "12px 0",
@@ -318,7 +318,7 @@ export default function Navbar() {
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontWeight: 600,
-                  fontSize: "15px",
+                  fontSize: "var(--fs-body)",
                   color: "#ffffff",
                 }}
               >
@@ -342,7 +342,7 @@ export default function Navbar() {
                 border: "none",
                 cursor: "pointer",
                 padding: "8px 0",
-                fontSize: "14px",
+                fontSize: "var(--fs-body-sm)",
                 textAlign: "center",
               }}
             >

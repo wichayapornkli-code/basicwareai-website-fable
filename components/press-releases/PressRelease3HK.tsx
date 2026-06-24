@@ -89,7 +89,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
               margin: 0,
               fontFamily: FONT,
               fontWeight: 700,
-              fontSize: isMobile ? "clamp(28px, 6vw, 40px)" : "clamp(36px, 4vw, 56px)",
+              fontSize: "var(--fs-heading-xl)",
               lineHeight: 1.08,
               letterSpacing: "-0.03em",
               color: "#fff",
@@ -104,7 +104,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
               margin: 0,
               fontFamily: FONT,
               fontWeight: 400,
-              fontSize: "14px",
+              fontSize: "var(--fs-body-sm)",
               color: "rgba(255,255,255,0.6)",
               letterSpacing: "0.02em",
             }}
@@ -133,7 +133,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             gap: "6px",
             fontFamily: FONT,
             fontWeight: 500,
-            fontSize: "14px",
+            fontSize: "var(--fs-body-sm)",
             color: muted,
             textDecoration: "none",
             marginBottom: "48px",
@@ -163,10 +163,10 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
                 gap: "2px",
               }}
             >
-              <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: "clamp(14px, 1.2vw, 17px)", color: "#fff", whiteSpace: "nowrap" }}>
+              <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body-lg)", color: "#fff", whiteSpace: "nowrap" }}>
                 {isZh ? s.zh : s.en}
               </span>
-              <span style={{ fontFamily: FONT, fontWeight: 400, fontSize: "11px", color: "rgba(255,255,255,0.7)", whiteSpace: "nowrap" }}>
+              <span style={{ fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-overline)", color: "rgba(255,255,255,0.7)", whiteSpace: "nowrap" }}>
                 {isZh ? s.labelZh : s.labelEn}
               </span>
             </div>
@@ -183,7 +183,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             marginBottom: "40px",
             fontFamily: FONT,
             fontWeight: 600,
-            fontSize: "13px",
+            fontSize: "var(--fs-body-sm)",
             color: accent,
             letterSpacing: "0.01em",
             lineHeight: 1.8,
@@ -200,7 +200,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             margin: "0 0 32px",
             fontFamily: FONT,
             fontWeight: 400,
-            fontSize: "clamp(16px, 1.4vw, 19px)",
+            fontSize: "var(--fs-body-lg)",
             lineHeight: 1.75,
             color: text,
             letterSpacing: "-0.01em",
@@ -220,7 +220,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             margin: "0 0 32px",
             fontFamily: FONT,
             fontWeight: 700,
-            fontSize: "clamp(20px, 2vw, 28px)",
+            fontSize: "var(--fs-heading-md)",
             letterSpacing: "-0.02em",
             color: text,
           }}
@@ -233,7 +233,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             margin: "0 0 28px",
             fontFamily: FONT,
             fontWeight: 400,
-            fontSize: "clamp(15px, 1.2vw, 17px)",
+            fontSize: "var(--fs-body-lg)",
             lineHeight: 1.75,
             color: muted,
           }}
@@ -278,14 +278,14 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
                   justifyContent: "center",
                 }}
               >
-                <span style={{ color: "#fff", fontFamily: FONT, fontWeight: 700, fontSize: "12px" }}>{i + 1}</span>
+                <span style={{ color: "#fff", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-caption)" }}>{i + 1}</span>
               </div>
               <h3
                 style={{
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 700,
-                  fontSize: "clamp(14px, 1.2vw, 16px)",
+                  fontSize: "var(--fs-body-sm)",
                   lineHeight: 1.3,
                   letterSpacing: "-0.02em",
                   color: text,
@@ -298,7 +298,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 400,
-                  fontSize: "clamp(13px, 1vw, 15px)",
+                  fontSize: "var(--fs-body-sm)",
                   lineHeight: 1.65,
                   color: muted,
                 }}
@@ -315,7 +315,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
             margin: "0 0 48px",
             fontFamily: FONT,
             fontWeight: 400,
-            fontSize: "clamp(15px, 1.2vw, 17px)",
+            fontSize: "var(--fs-body-lg)",
             lineHeight: 1.75,
             color: muted,
           }}
@@ -344,7 +344,7 @@ export default function PressRelease3HK({ locale }: { locale: string }) {
               style={{
                 fontFamily: FONT,
                 fontWeight: 600,
-                fontSize: "13px",
+                fontSize: "var(--fs-body-sm)",
                 color: accent,
                 border: `1px solid ${accent}`,
                 borderRadius: "30px",

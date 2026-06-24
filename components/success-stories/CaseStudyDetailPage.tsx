@@ -108,7 +108,7 @@ export default function CaseStudyDetailPage({
             gap: "6px",
             fontFamily: FONT,
             fontWeight: 500,
-            fontSize: "14px",
+            fontSize: "var(--fs-body-sm)",
             color: muted,
             textDecoration: "none",
             marginBottom: "48px",
@@ -134,7 +134,7 @@ export default function CaseStudyDetailPage({
                   padding: "4px 16px",
                   fontFamily: FONT,
                   fontWeight: 500,
-                  fontSize: "13px",
+                  fontSize: "var(--fs-body-sm)",
                   color: muted,
                   whiteSpace: "nowrap",
                 }}
@@ -151,7 +151,7 @@ export default function CaseStudyDetailPage({
             margin: "0 0 48px",
             fontFamily: FONT,
             fontWeight: 700,
-            fontSize: "clamp(28px, 3.5vw, 52px)",
+            fontSize: "var(--fs-heading-lg)",
             lineHeight: 1.1,
             letterSpacing: "-0.5px",
             color: headline,
@@ -184,10 +184,10 @@ export default function CaseStudyDetailPage({
                 gap: "8px",
               }}
             >
-              <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(26px, 3vw, 40px)", color: headline, letterSpacing: "-0.5px", lineHeight: 1 }}>
+              <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", color: headline, letterSpacing: "-0.5px", lineHeight: 1 }}>
                 {value}
               </p>
-              <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "14px", color: muted, lineHeight: 1.4 }}>
+              <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", color: muted, lineHeight: 1.4 }}>
                 {label}
               </p>
             </div>
@@ -199,20 +199,20 @@ export default function CaseStudyDetailPage({
 
           {/* Challenge */}
           <section>
-            <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
+            <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
               The Challenge
             </p>
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.75, color: text }}>
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
               {CHALLENGE_BODY}
             </p>
           </section>
 
           {/* Solution */}
           <section>
-            <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "11px", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
+            <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
               The Solution
             </p>
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(15px, 1.2vw, 18px)", lineHeight: 1.75, color: text }}>
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
               {SOLUTION_BODY}
             </p>
           </section>
@@ -223,7 +223,7 @@ export default function CaseStudyDetailPage({
 
         {/* Results */}
         <div style={{ marginBottom: "64px" }}>
-          <p style={{ margin: "0 0 32px", fontFamily: FONT, fontWeight: 700, fontSize: "clamp(20px, 2vw, 28px)", color: text }}>
+          <p style={{ margin: "0 0 32px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-md)", color: text }}>
             Key Results
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
@@ -241,8 +241,8 @@ export default function CaseStudyDetailPage({
                 }}
               >
                 <span style={{ fontSize: "28px" }}>{icon}</span>
-                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "16px", color: text, letterSpacing: "-0.2px" }}>{title}</p>
-                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "14px", lineHeight: 1.65, color: muted }}>{body}</p>
+                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body)", color: text, letterSpacing: "-0.2px" }}>{title}</p>
+                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", lineHeight: 1.65, color: muted }}>{body}</p>
               </div>
             ))}
           </div>
@@ -263,7 +263,7 @@ export default function CaseStudyDetailPage({
               fontFamily: FONT,
               fontStyle: "italic",
               fontWeight: 400,
-              fontSize: "clamp(17px, 1.4vw, 22px)",
+              fontSize: "var(--fs-heading-sm)",
               lineHeight: 1.6,
               color: isDark ? "#c8dcf8" : "#011e5b",
               letterSpacing: "-0.2px",
@@ -271,7 +271,7 @@ export default function CaseStudyDetailPage({
           >
             &ldquo;{study.quote}&rdquo;
           </p>
-          <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "14px", color: isDark ? "#6a9fd8" : "#0148ae" }}>
+          <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body-sm)", color: isDark ? "#6a9fd8" : "#0148ae" }}>
             {study.author}
           </p>
         </div>

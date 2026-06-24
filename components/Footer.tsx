@@ -52,7 +52,7 @@ export default function Footer() {
             style={{
               margin: 0,
               fontWeight: 600,
-              fontSize: "clamp(32px, 4.5vw, 64px)",
+              fontSize: "var(--fs-heading-xl)",
               lineHeight: 1.05,
               letterSpacing: "-0.03em",
               color: "#fff",
@@ -80,7 +80,7 @@ export default function Footer() {
             textDecoration: "none",
             color: "#0a0a0b",
             fontWeight: 600,
-            fontSize: "15px",
+            fontSize: "var(--fs-body)",
             letterSpacing: "-0.01em",
             whiteSpace: "nowrap",
             flexShrink: 0,
@@ -110,7 +110,7 @@ export default function Footer() {
               className="bw-link"
               style={{
                 fontWeight: 500,
-                fontSize: "15px",
+                fontSize: "var(--fs-body)",
                 color: "rgba(255,255,255,0.65)",
                 whiteSpace: "nowrap",
               }}
@@ -137,7 +137,7 @@ export default function Footer() {
           style={{
             margin: 0,
             fontWeight: 800,
-            fontSize: "clamp(36px, 14.5vw, 230px)",
+            fontSize: "var(--fs-wordmark)",
             lineHeight: 0.78,
             letterSpacing: "-0.045em",
             whiteSpace: "nowrap",

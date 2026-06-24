@@ -269,7 +269,7 @@ export default function SolutionsPage() {
               className="bw-display"
               style={{
                 margin: "0 0 clamp(20px, 2.5vw, 32px)",
-                fontSize: "clamp(32px, 3.4vw, 52px)",
+                fontSize: "var(--fs-heading-lg)",
                 textAlign: "center",
               }}
             >
@@ -291,7 +291,7 @@ export default function SolutionsPage() {
                     color: isDark ? "#e0e0e0" : "#141414",
                     fontFamily: FONT,
                     fontWeight: 600,
-                    fontSize: "15px",
+                    fontSize: "var(--fs-body)",
                     letterSpacing: "-0.22px",
                     appearance: "none",
                     WebkitAppearance: "none",
@@ -330,7 +330,7 @@ export default function SolutionsPage() {
                       cursor: "default",
                       fontFamily: FONT,
                       fontWeight: activeTab === i ? 600 : 400,
-                      fontSize: "clamp(11px, 1vw, 14px)",
+                      fontSize: "var(--fs-body-sm)",
                       color: activeTab === i
                         ? (isDark ? "#191c26" : "#fff")
                         : (isDark ? "rgba(255,255,255,0.4)" : "rgba(25,28,38,0.4)"),
@@ -372,13 +372,13 @@ export default function SolutionsPage() {
                     boxSizing: "border-box",
                   }}
                 >
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(18px, 2vw, 32px)", letterSpacing: "-0.352px", color: isDark ? "#79b8ff" : "#318ff5", lineHeight: "normal" }}>
+                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-md)", letterSpacing: "-0.352px", color: isDark ? "#79b8ff" : "#318ff5", lineHeight: "normal" }}>
                     {solution.title}
                   </p>
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(13px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#d0d0d0" : "#141414", lineHeight: "normal" }}>
+                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: isDark ? "#d0d0d0" : "#141414", lineHeight: "normal" }}>
                     {solution.shortDesc}
                   </p>
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(13px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: "#a9a9a9", lineHeight: "normal" }}>
+                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: "#a9a9a9", lineHeight: "normal" }}>
                     {solution.longDesc}
                   </p>
                   <Link
@@ -390,7 +390,7 @@ export default function SolutionsPage() {
                       gap: "6px",
                       fontFamily: FONT,
                       fontWeight: 600,
-                      fontSize: "clamp(12px, 1vw, 14px)",
+                      fontSize: "var(--fs-body-sm)",
                       color: isDark ? "#79b8ff" : "#0148ae",
                       textDecoration: "none",
                       letterSpacing: "-0.01em",
@@ -439,10 +439,10 @@ export default function SolutionsPage() {
                     }}
                   >
                     <div>
-                      <p style={{ margin: "0 0 8px", fontFamily: FONT, fontStyle: "italic", fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: 1.5 }}>
+                      <p style={{ margin: "0 0 8px", fontFamily: FONT, fontStyle: "italic", fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: 1.5 }}>
                         {solution.testimonialQuote}
                       </p>
-                      <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414", lineHeight: 1.5 }}>
+                      <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414", lineHeight: 1.5 }}>
                         {solution.testimonialAuthor}
                       </p>
                     </div>
@@ -463,12 +463,12 @@ export default function SolutionsPage() {
                     boxSizing: "border-box",
                   }}
                 >
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(14px, 1.4vw, 20px)", letterSpacing: "-0.22px", color: isDark ? "#e0e0e0" : "#282828", lineHeight: "normal" }}>
+                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-sm)", letterSpacing: "-0.22px", color: isDark ? "#e0e0e0" : "#282828", lineHeight: "normal" }}>
                     {solution.bulletsTitle}
                   </p>
                   <ul style={{ margin: 0, padding: "0 0 0 20px", display: "flex", flexDirection: "column", gap: 4 }}>
                     {solution.bullets.map((b, i) => (
-                      <li key={i} style={{ fontFamily: FONT, fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: "normal" }}>
+                      <li key={i} style={{ fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: "normal" }}>
                         {b}
                       </li>
                     ))}
@@ -493,7 +493,7 @@ export default function SolutionsPage() {
                 color: isDark ? "#191c26" : "#fff",
                 fontFamily: FONT,
                 fontWeight: 600,
-                fontSize: "clamp(16px, 1.4vw, 20px)",
+                fontSize: "var(--fs-heading-sm)",
                 letterSpacing: "-0.22px",
                 whiteSpace: "nowrap",
                 marginTop: "clamp(8px, 1vw, 12px)",
@@ -519,7 +519,7 @@ export default function SolutionsPage() {
           className="bw-display"
           style={{
             margin: "0 0 clamp(24px, 3vw, 40px)",
-            fontSize: "clamp(30px, 3.2vw, 48px)",
+            fontSize: "var(--fs-heading-lg)",
             textAlign: "center",
           }}
         >
@@ -557,8 +557,8 @@ export default function SolutionsPage() {
                   textAlign: "center",
                 }}
               >
-                <AnimatedNumber target={r.target} prefix={r.prefix} suffix={r.suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(28px, 2.8vw, 40px)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
-                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414" }}>{r.label}</p>
+                <AnimatedNumber target={r.target} prefix={r.prefix} suffix={r.suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
+                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414" }}>{r.label}</p>
               </div>
             ))}
           </div>
@@ -577,8 +577,8 @@ export default function SolutionsPage() {
               textAlign: "center",
             }}
           >
-            <AnimatedNumber target={RESULTS[2].target} prefix={RESULTS[2].prefix} suffix={RESULTS[2].suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "clamp(28px, 2.8vw, 40px)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "clamp(12px, 1.1vw, 16px)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414", maxWidth: 254 }}>{RESULTS[2].label}</p>
+            <AnimatedNumber target={RESULTS[2].target} prefix={RESULTS[2].prefix} suffix={RESULTS[2].suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414", maxWidth: 254 }}>{RESULTS[2].label}</p>
           </div>
         </div>
       </div>
@@ -601,11 +601,11 @@ export default function SolutionsPage() {
         <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 24, textAlign: "center", maxWidth: 567, padding: "0 40px" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%" }}>
             <p className="bw-eyebrow" style={{ color: "#ffab1b", justifyContent: "center" }}>Next</p>
-            <h2 className="bw-display" style={{ fontWeight: 600, fontSize: "clamp(34px, 4vw, 60px)", color: isDark ? "#e8e8e8" : "#141414" }}>
+            <h2 className="bw-display" style={{ fontWeight: 600, fontSize: "var(--fs-heading-xl)", color: isDark ? "#e8e8e8" : "#141414" }}>
               Let&apos;s find your fastest path to <em style={{ color: "inherit" }}>AI growth</em>
             </h2>
           </div>
-          <Link href={`/${locale}/contact`} className="bw-btn" style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#141414", borderRadius: 40, padding: "16px 32px", textDecoration: "none", color: "#fff", fontFamily: FONT, fontWeight: 500, fontSize: "14px", letterSpacing: "-0.154px", whiteSpace: "nowrap" }}>
+          <Link href={`/${locale}/contact`} className="bw-btn" style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#141414", borderRadius: 40, padding: "16px 32px", textDecoration: "none", color: "#fff", fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.154px", whiteSpace: "nowrap" }}>
             Talk to us
             <img src="/assets/arrow-white.svg" alt="" width={13} height={13} style={{ display: "block" }} />
           </Link>

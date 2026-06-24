@@ -27,7 +27,7 @@ export default function SolutionsRibbon() {
             style={{
               flexShrink: 0,
               fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontSize: "clamp(14px, 1.4vw, 20px)",
+              fontSize: "var(--fs-heading-sm)",
               lineHeight: "normal",
               color: "#459AEF",
               whiteSpace: "nowrap",

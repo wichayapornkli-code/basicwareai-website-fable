@@ -183,7 +183,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                   fontFamily: FONT,
                   fontStyle: "italic",
                   fontWeight: 400,
-                  fontSize: "14px",
+                  fontSize: "var(--fs-body-sm)",
                   lineHeight: 1.55,
                   color: "#141414",
                   letterSpacing: "-0.154px",
@@ -198,7 +198,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 700,
-                  fontSize: "13px",
+                  fontSize: "var(--fs-body-sm)",
                   color: "#141414",
                   letterSpacing: "-0.132px",
                 }}
@@ -225,7 +225,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
               margin: 0,
               fontFamily: '"Plus Jakarta Sans", sans-serif',
               fontWeight: 600,
-              fontSize: "clamp(18px, 1.7vw, 28px)",
+              fontSize: "var(--fs-heading-md)",
               lineHeight: 1.2,
               letterSpacing: "-0.264px",
               color: isDark ? "#90c0f0" : "#011e5b",
@@ -243,7 +243,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                   padding: "4px 16px",
                   fontFamily: '"Plus Jakarta Sans", sans-serif',
                   fontWeight: 500,
-                  fontSize: "16px",
+                  fontSize: "var(--fs-body)",
                   color: "#7c7c7c",
                   lineHeight: "normal",
                   whiteSpace: "nowrap",
@@ -286,7 +286,7 @@ export default function SuccessStoriesPage() {
         <h2
           className="bw-display"
           style={{
-            fontSize: "clamp(32px, 3.4vw, 52px)",
+            fontSize: "var(--fs-heading-lg)",
             flexShrink: 0,
           }}
         >
@@ -310,7 +310,7 @@ export default function SuccessStoriesPage() {
               margin: 0,
               fontFamily: '"Plus Jakarta Sans", sans-serif',
               fontWeight: 400,
-              fontSize: "clamp(16px, 1.4vw, 20px)",
+              fontSize: "var(--fs-heading-sm)",
               letterSpacing: "-0.22px",
               color: isDark ? "#a8d0f8" : "#011e5b",
               lineHeight: 1.5,
@@ -362,7 +362,7 @@ export default function SuccessStoriesPage() {
         <h2
           className="bw-display"
           style={{
-            fontSize: "clamp(28px, 3vw, 44px)",
+            fontSize: "var(--fs-heading-lg)",
             textAlign: "center",
           }}
         >
@@ -409,7 +409,7 @@ export default function SuccessStoriesPage() {
                     margin: "0 0 0",
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                     fontWeight: 700,
-                    fontSize: "clamp(28px, 2.8vw, 40px)",
+                    fontSize: "var(--fs-heading-lg)",
                     lineHeight: 1.5,
                     color: isDark ? "#e0e0e0" : "#141414",
                     letterSpacing: "-0.176px",
@@ -418,7 +418,7 @@ export default function SuccessStoriesPage() {
                     margin: 0,
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                     fontWeight: 400,
-                    fontSize: "16px",
+                    fontSize: "var(--fs-body)",
                     lineHeight: 1.5,
                     color: isDark ? "#a0a0a0" : "#141414",
                     letterSpacing: "-0.176px",
@@ -453,7 +453,7 @@ export default function SuccessStoriesPage() {
                     margin: 0,
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                     fontWeight: 700,
-                    fontSize: "clamp(28px, 2.8vw, 40px)",
+                    fontSize: "var(--fs-heading-lg)",
                     lineHeight: 1.5,
                     color: isDark ? "#e0e0e0" : "#141414",
                     letterSpacing: "-0.176px",
@@ -462,7 +462,7 @@ export default function SuccessStoriesPage() {
                     margin: 0,
                     fontFamily: '"Plus Jakarta Sans", sans-serif',
                     fontWeight: 400,
-                    fontSize: "16px",
+                    fontSize: "var(--fs-body)",
                     lineHeight: 1.5,
                     color: isDark ? "#a0a0a0" : "#141414",
                     letterSpacing: "-0.176px",
@@ -531,7 +531,7 @@ export default function SuccessStoriesPage() {
             style={{
               margin: "0 0 32px",
               fontWeight: 600,
-              fontSize: "clamp(32px, 4vw, 72px)",
+              fontSize: "var(--fs-heading-xl)",
               color: "#fff",
             }}
           >
@@ -551,7 +551,7 @@ export default function SuccessStoriesPage() {
               color: "#0d0d0d",
               fontFamily: '"Plus Jakarta Sans", sans-serif',
               fontWeight: 600,
-              fontSize: "14px",
+              fontSize: "var(--fs-body-sm)",
               letterSpacing: "-0.154px",
               whiteSpace: "nowrap",
             }}

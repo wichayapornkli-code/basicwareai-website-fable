@@ -85,7 +85,7 @@ export default function ContactPage() {
           className="bw-display"
           style={{
             fontWeight: 500,
-            fontSize: "clamp(34px, 3.8vw, 64px)",
+            fontSize: "var(--fs-heading-xl)",
             lineHeight: 1.04,
           }}
         >
@@ -98,7 +98,7 @@ export default function ContactPage() {
             margin: 0,
             fontFamily: FONT,
             fontWeight: 400,
-            fontSize: "clamp(14px, 1.15vw, 17px)",
+            fontSize: "var(--fs-body-lg)",
             lineHeight: 1.7,
             color: isDark ? "#a0a0a0" : "#757575",
             maxWidth: "390px",
@@ -113,7 +113,7 @@ export default function ContactPage() {
             margin: 0,
             fontFamily: FONT,
             fontWeight: 400,
-            fontSize: "10px",
+            fontSize: "var(--fs-caption)",
             color: isDark ? "#e0e0e0" : "#141414",
             textTransform: "uppercase",
             opacity: 0.38,
@@ -191,7 +191,7 @@ export default function ContactPage() {
                 margin: 0,
                 fontFamily: FONT,
                 fontWeight: 600,
-                fontSize: "clamp(13px, 1.1vw, 15px)",
+                fontSize: "var(--fs-body-sm)",
                 color: "rgba(255,255,255,0.65)",
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
@@ -205,7 +205,7 @@ export default function ContactPage() {
               style={{
                 fontFamily: FONT,
                 fontWeight: 700,
-                fontSize: "clamp(18px, 2vw, 26px)",
+                fontSize: "var(--fs-heading-md)",
                 color: "#fff",
                 textDecoration: "none",
                 letterSpacing: "-0.02em",

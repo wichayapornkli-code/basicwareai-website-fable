@@ -218,7 +218,7 @@ export default function SuccessStoriesSection() {
         }}
       >
         <p className="bw-eyebrow">{copy.eyebrow}</p>
-        <Reveal as="h2" className="bw-display" style={{ fontSize: "clamp(34px, 4.2vw, 60px)" }}>
+        <Reveal as="h2" className="bw-display" style={{ fontSize: "var(--fs-heading-xl)" }}>
           {isZh ? copy.title : <>{copy.title.split("the best")[0]}<em>the best</em></>}
         </Reveal>
         <Reveal
@@ -229,7 +229,7 @@ export default function SuccessStoriesSection() {
             margin: 0,
             fontFamily: FONT,
             fontWeight: 400,
-            fontSize: "16px",
+            fontSize: "var(--fs-body)",
             letterSpacing: "-0.176px",
             lineHeight: 1.6,
             color: "var(--c-text-muted)",
@@ -285,7 +285,7 @@ export default function SuccessStoriesSection() {
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 500,
-                  fontSize: "clamp(13px, 1.2vw, 17px)",
+                  fontSize: "var(--fs-body-lg)",
                   lineHeight: 1.6,
                   letterSpacing: "-0.18px",
                   color: textPrimary,
@@ -313,7 +313,7 @@ export default function SuccessStoriesSection() {
                       fontFamily: FONT,
                       fontWeight: 700,
                       fontStyle: "italic",
-                      fontSize: "12px",
+                      fontSize: "var(--fs-caption)",
                       letterSpacing: "-0.132px",
                       color: textPrimary,
                     }}
@@ -326,7 +326,7 @@ export default function SuccessStoriesSection() {
                       fontFamily: FONT,
                       fontWeight: 400,
                       fontStyle: "italic",
-                      fontSize: "12px",
+                      fontSize: "var(--fs-caption)",
                       letterSpacing: "-0.132px",
                       color: textSecondary,
                     }}
@@ -366,7 +366,7 @@ export default function SuccessStoriesSection() {
                     margin: 0,
                     fontFamily: FONT,
                     fontWeight: 700,
-                    fontSize: "clamp(18px, 2vw, 24px)",
+                    fontSize: "var(--fs-heading-md)",
                     lineHeight: 1.5,
                     letterSpacing: "-0.264px",
                     color: textPrimary,
@@ -380,7 +380,7 @@ export default function SuccessStoriesSection() {
                     margin: 0,
                     fontFamily: FONT,
                     fontWeight: 400,
-                    fontSize: "12px",
+                    fontSize: "var(--fs-caption)",
                     lineHeight: 1.5,
                     letterSpacing: "-0.132px",
                     color: textSecondary,

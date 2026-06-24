@@ -126,7 +126,7 @@ export default function PracticeAreas() {
             </p>
             <h2
               className="bw-display"
-              style={{ fontSize: "clamp(28px, 7vw, 44px)", color: "#f9f9f9" }}
+              style={{ fontSize: "var(--fs-heading-lg)", color: "#f9f9f9" }}
             >
               {t("titleLine1")}<br /><em style={{ color: "#aaddff" }}>{t("titleLine2")}</em>
             </h2>
@@ -145,7 +145,7 @@ export default function PracticeAreas() {
                 color: "#fafafa",
                 fontFamily: '"Plus Jakarta Sans", sans-serif',
                 fontWeight: 600,
-                fontSize: "14px",
+                fontSize: "var(--fs-body-sm)",
                 letterSpacing: "-0.154px",
                 whiteSpace: "nowrap",
               }}
@@ -186,7 +186,7 @@ export default function PracticeAreas() {
                       margin: 0,
                       fontFamily: '"Plus Jakarta Sans", sans-serif',
                       fontWeight: 600,
-                      fontSize: "15px",
+                      fontSize: "var(--fs-body)",
                       letterSpacing: "-0.165px",
                       color: "#141414",
                     }}
@@ -198,7 +198,7 @@ export default function PracticeAreas() {
                       margin: 0,
                       fontFamily: '"Plus Jakarta Sans", sans-serif',
                       fontWeight: 400,
-                      fontSize: "11px",
+                      fontSize: "var(--fs-overline)",
                       letterSpacing: "-0.12px",
                       color: "#141414",
                       opacity: 0.75,
@@ -272,7 +272,7 @@ export default function PracticeAreas() {
               </p>
               <h2
                 className="bw-display"
-                style={{ fontSize: "clamp(32px, 3.4vw, 52px)", color: "#f9f9f9" }}
+                style={{ fontSize: "var(--fs-heading-lg)", color: "#f9f9f9" }}
               >
                 {t("titleLine1")}<br /><em style={{ color: "#aaddff" }}>{t("titleLine2")}</em>
               </h2>
@@ -291,7 +291,7 @@ export default function PracticeAreas() {
                   color: "#fafafa",
                   fontFamily: '"Plus Jakarta Sans", sans-serif',
                   fontWeight: 600,
-                  fontSize: "14px",
+                  fontSize: "var(--fs-body-sm)",
                   letterSpacing: "-0.154px",
                   whiteSpace: "nowrap",
                 }}
@@ -351,7 +351,7 @@ export default function PracticeAreas() {
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
                           fontWeight: 600,
-                          fontSize: "18px",
+                          fontSize: "var(--fs-body-lg)",
                           letterSpacing: "-0.2px",
                           color: "#141414",
                           whiteSpace: "nowrap",
@@ -364,7 +364,7 @@ export default function PracticeAreas() {
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
                           fontWeight: 400,
-                          fontSize: "13px",
+                          fontSize: "var(--fs-body-sm)",
                           letterSpacing: "-0.14px",
                           color: "#141414",
                           whiteSpace: "nowrap",

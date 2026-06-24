@@ -152,11 +152,7 @@ export default function Hero() {
           <h1
             className="bw-display"
             style={{
-              fontSize: isParallax
-                ? 'clamp(36px, 5.8vw, 96px)'
-                : isImage
-                  ? 'clamp(36px, 6vw, 100px)'
-                  : 'clamp(46px, 8.2vw, 138px)',
+              fontSize: "var(--fs-display)",
               color: cText,
               textShadow: onImage ? '0 2px 28px rgba(2,24,68,0.35)' : undefined,
             }}
@@ -213,7 +209,7 @@ export default function Hero() {
                 style={{
                   margin: 0,
                   maxWidth: '440px',
-                  fontSize: 'clamp(15px, 1.2vw, 18px)',
+                  fontSize: "var(--fs-body-lg)",
                   lineHeight: 1.6,
                   color: cMuted,
                   textShadow: isImage ? '0 1px 16px rgba(2,24,68,0.7)' : undefined,
@@ -242,7 +238,7 @@ export default function Hero() {
                       padding: '16px 30px',
                       textDecoration: 'none',
                       fontWeight: 600,
-                      fontSize: '15px',
+                      fontSize: "var(--fs-body)",
                       letterSpacing: '-0.01em',
                       whiteSpace: 'nowrap',
                     }}
@@ -264,7 +260,7 @@ export default function Hero() {
                     style={{
                       color: cText,
                       fontWeight: 600,
-                      fontSize: '15px',
+                      fontSize: "var(--fs-body)",
                       whiteSpace: 'nowrap',
                     }}
                   >

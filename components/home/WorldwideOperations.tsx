@@ -102,7 +102,7 @@ export default function WorldwideOperations() {
             <h2
               className="bw-display"
               style={{
-                fontSize: isMobile ? "clamp(24px, 6vw, 36px)" : "clamp(26px, 3vw, 46px)",
+                fontSize: "var(--fs-heading-lg)",
                 color: "#fff",
               }}
             >
@@ -114,7 +114,7 @@ export default function WorldwideOperations() {
                 margin: 0,
                 fontFamily: FONT,
                 fontWeight: 700,
-                fontSize: "16px",
+                fontSize: "var(--fs-body)",
                 lineHeight: 1.5,
                 letterSpacing: "-0.176px",
               }}
@@ -128,7 +128,7 @@ export default function WorldwideOperations() {
                 marginTop: "8px",
                 fontFamily: FONT,
                 fontWeight: 400,
-                fontSize: "clamp(15px, 1.4vw, 22px)",
+                fontSize: "var(--fs-heading-sm)",
                 lineHeight: 1.5,
                 letterSpacing: "-0.176px",
                 opacity: 0.75,

@@ -133,7 +133,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
               margin: 0,
               fontFamily: FONT,
               fontWeight: 700,
-              fontSize: isMobile ? "clamp(28px, 6vw, 44px)" : "clamp(36px, 4.5vw, 68px)",
+              fontSize: "var(--fs-heading-xl)",
               lineHeight: 1.08,
               letterSpacing: "-0.03em",
               color: "#fff",
@@ -160,7 +160,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
             gap: "6px",
             fontFamily: FONT,
             fontWeight: 500,
-            fontSize: "14px",
+            fontSize: "var(--fs-body-sm)",
             color: muted,
             textDecoration: "none",
           }}
@@ -195,7 +195,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
                   gap: "16px",
                   fontFamily: FONT,
                   fontWeight: 400,
-                  fontSize: "clamp(17px, 1.6vw, 22px)",
+                  fontSize: "var(--fs-heading-sm)",
                   lineHeight: 1.6,
                   letterSpacing: "-0.02em",
                   color: text,
@@ -215,7 +215,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
                     marginTop: "2px",
                   }}
                 >
-                  <span style={{ color: "#fff", fontFamily: FONT, fontWeight: 700, fontSize: "12px" }}>
+                  <span style={{ color: "#fff", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-caption)" }}>
                     {i + 1}
                   </span>
                 </span>
@@ -254,7 +254,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
             color: isDark ? "#191c26" : "#fff",
             fontFamily: FONT,
             fontWeight: 600,
-            fontSize: "clamp(14px, 1.2vw, 16px)",
+            fontSize: "var(--fs-body-sm)",
             letterSpacing: "-0.01em",
             whiteSpace: "nowrap",
           }}
@@ -284,7 +284,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
               margin: "0 0 clamp(32px, 4vw, 52px)",
               fontFamily: FONT,
               fontWeight: 700,
-              fontSize: "clamp(26px, 2.8vw, 40px)",
+              fontSize: "var(--fs-heading-lg)",
               letterSpacing: "-0.03em",
               color: text,
             }}
@@ -309,7 +309,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
                   padding: "14px 24px",
                   fontFamily: FONT,
                   fontWeight: 600,
-                  fontSize: "clamp(13px, 1.1vw, 16px)",
+                  fontSize: "var(--fs-body-sm)",
                   letterSpacing: "-0.01em",
                   color: text,
                   whiteSpace: "nowrap",
@@ -337,7 +337,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
               margin: "0 0 clamp(32px, 4vw, 52px)",
               fontFamily: FONT,
               fontWeight: 700,
-              fontSize: "clamp(26px, 2.8vw, 40px)",
+              fontSize: "var(--fs-heading-lg)",
               letterSpacing: "-0.03em",
               color: text,
             }}
@@ -379,7 +379,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
                     justifyContent: "center",
                   }}
                 >
-                  <span style={{ color: "#fff", fontFamily: FONT, fontWeight: 700, fontSize: "12px" }}>
+                  <span style={{ color: "#fff", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-caption)" }}>
                     {i + 1}
                   </span>
                 </div>
@@ -388,7 +388,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
                     margin: 0,
                     fontFamily: FONT,
                     fontWeight: 700,
-                    fontSize: "clamp(15px, 1.3vw, 18px)",
+                    fontSize: "var(--fs-body-lg)",
                     lineHeight: 1.3,
                     letterSpacing: "-0.02em",
                     color: text,
@@ -401,7 +401,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
                     margin: 0,
                     fontFamily: FONT,
                     fontWeight: 400,
-                    fontSize: "clamp(13px, 1.1vw, 15px)",
+                    fontSize: "var(--fs-body-sm)",
                     lineHeight: 1.65,
                     letterSpacing: "-0.01em",
                     color: muted,
@@ -440,7 +440,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
             color: isDark ? "#191c26" : "#fff",
             fontFamily: FONT,
             fontWeight: 600,
-            fontSize: "15px",
+            fontSize: "var(--fs-body)",
             letterSpacing: "-0.01em",
             whiteSpace: "nowrap",
           }}

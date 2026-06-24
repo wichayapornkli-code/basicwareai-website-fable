@@ -51,7 +51,7 @@ export default function AboutPage() {
               <SectionEyebrow>{t("story.eyebrow")}</SectionEyebrow>
               <h1
                 className="bw-display"
-                style={{ fontSize: "clamp(44px, 5.5vw, 88px)" }}
+                style={{ fontSize: "var(--fs-display)" }}
               >
                 <AccentWords text={t("story.title")} />
               </h1>
@@ -73,7 +73,7 @@ export default function AboutPage() {
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 700,
-                  fontSize: "18px",
+                  fontSize: "var(--fs-body-lg)",
                   lineHeight: 1.6,
                   letterSpacing: "-0.176px",
                   color: isDark ? "#e0e0e0" : "#141414",
@@ -92,7 +92,7 @@ export default function AboutPage() {
                       flex: "1 1 0",
                       fontFamily: FONT,
                       fontWeight: 400,
-                      fontSize: "15px",
+                      fontSize: "var(--fs-body)",
                       lineHeight: 1.7,
                       letterSpacing: "-0.154px",
                       color: isDark ? "#a0a0a0" : "#757575",
@@ -148,7 +148,7 @@ export default function AboutPage() {
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 700,
-                  fontSize: "clamp(28px, 3.2vw, 52px)",
+                  fontSize: "var(--fs-heading-lg)",
                   lineHeight: 1.05,
                   letterSpacing: "-0.02em",
                   color: isDark ? "#e0e0e0" : "#141414",
@@ -163,7 +163,7 @@ export default function AboutPage() {
                 margin: 0,
                 fontFamily: FONT,
                 fontWeight: 400,
-                fontSize: "16px",
+                fontSize: "var(--fs-body)",
                 lineHeight: 1.65,
                 color: "#757575",
                 letterSpacing: "-0.176px",
@@ -211,7 +211,7 @@ export default function AboutPage() {
                     margin: 0,
                     fontFamily: FONT,
                     fontWeight: 700,
-                    fontSize: "clamp(17px, 1.6vw, 22px)",
+                    fontSize: "var(--fs-heading-sm)",
                     lineHeight: 1.2,
                     letterSpacing: "-0.2px",
                     color: isDark ? "#e0e0e0" : "#141414",
@@ -224,7 +224,7 @@ export default function AboutPage() {
                     margin: 0,
                     fontFamily: FONT,
                     fontWeight: 400,
-                    fontSize: "15px",
+                    fontSize: "var(--fs-body)",
                     lineHeight: 1.65,
                     letterSpacing: "-0.154px",
                     color: isDark ? "#a0a0a0" : "#757575",
@@ -282,7 +282,7 @@ export default function AboutPage() {
                   margin: 0,
                   fontFamily: FONT,
                   fontWeight: 700,
-                  fontSize: "clamp(28px, 3.2vw, 52px)",
+                  fontSize: "var(--fs-heading-lg)",
                   lineHeight: 1.05,
                   letterSpacing: "-0.02em",
                   color: isDark ? "#e0e0e0" : "#141414",
@@ -297,7 +297,7 @@ export default function AboutPage() {
                 margin: 0,
                 fontFamily: FONT,
                 fontWeight: 400,
-                fontSize: "16px",
+                fontSize: "var(--fs-body)",
                 lineHeight: 1.65,
                 color: "#757575",
                 letterSpacing: "-0.176px",
@@ -355,7 +355,7 @@ export default function AboutPage() {
                         color: "#fff",
                         fontFamily: FONT,
                         fontWeight: 700,
-                        fontSize: "clamp(36px, 5vw, 60px)",
+                        fontSize: "var(--fs-heading-xl)",
                         letterSpacing: "-0.03em",
                       }}
                     >
@@ -370,7 +370,7 @@ export default function AboutPage() {
                         margin: "0 0 4px 0",
                         fontFamily: FONT,
                         fontWeight: 700,
-                        fontSize: "17px",
+                        fontSize: "var(--fs-body-lg)",
                         color: isDark ? "#e0e0e0" : "#141414",
                         letterSpacing: "-0.176px",
                       }}
@@ -382,7 +382,7 @@ export default function AboutPage() {
                         margin: "0 0 16px 0",
                         fontFamily: FONT,
                         fontWeight: 600,
-                        fontSize: "11px",
+                        fontSize: "var(--fs-overline)",
                         color: "#1784d2",
                         textTransform: "uppercase",
                         letterSpacing: "0.07em",
@@ -395,7 +395,7 @@ export default function AboutPage() {
                         margin: 0,
                         fontFamily: FONT,
                         fontWeight: 400,
-                        fontSize: "13px",
+                        fontSize: "var(--fs-body-sm)",
                         lineHeight: 1.65,
                         color: isDark ? "#a0a0a0" : "#757575",
                         letterSpacing: "-0.154px",

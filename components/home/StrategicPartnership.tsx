@@ -50,7 +50,7 @@ export default function StrategicPartnership() {
               className="bw-display"
               style={{
                 fontWeight: 500,
-                fontSize: "clamp(24px, 2.8vw, 48px)",
+                fontSize: "var(--fs-heading-lg)",
                 lineHeight: 1.05,
                 color: "#fff",
               }}
@@ -67,7 +67,7 @@ export default function StrategicPartnership() {
               gap: "11px",
               color: "#fff",
               fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontSize: "clamp(17px, 1.4vw, 22px)",
+              fontSize: "var(--fs-heading-sm)",
               letterSpacing: "-0.176px",
             }}
           >

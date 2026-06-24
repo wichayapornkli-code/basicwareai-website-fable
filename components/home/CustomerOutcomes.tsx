@@ -54,7 +54,7 @@ export default function CustomerOutcomes() {
             margin: 0,
             fontFamily: '"Plus Jakarta Sans", sans-serif',
             fontWeight: 700,
-            fontSize: "16px",
+            fontSize: "var(--fs-body)",
             letterSpacing: "-0.176px",
             color: isDark ? "#7ec8f0" : "#06304c",
             textTransform: "uppercase",
@@ -69,7 +69,7 @@ export default function CustomerOutcomes() {
               margin: 0,
               fontFamily: '"Plus Jakarta Sans", sans-serif',
               fontWeight: 700,
-              fontSize: "clamp(28px, 3.5vw, 64px)",
+              fontSize: "var(--fs-heading-lg)",
               lineHeight: 1.1,
               letterSpacing: "-0.55px",
               color: isDark ? "#79b8ff" : "#0161cd",
@@ -83,7 +83,7 @@ export default function CustomerOutcomes() {
               margin: 0,
               fontFamily: '"Plus Jakarta Sans", sans-serif',
               fontWeight: 400,
-              fontSize: "clamp(28px, 3.5vw, 64px)",
+              fontSize: "var(--fs-heading-lg)",
               lineHeight: 1.1,
               letterSpacing: "-0.55px",
               color: isDark ? "#cce0f0" : "#06304c",
@@ -99,7 +99,7 @@ export default function CustomerOutcomes() {
             margin: 0,
             fontFamily: '"Plus Jakarta Sans", sans-serif',
             fontWeight: 400,
-            fontSize: "16px",
+            fontSize: "var(--fs-body)",
             lineHeight: 1.5,
             letterSpacing: "-0.176px",
             color: isDark ? "#a8c8e0" : "#06304c",
@@ -183,12 +183,12 @@ export default function CustomerOutcomes() {
                     width: "100%",
                   }}
                 >
-                  <span style={{ fontSize: "16px" }}>{card.flag}</span>
+                  <span style={{ fontSize: "var(--fs-body)" }}>{card.flag}</span>
                   <span
                     style={{
                       fontFamily: '"Roboto Mono", monospace',
                       fontWeight: 700,
-                      fontSize: "12px",
+                      fontSize: "var(--fs-caption)",
                       letterSpacing: "-0.132px",
                       opacity: 0.4,
                       textTransform: "uppercase",
@@ -204,7 +204,7 @@ export default function CustomerOutcomes() {
                     style={{
                       margin: 0,
                       fontWeight: 700,
-                      fontSize: "16px",
+                      fontSize: "var(--fs-body)",
                       letterSpacing: "-0.176px",
                       textTransform: "uppercase",
                     }}
@@ -215,7 +215,7 @@ export default function CustomerOutcomes() {
                     style={{
                       margin: 0,
                       fontWeight: 700,
-                      fontSize: "12px",
+                      fontSize: "var(--fs-caption)",
                       letterSpacing: "-0.132px",
                       textTransform: "uppercase",
                       opacity: 0.4,
@@ -230,7 +230,7 @@ export default function CustomerOutcomes() {
                   style={{
                     margin: 0,
                     fontWeight: 700,
-                    fontSize: "16px",
+                    fontSize: "var(--fs-body)",
                     letterSpacing: "-0.176px",
                   }}
                 >
@@ -242,7 +242,7 @@ export default function CustomerOutcomes() {
                   style={{
                     margin: 0,
                     fontWeight: 400,
-                    fontSize: "14px",
+                    fontSize: "var(--fs-body-sm)",
                     letterSpacing: "-0.154px",
                     maxWidth: "78%",
                   }}
@@ -283,7 +283,7 @@ export default function CustomerOutcomes() {
             style={{
               margin: 0,
               fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontSize: "16px",
+              fontSize: "var(--fs-body)",
               fontWeight: 400,
               letterSpacing: "-0.176px",
               color: isDark ? "#c8c8c8" : "#0b0b0b",
@@ -308,7 +308,7 @@ export default function CustomerOutcomes() {
             textDecoration: "none",
             fontFamily: '"Plus Jakarta Sans", sans-serif',
             fontWeight: 400,
-            fontSize: "14px",
+            fontSize: "var(--fs-body-sm)",
             letterSpacing: "-0.154px",
             color: isDark ? "#c8c8c8" : "#0b0b0b",
             whiteSpace: "nowrap",

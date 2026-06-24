@@ -44,7 +44,7 @@ export default function CtaSection() {
           <Reveal
             as="h2"
             className="bw-display"
-            style={{ fontSize: "clamp(40px, 6.5vw, 96px)" }}
+            style={{ fontSize: "var(--fs-display)" }}
           >
             <AccentWords text={t("title")} count={2} />
           </Reveal>
@@ -54,7 +54,7 @@ export default function CtaSection() {
             delay={0.2}
             style={{
               margin: 0,
-              fontSize: "clamp(15px, 1.2vw, 18px)",
+              fontSize: "var(--fs-body-lg)",
               lineHeight: 1.6,
               color: "var(--c-text-muted)",
             }}
@@ -79,7 +79,7 @@ export default function CtaSection() {
                 textDecoration: "none",
                 color: isDark ? "#111110" : "#ffffff",
                 fontWeight: 600,
-                fontSize: "15px",
+                fontSize: "var(--fs-body)",
                 letterSpacing: "-0.01em",
                 whiteSpace: "nowrap",
               }}
