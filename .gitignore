@@ -35,3 +35,15 @@ yarn-error.log*
 # OS
 Thumbs.db
 .gstack/
+
+# Local content reference (copy deck, not shipped with the site)
+basicware-copy-en-zh.csv
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+
+# Next.js auto-regenerates this; import path differs between dev and build
+next-env.d.ts
+
+# Cursor agent skills — local dev tooling (other skills already tracked stay tracked)
+.agents/skills/make-interfaces-feel-better/
