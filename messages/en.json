@@ -192,26 +192,82 @@
       "stat3Value": "7+",
       "stat3Label": "Offices across Asia"
     },
-    "values": {
-      "eyebrow": "What drives us",
-      "title": "What drives us",
-      "subtitle": "Four principles that shape how we work with every client, in every market.",
+    "brandCore": {
+      "eyebrow": "Brand core concept",
+      "title": "AI Business Co-Creation.",
+      "p1": "Basicware AI partners with world-class top AI large model (LLM) developers through commercial research and application, to jointly build an AI business co-creation partner that forms an enterprise community with global clients.",
+      "p2": "Relying on the world's latest cutting-edge AI technologies, we regard every client as a fellow entrepreneurial buddy.",
+      "p3": "With agile and intelligent iteration capabilities, we continuously integrate AI technologies into clients' business scenarios, co-create innovative business models, and jointly explore global markets.",
+      "quoteLabel": "Ultimately Fulfilling the Brand Promise of",
+      "quote": "Empowered by AI, Unlimited Global Possibilities"
+    },
+    "brandIntent": {
+      "eyebrow": "Intention of brand establishment",
+      "title": "Founded to Break the Deadlock.",
       "cards": [
         {
-          "title": "Clarity over complexity",
-          "body": "AI should make business simpler, not harder. We cut through the noise and give our clients a clear, confident path forward."
+          "title": "The landscape",
+          "body": "The global business landscape is undergoing a profound transformation driven by AI: cutting-edge technologies keep emerging, market boundaries are constantly broken, and numerous enterprises with clear business visions struggle to bridge the gap between <accent>\"technology implementation\"</accent> and <accent>\"business growth\"</accent>."
         },
         {
-          "title": "Client as buddy.",
-          "body": "Partnership over transactions. We don't hand over a solution and walk away. We stay in it — through implementation, integration, and beyond."
+          "title": "The gap",
+          "body": "Many enterprises have resources and business insights, yet fall into the dilemma of <accent>\"impressive but impractical technologies\"</accent> due to the lack of paths to convert AI into sustainable business value. Others aspire to break geographical restrictions and tap into global potential markets, but fail to cope with complex challenges of cross-border operations alone, thus missing growth opportunities."
         },
         {
-          "title": "Outcomes over activity",
-          "body": "We measure our success by our clients' results. Not by deliverables, hours, or effort — by the growth, efficiency, and opportunity we unlock."
+          "title": "Our answer",
+          "body": "Basicware AI was founded to break this deadlock. We do not act as aloof technology <accent>\"lecturers\"</accent> or pursue illusory technical concepts. Instead, we focus on being a <accent>\"fellow entrepreneurial buddy\"</accent> by our clients' side, join hands with clients to solve AI business implementation problems with an enterprise community mindset, and seize every opportunity in the wave of global business."
+        }
+      ]
+    },
+    "ourRole": {
+      "eyebrow": "Our role",
+      "title": "AI Enabler of Enterprise Community",
+      "subtitle": "For Basicware AI, the value of AI has never been one-way technology output, but in-depth symbiosis with clients' businesses. The future of business is never individual combat, but community collaboration featuring resource sharing, risk sharing and growth sharing.",
+      "cards": [
+        {
+          "title": "Build a Symbiotic Community with Clients via AI",
+          "body": "We always integrate into the entire business process of clients as a <accent>\"partner\"</accent> rather than a \"supplier\". From in-depth analysis of business pain points and exploration of AI application scenarios, to iterative innovation of business models and formulation of global market expansion strategies, we think and act in sync with clients. In this community, there is no one-way giving or taking, only a close bond that <accent>\"your business goals are our technical direction; your global layout is our service boundary\"</accent>."
         },
         {
-          "title": "Global reach, local depth",
-          "body": "We operate globally because AI opportunity is global. But we show up locally — with teams on the ground who understand the markets, cultures, and industries we serve."
+          "title": "Agile Iteration, Empowering Businesses Continuously with AI",
+          "body": "AI technologies evolve rapidly and market demands change constantly. We deeply believe that <accent>\"standing still means falling behind\"</accent>. Basicware AI always maintains agile and intelligent iteration capabilities, keeps up with global AI technology trends, and quickly converts cutting-edge technologies and innovative thinking into implementable solutions for clients. We help enterprises reshape operation logic, optimize business processes, expand new revenue streams, and continuously inject new momentum into business growth to sustain commercial competitiveness."
+        },
+        {
+          "title": "Rooted in Global Innovation, Open Unlimited Opportunities with Top Vision",
+          "body": "Embracing the world's latest cutting-edge AI technologies and supported by global technological heritage, we also possess an international service vision and resource integration capabilities. As a member of the enterprise community, we not only help clients break geographical barriers and connect to global resources via AI, but also explore cross-border business models and expand international market channels with clients. We enable every partner to <accent>break through geographical restrictions and reach previously unreachable global business boundaries</accent> with the power of AI."
+        }
+      ]
+    },
+    "ourVision": {
+      "eyebrow": "Our vision",
+      "title": "Empowered by AI, Unlimited Global Possibilities",
+      "p1": "Basicware AI believes that every enterprise has unlimited business potential, and AI is the key to unlocking this potential. We are not only users of AI technologies, but also co-builders of clients' business future. We not only help clients achieve business growth, but also explore new business boundaries in the AI era together with clients through enterprise community collaboration.",
+      "p2": "In the future, we will continue to take AI as the bond to build a close community with more global clients. With agile technical capabilities and co-creative partner thinking, we will help every partner break through geographical and industry barriers, open their own unlimited possibilities on the global business stage, and jointly write a new business story in the AI era."
+    },
+    "values": {
+      "eyebrow": "Our value propositions",
+      "title": "What drives us",
+      "subtitle": "Five principles that shape how we work with every client, in every market.",
+      "cards": [
+        {
+          "title": "Customer Success",
+          "body": "All technological innovations and service layouts are centered on clients' business goals and oriented towards measurable business growth, realizing value symbiosis between the brand and clients."
+        },
+        {
+          "title": "Global Tech Pride",
+          "body": "Based on the world's latest cutting-edge AI technologies, we deliver high-quality and highly reliable AI business solutions to the world, demonstrating the vision and strength of a global technology brand."
+        },
+        {
+          "title": "Global Community",
+          "body": "Break industry and geographical barriers, connect global clients and resources, and build a business ecosystem featuring resource interconnection, joint business expansion and long-term symbiosis, enabling every member to achieve growth through collaboration."
+        },
+        {
+          "title": "Agile & Clever",
+          "body": "Keep up with AI technology innovations in a lightweight and efficient manner, quickly transform cutting-edge achievements into implementable application solutions for clients, and continuously inject new vitality into businesses."
+        },
+        {
+          "title": "Client as Buddy (CAB)",
+          "body": "Abandon the traditional supply-demand partnership, regard every client as an equal entrepreneurial partner, share opportunities and risks, and move forward side by side on the road of global market expansion."
         }
       ]
     },

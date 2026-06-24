@@ -50,7 +50,7 @@ export default function Navbar() {
   function switchLocale() {
     const segments = pathname.split("/");
     segments[1] = otherLocale;
-    router.push(segments.join("/") || "/");
+    router.replace(segments.join("/") || "/", { scroll: false });
   }
 
   const links = [
@@ -185,9 +185,9 @@ export default function Navbar() {
               <Image
                 src="/assets/arrow-white.svg"
                 alt=""
-                width={12}
-                height={12}
-                style={{ display: "block" }}
+                width={14}
+                height={7}
+                style={{ display: "block", height: "12px", width: "auto" }}
               />
             </Link>
           </div>
@@ -331,9 +331,9 @@ export default function Navbar() {
               <Image
                 src="/assets/arrow-white.svg"
                 alt=""
-                width={12}
-                height={12}
-                style={{ display: "block" }}
+                width={14}
+                height={7}
+                style={{ display: "block", height: "12px", width: "auto" }}
               />
             </Link>
 

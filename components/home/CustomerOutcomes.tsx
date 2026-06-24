@@ -316,7 +316,7 @@ export default function CustomerOutcomes() {
           }}
         >
           {t("cta")}
-          <Image src={isDark ? "/assets/arrow-white.svg" : "/assets/arrow-dark.svg"} alt="" width={13} height={13} style={{ display: "block" }} />
+          <Image src={isDark ? "/assets/arrow-white.svg" : "/assets/arrow-dark.svg"} alt="" width={14} height={7} style={{ display: "block", height: "13px", width: "auto" }} />
         </a>
       </div>
     </section>

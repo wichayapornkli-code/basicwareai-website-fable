@@ -41,7 +41,7 @@ export const NEWS_ARTICLES: NewsArticle[] = [
       detailTitle:
         "和記電訊香港開拓 AI 生活圈\n率先推出嶄新 INMO GO3 AI 眼鏡",
       description:
-        "和記電訊香港推出 INMO GO3 AI 眼鏡、「AI 旅助理」服務，並夥拍 Basicware AI 透過 BasicRouter 向新上台及續約客戶送贈 AI 詞元。",
+        "HTHK unveils INMO GO3 AI glasses, an AI Travel Planner, and partners with Basicware AI to offer complimentary AI Tokens via BasicRouter for new and renewing subscribers.",
     },
     detail: "3hk-alibaba-basicware-alliance",
   },

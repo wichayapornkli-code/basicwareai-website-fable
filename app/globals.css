@@ -357,6 +357,14 @@ html.dark .bw-grain {
   color: rgba(255, 255, 255, 0.92) !important;
 }
 
+.bw-footer-cta:active {
+  transform: translateY(0) scale(0.96) !important;
+}
+
+.bw-footer-brand-icon {
+  display: block;
+}
+
 /* ── Keyframes ────────────────────────────────────────────── */
 @keyframes marquee {
   from { transform: translateX(0); }

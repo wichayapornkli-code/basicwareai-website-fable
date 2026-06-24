@@ -3,6 +3,7 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import DarkModeToggle from "@/components/DarkModeToggle";
+import FooterBrandIcon from "@/components/FooterBrandIcon";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 export default function Footer() {
@@ -12,11 +13,11 @@ export default function Footer() {
   const { isMobile } = useBreakpoint();
 
   const links = [
+    { href: `/${locale}`, label: t("home") },
     { href: `/${locale}/solutions`, label: t("solutions") },
     { href: `/${locale}/success-stories`, label: t("successStories") },
     { href: `/${locale}/news`, label: t("news") },
     { href: `/${locale}/about`, label: t("about") },
-    { href: `/${locale}/contact`, label: t("getStarted") },
   ];
 
   return (
@@ -24,25 +25,33 @@ export default function Footer() {
       style={{
         backgroundColor: "#0a0a0b",
         color: "#fff",
-        padding: "clamp(64px, 7vw, 110px) clamp(24px, 5vw, 80px) 0",
+        padding: "clamp(64px, 7vw, 110px) clamp(24px, 5vw, 80px) clamp(36px, 4vw, 56px)",
         fontFamily: "var(--font-sans)",
         overflow: "hidden",
       }}
     >
-      {/* Top: tagline + CTA */}
+      {/* Top: logo + tagline + CTA */}
       <div
         style={{
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
-          justifyContent: "space-between",
-          alignItems: isMobile ? "flex-start" : "flex-end",
-          flexWrap: "wrap",
-          gap: "clamp(24px, 3vw, 40px)",
+          alignItems: isMobile ? "flex-start" : "center",
+          gap: "clamp(28px, 4vw, 48px)",
           paddingBottom: "clamp(48px, 5vw, 80px)",
-          borderBottom: "1px solid rgba(255,255,255,0.1)",
+          boxShadow: "0 1px 0 rgba(255,255,255,0.1)",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <FooterBrandIcon className="bw-footer-brand-icon" />
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
           <p
             className="bw-eyebrow"
             style={{ color: "rgba(255,255,255,0.45)" }}
@@ -58,6 +67,7 @@ export default function Footer() {
               letterSpacing: "-0.03em",
               color: "#fff",
               maxWidth: "720px",
+              textWrap: "balance",
             }}
           >
             {tf("tagline").split("Infinite").map((part, i, arr) =>
@@ -70,7 +80,7 @@ export default function Footer() {
 
         <Link
           href={`/${locale}/contact`}
-          className="bw-btn"
+          className="bw-btn bw-footer-cta"
           style={{
             display: "flex",
             alignItems: "center",
@@ -85,6 +95,8 @@ export default function Footer() {
             letterSpacing: "-0.01em",
             whiteSpace: "nowrap",
             flexShrink: 0,
+            alignSelf: isMobile ? "stretch" : "center",
+            justifyContent: "center",
           }}
         >
           {t("getStarted")}
@@ -92,7 +104,7 @@ export default function Footer() {
         </Link>
       </div>
 
-      {/* Middle: nav + meta */}
+      {/* Bottom: nav + meta */}
       <div
         style={{
           display: "flex",
@@ -100,7 +112,7 @@ export default function Footer() {
           alignItems: "flex-start",
           flexWrap: "wrap",
           gap: "32px",
-          padding: "clamp(36px, 4vw, 56px) 0",
+          paddingTop: "clamp(36px, 4vw, 56px)",
         }}
       >
         <nav style={{ display: "flex", gap: "clamp(12px, 2vw, 48px)", flexWrap: "wrap" }}>
@@ -130,28 +142,6 @@ export default function Footer() {
             © {new Date().getFullYear()} Basicware — {tf("copyright")}
           </p>
         </div>
-      </div>
-
-      {/* Giant wordmark */}
-      <div aria-hidden style={{ display: "flex", justifyContent: "center" }}>
-        <p
-          style={{
-            margin: 0,
-            fontWeight: 800,
-            fontSize: "var(--fs-wordmark)",
-            lineHeight: 0.78,
-            letterSpacing: "-0.045em",
-            whiteSpace: "nowrap",
-            userSelect: "none",
-            color: "transparent",
-            WebkitTextStroke: "1px rgba(255,255,255,0.18)",
-            transform: "translateY(0.12em)",
-            transition: "color 0.6s ease",
-          }}
-          className="bw-wordmark"
-        >
-          Basicware
-        </p>
       </div>
     </footer>
   );
