@@ -6,7 +6,7 @@ import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import Reveal from "@/components/anim/Reveal";
 import Breadcrumb from "@/components/Breadcrumb";
-import { getContentLocaleKey, isTraditionalChineseLocale, mergeWithEnglishFallback } from "@/lib/locale";
+import { getContentLocaleKey, mergeWithEnglishFallback } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 const HERO_COLOR = "#0148ae";
@@ -94,9 +94,8 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
   const { isMobile } = useBreakpoint();
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
+  const tBasicRouter = useTranslations("basicRouter");
   const localeKey = getContentLocaleKey(locale);
-  const isZh = localeKey !== "en";
-  const isZhTw = isTraditionalChineseLocale(locale);
   const copy =
     localeKey === "zh"
       ? mergeWithEnglishFallback(COPY.en, COPY.zh)
@@ -469,7 +468,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
             whiteSpace: "nowrap",
           }}
         >
-          {isZh ? (isZhTw ? "聯繫我們" : "联系我们") : "Talk to our team"}
+          {tBasicRouter("finalCta")}
           <img
             src={isDark ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"}
             alt=""

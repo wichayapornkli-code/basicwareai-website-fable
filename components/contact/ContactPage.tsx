@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { useDark } from "@/components/ThemeProvider";
 import AccentWords from "@/components/anim/AccentWords";
-import { isTraditionalChineseLocale, isChineseLocale } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 const EMAIL = "info@basic-ware.ai";
@@ -13,9 +12,6 @@ const EMAIL = "info@basic-ware.ai";
 export default function ContactPage() {
   const t = useTranslations("contact");
   const { isDark } = useDark();
-  const locale = useLocale();
-  const isZh = isChineseLocale(locale);
-  const isZhTw = isTraditionalChineseLocale(locale);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -199,7 +195,7 @@ export default function ContactPage() {
                 textTransform: "uppercase",
               }}
             >
-              {isZh ? (isZhTw ? "聯繫我們" : "联系我们") : "Reach us at"}
+              {t("reachUsAt")}
             </p>
 
             <a
@@ -211,7 +207,8 @@ export default function ContactPage() {
                 color: "#fff",
                 textDecoration: "none",
                 letterSpacing: "-0.02em",
-                wordBreak: "break-all",
+                overflowWrap: "anywhere",
+                wordBreak: "break-word",
               }}
             >
               {EMAIL}

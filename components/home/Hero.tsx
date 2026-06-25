@@ -76,6 +76,19 @@ export default function Hero() {
   const cText = onImage ? '#fff' : 'var(--c-text)'
   const cMuted = onImage ? 'rgba(255,255,255,0.82)' : 'var(--c-text-muted)'
   const cLine = onImage ? 'rgba(255,255,255,0.32)' : 'var(--c-line)'
+  const aiNavigationLabel =
+    locale === 'zh'
+      ? 'AI 导航'
+      : locale === 'zh-tw'
+        ? 'AI 導航'
+        : 'AI Navigation'
+  const regionLabel =
+    locale === 'zh'
+      ? '香港 — 亚太'
+      : locale === 'zh-tw'
+        ? '香港 — 亞太'
+        : 'Hong Kong — APAC'
+  const scrollLabel = locale === 'zh' ? '滚动' : locale === 'zh-tw' ? '滾動' : 'Scroll'
 
   return (
     <section
@@ -144,7 +157,7 @@ export default function Hero() {
           {/* Eyebrow */}
           <div data-hero-fade style={{ marginBottom: 'clamp(16px, 2.5vh, 28px)' }}>
             <p className="bw-eyebrow" style={{ color: cMuted }}>
-              Basicware · AI Navigation
+              Basicware · {aiNavigationLabel}
             </p>
           </div>
 
@@ -286,13 +299,13 @@ export default function Hero() {
           }}
         >
           <p className="bw-mono-label" style={{ margin: 0, color: cMuted }}>
-            Hong Kong — APAC
+            {regionLabel}
           </p>
           <p
             className="bw-mono-label"
             style={{ margin: 0, color: cMuted, display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            Scroll
+            {scrollLabel}
             <span
               aria-hidden
               style={{

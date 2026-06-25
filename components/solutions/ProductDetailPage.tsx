@@ -22,9 +22,8 @@ export default function ProductDetailPage({
   const { isMobile } = useBreakpoint();
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
+  const tp = useTranslations("productDetail");
   const localeKey = getContentLocaleKey(locale);
-  const isChinese = localeKey !== "en";
-  const isTraditional = localeKey === "zhTw";
   const copy =
     localeKey === "zh"
       ? mergeWithEnglishFallback(product.en, product.zh)
@@ -154,7 +153,7 @@ export default function ProductDetailPage({
                 color: muted,
               }}
             >
-              {isTraditional ? "問題所在" : isChinese ? "问题所在" : "The Problem"}
+              {tp("problem")}
             </p>
           </div>
           <Reveal
@@ -190,7 +189,7 @@ export default function ProductDetailPage({
       >
         <div style={{ maxWidth: "780px", margin: "0 auto", textAlign: "center" }}>
           <p className="bw-eyebrow" style={{ color: "var(--c-accent)", marginBottom: "clamp(16px, 2vw, 24px)", justifyContent: "center" }}>
-            {isTraditional ? "運作方式" : isChinese ? "运作方式" : "How it works"}
+            {tp("howItWorks")}
           </p>
           <Reveal
             as="p"
@@ -229,7 +228,7 @@ export default function ProductDetailPage({
               color: text,
             }}
           >
-            {isTraditional ? "核心功能" : isChinese ? "核心功能" : "What's included"}
+            {tp("included")}
           </Reveal>
 
           <div
@@ -322,7 +321,7 @@ export default function ProductDetailPage({
               color: text,
             }}
           >
-            {isTraditional ? "適合哪些人" : isChinese ? "适合哪些人" : "Who it's for"}
+            {tp("whoFor")}
           </Reveal>
 
           <div
@@ -399,7 +398,7 @@ export default function ProductDetailPage({
             maxWidth: "520px",
           }}
         >
-          {isTraditional ? "準備好開始了嗎？" : isChinese ? "准备好开始了吗？" : "Ready to get started?"}
+          {tp("ctaTitle")}
         </Reveal>
         <p
           style={{
@@ -412,11 +411,7 @@ export default function ProductDetailPage({
             maxWidth: "400px",
           }}
         >
-          {isChinese
-            ? isTraditional
-              ? "聯繫我們，了解適合您團隊的方案。"
-              : "联系我们，了解适合您团队的方案。"
-            : "Talk to our team about the right solution for you."}
+          {tp("ctaBody")}
         </p>
         <Link
           href={`/${locale}/contact`}
@@ -468,7 +463,7 @@ export default function ProductDetailPage({
               color: text,
             }}
           >
-            {isTraditional ? "常見問題" : isChinese ? "常见问题" : "Frequently asked"}
+            {tp("faq")}
           </Reveal>
 
           <div style={{ display: "flex", flexDirection: "column" }}>

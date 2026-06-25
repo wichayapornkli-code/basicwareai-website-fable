@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import ScrollHero from "@/components/ScrollHero";
-import SolutionsRibbon from "@/components/solutions/SolutionsRibbon";
+import LogoScroller from "@/components/home/LogoScroller";
 import SolutionsPage from "@/components/solutions/SolutionsPage";
 
 export default async function Solutions() {
@@ -18,7 +18,7 @@ export default async function Solutions() {
           [{ text: t("line1") }, { text: t("line1Accent"), accent: true }],
           [{ text: t("line2") }],
         ]}
-        belowCard={<SolutionsRibbon />}
+        belowCard={<LogoScroller />}
       />
       <SolutionsPage />
     </>

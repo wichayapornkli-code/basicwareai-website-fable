@@ -34,27 +34,24 @@ export const NEWS_ARTICLES: NewsArticle[] = [
     slug: "3hk-alibaba-basicware-alliance",
     publishedAt: "2026-06-17",
     thumbnailSrc: "/assets/news-hthk-inmo-go3-thumbnail.png",
-    tags: ["3HK / 3SUPREME", "Basicware AI", "BasicRouter"],
+    tags: ["HTHK", "Basicware AI", "BasicRouter", "INMO GO3"],
     en: {
-      title: "HTHK Expands Customers' AI Lifestyles with INMO GO3 AI Glasses Launch",
-      detailTitle:
-        "HTHK expands customers' AI lifestyles with INMO GO3 AI glasses launch\nDrives AI adoption through start-up collaboration, showcasing \"3 for You\" brand value",
+      title: "HUTCHTEL HK Partners with Basicware AI to Distribute 80B Tokens to Customers",
+      detailTitle: "HUTCHTEL HK Partners with Basicware AI to Distribute 80B Tokens to Customers",
       description:
-        "HTHK unveils INMO GO3 AI glasses, an AI Travel Planner, and partners with Basicware AI to offer complimentary AI Tokens via BasicRouter for new and renewing subscribers.",
+        "HTHK will partner with Basicware AI to roll out a large-model experience campaign, distributing 80 billion AI tokens to new subscribers and 5G contract renewal customers via BasicRouter.",
     },
     zh: {
-      title: "和记电讯香港开拓 AI 生活圈　率先推出崭新 INMO GO3 AI 眼镜",
-      detailTitle:
-        "和记电讯香港开拓 AI 生活圈\n率先推出崭新 INMO GO3 AI 眼镜",
+      title: "和电香港(00215.HK)携手 Basicware AI 向客户送出共 800 亿 Token",
+      detailTitle: "和电香港(00215.HK)携手 Basicware AI 向客户送出共 800 亿 Token",
       description:
-        "HTHK 推出 INMO GO3 AI 眼镜与 AI Travel Planner，并携手 Basicware AI 通过 BasicRouter 向新签及续约客户赠送 AI Tokens。",
+        "和电香港宣布，为推动全民 AI 普及化，将推出一系列以 AI 为核心的创新产品及服务，携手 Basicware AI 向新上台及 5G 续约客户送出合共 800 亿个 AI 词元。",
     },
     zhTw: {
-      title: "和記電訊香港開拓 AI 生活圈　率先推出嶄新 INMO GO3 AI 眼鏡",
-      detailTitle:
-        "和記電訊香港開拓 AI 生活圈\n率先推出嶄新 INMO GO3 AI 眼鏡",
+      title: "和電香港(00215.HK)夥Basicware AI向客戶送出共800億Token",
+      detailTitle: "和電香港(00215.HK)夥Basicware AI向客戶送出共800億Token",
       description:
-        "HTHK 推出 INMO GO3 AI 眼鏡與 AI Travel Planner，並攜手 Basicware AI 透過 BasicRouter 向新簽及續約客戶贈送 AI Tokens。",
+        "和電香港宣布，為推動全民 AI 普及化，將推出一系列以 AI 為核心的創新產品及服務，夥拍 Basicware AI 向新上台及 5G 續約客戶送出合共 800 億個 AI 詞元。",
     },
     detail: "3hk-alibaba-basicware-alliance",
   },

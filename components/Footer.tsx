@@ -11,6 +11,9 @@ export default function Footer() {
   const tf = useTranslations("footer");
   const locale = useLocale();
   const { isMobile } = useBreakpoint();
+  const tagline = tf("tagline");
+  const taglineAccent = tf("taglineAccent");
+  const taglineParts = taglineAccent ? tagline.split(taglineAccent) : [tagline];
 
   const links = [
     { href: `/${locale}`, label: t("home") },
@@ -70,9 +73,9 @@ export default function Footer() {
               textWrap: "balance",
             }}
           >
-            {tf("tagline").split("Infinite").map((part, i, arr) =>
+            {taglineParts.map((part, i, arr) =>
               i < arr.length - 1
-                ? <span key={i}>{part}<em style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400, color: "#6cb8ff" }}>Infinite</em></span>
+                ? <span key={i}>{part}<em style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400, color: "#6cb8ff" }}>{taglineAccent}</em></span>
                 : <span key={i}>{part}</span>
             )}
           </p>

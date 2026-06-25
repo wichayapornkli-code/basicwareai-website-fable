@@ -121,9 +121,8 @@ export default function Breadcrumb({
                   aria-current="page"
                   style={{
                     color: current,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
+                    overflowWrap: "break-word",
+                    whiteSpace: "normal",
                     maxWidth: isMobile ? "min(240px, 55vw)" : "min(480px, 40vw)",
                   }}
                 >

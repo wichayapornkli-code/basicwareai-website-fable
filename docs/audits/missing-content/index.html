@@ -264,6 +264,17 @@
     .audit-table tbody tr:last-child td {
       border-bottom: none;
     }
+    .audit-table .cell--zh-tw-pending {
+      min-width: 120px;
+      background: rgba(11, 99, 206, 0.04);
+    }
+    .th-note {
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: normal;
+      text-transform: none;
+    }
     .field-cell {
       display: grid;
       gap: 8px;
@@ -339,15 +350,15 @@
         </p>
         <section class="summary-grid" aria-label="Audit summary">
           <article class="summary-card">
-            <strong>52</strong>
+            <strong>57</strong>
             <span>Total issue cards</span>
           </article>
           <article class="summary-card">
-            <strong>37</strong>
+            <strong>38</strong>
             <span>Marked missing</span>
           </article>
           <article class="summary-card">
-            <strong>13</strong>
+            <strong>17</strong>
             <span>Marked partial</span>
           </article>
           <article class="summary-card">
@@ -357,7 +368,7 @@
         </section>
         <nav aria-label="Page sections">
           <ul class="nav-list">
-            <li><a href="#homepage">Homepage <span>(12)</span></a></li><li><a href="#news">News <span>(11)</span></a></li><li><a href="#contact">Contact <span>(10)</span></a></li><li><a href="#about">About <span>(5)</span></a></li><li><a href="#success-stories">Success Stories <span>(5)</span></a></li><li><a href="#products">Products <span>(2)</span></a></li><li><a href="#token-selling-page">Token selling page <span>(1)</span></a></li><li><a href="#locale">Locale <span>(2)</span></a></li><li><a href="#implementation">Implementation <span>(4)</span></a></li>
+            <li><a href="#homepage">Homepage <span>(17)</span></a></li><li><a href="#news">News <span>(11)</span></a></li><li><a href="#contact">Contact <span>(10)</span></a></li><li><a href="#about">About <span>(5)</span></a></li><li><a href="#success-stories">Success Stories <span>(5)</span></a></li><li><a href="#products">Products <span>(2)</span></a></li><li><a href="#token-selling-page">Token selling page <span>(1)</span></a></li><li><a href="#locale">Locale <span>(2)</span></a></li><li><a href="#implementation">Implementation <span>(4)</span></a></li>
           </ul>
         </nav>
       </header>
@@ -367,26 +378,29 @@
         <div>
           <p class="eyebrow">Page Audit</p>
           <h2>Homepage</h2>
-          <p class="page-summary">12 issue cards, 12 missing, 0 partial.</p>
+          <p class="page-summary">17 issue cards, 12 missing, 5 partial.</p>
         </div>
         <div class="page-stats">
           <span>12 missing</span>
-          <span>0 partial</span>
+          <span>5 partial</span>
         </div>
       </header>
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/homepage-zh.png" alt="Homepage in Simplified Chinese on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>Homepage in Simplified Chinese on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>Homepage in English on local preview.</span>
+        </div>
+        <figcaption>Homepage in English on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
       <ul>
-        <li>Brand story (6)</li><li>Practice detail cards (4)</li><li>Outcomes carousel (2)</li>
+        <li>Brand story (6)</li><li>Practice detail cards (4)</li><li>Outcomes carousel (2)</li><li>Success stories carousel (5)</li>
       </ul>
     </div>
   
@@ -415,7 +429,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -434,9 +448,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>· Brand story ·</td>
+      <td>· 品牌故事 ·</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -453,9 +467,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>AI Business Co-Creation</td>
+      <td>AI 商业共创</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -472,9 +486,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Basicware AI partners with world-class top AI large model (LLM) developers through commercial research and application, focusing on being an AI business co-creation partner for global clients and building a bridge between clients and business value with an enterprise community mindset.</td>
+      <td>Basicware AI 通过商业研发与落地应用，携手全球顶尖 AI 大模型 LLM 研发厂商，专注成为全球客户的 AI 商业共创伙伴，以企业共同体思维，搭建客户与商业价值之间的桥梁。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -491,9 +505,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>We focus on AI technology implementation, abandon superficial technical concepts, integrate cutting-edge AI technologies into clients&#39; entire business processes with the world&#39;s latest top AI technologies and agile iteration capabilities, solve pain points such as difficult technology landing, weak business transformation and blocked cross-border expansion, and move forward side by side with clients as partners.</td>
+      <td>我们深耕 AI 技术落地，摒弃虚浮技术概念，以世界最新顶尖 AI 科技与敏捷迭代能力，将前沿 AI 技术融入客户全业务流程，破解技术落地难、商业转化弱、跨国拓展受阻等痛点，与客户以伙伴身份并肩前行。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -510,9 +524,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>The brand adheres to the core propositions of client success, global cutting-edge tech confidence, and global symbiosis. Embracing the world&#39;s latest cutting-edge AI technologies and facing the global market, we help enterprises break geographical and industry barriers, optimize business processes and explore growth space. In the future, we will continue to take AI as the bond to jointly build a business ecosystem and expand global markets with global clients, unlocking unlimited corporate potential.</td>
+      <td>品牌坚守客户成功、全球顶尖科技自信、全球共生的核心主张，拥抱世界最新顶尖 AI 科技，放眼全球市场，助力企业打破地域与行业壁垒，优化业务流程、挖掘增长空间。未来，我们将持续以 AI 为纽带，携手全球客户共建商业生态，共拓全球市场，释放企业无限潜力。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -531,7 +545,7 @@
       <td>-</td>
       <td>Our full story</td>
       <td>完整品牌故事</td>
-      <td>完整品牌故事</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -561,7 +575,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -579,10 +593,10 @@
           </div>
         </div>
       </td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Source: messages/en.json → practice.cards[0].body (AI Commerce)</td>
+      <td>AI-powered marketing and growth across the full funnel — from content creation and ad placement to conversion optimization. AIGC production, TikTok/Douyin growth services, and data-driven e-commerce operations for brands, merchants, and agencies.</td>
+      <td>覆盖全漏斗的 AI 营销与增长——从内容创作、广告投放到转化优化。AIGC 内容生产、TikTok/抖音增长服务，以及面向品牌、商家和代理商的数据驱动电商运营。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -598,10 +612,10 @@
           </div>
         </div>
       </td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Source: messages/en.json → practice.cards[1].body (AI Agent)</td>
+      <td>Deploy intelligent digital employees that don&#39;t just chat — they execute. OpenClaw enables one-click deployment of AI agents across customer support, sales, HR, finance, operations, and R&amp;D — with 24/7 multi-channel integration.</td>
+      <td>部署真正能执行任务的智能数字员工。OpenClaw 支持一键部署 AI 智能体，覆盖客服、销售、HR、财务、运营和研发，7×24 小时多渠道集成。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -617,10 +631,10 @@
           </div>
         </div>
       </td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Source: messages/en.json → practice.cards[2].body (AI Education)</td>
+      <td>Building the AI talent pipeline for Asia-Pacific. Online and offline certification programs co-developed with ByteDance and Pearson, delivered through government and university partnerships across Hong Kong, Macau, Malaysia, and Southeast Asia.</td>
+      <td>构建亚太地区的 AI 人才培育体系。与字节跳动和培生联合开发线上线下认证课程，通过香港、澳门、马来西亚及东南亚的政府和高校合作伙伴广泛落地。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -636,10 +650,10 @@
           </div>
         </div>
       </td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Source: messages/en.json → practice.cards[3].body (Centralized Token Control)</td>
+      <td>One API, every model. BasicRouter unifies access to 10+ global AI foundation models — Qwen, Doubao, DeepSeek, GPT, Gemini, Claude — with enterprise-grade security, real-time cost analytics, and flexible multi-cloud billing.</td>
+      <td>一个 API，接入所有模型。BasicRouter 统一接入 10+ 全球主流 AI 基础模型——通义、豆包、DeepSeek、GPT、Gemini、Claude——提供企业级安全、实时费用分析与灵活的多云计费方案。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -669,7 +683,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -687,10 +701,10 @@
           </div>
         </div>
       </td>
-      <td>-</td>
-      <td>Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks.</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS_EN[1] (Kotler Impact)</td>
+      <td>Kotler Impact has entered into a strategic collaboration with ByteDance and Basicware AI to jointly launch AI FIRST — a transformative global initiative to deliver accessible, practical and high-value AI education to people of all ages, backgrounds and proficiency levels across the globe.</td>
+      <td>享誉全球的世界营销峰会主办机构 Kotler Impact 集团与 TikTok 母公司字节跳动、Basicware AI 达成战略合作，共同推出全球变革性项目「AI 先行计划（AI FIRST）」，旨在让全球不同年龄、不同背景、不同专业水平的人群都能接触到实用、高价值的人工智能教育。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -706,10 +720,137 @@
           </div>
         </div>
       </td>
-      <td>-</td>
-      <td>Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks.</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS_EN[2] (Local State-owned Enterprise)</td>
+      <td>We provide end-to-end services for enterprises to build exclusive AI digital employee avatars for over 50 core staff members. Through full-cycle data monitoring and AI intelligent analytics, we accurately assess employees&#39; adaptability to the AI era, delivering actionable decision-making support for large-scale AI rollouts.</td>
+      <td>为企业 50 余名核心人员提供专属 AI 数字员工分身搭建的全流程服务。帮助企业员工快速搭建适配自身工作的专属 AI 数字分身，实现全场景工作提效；同时通过全周期数据监测与 AI 智能分析，精准评估企业员工适配 AI 时代的能力，为后续规模化 AI 部署提供可落地的决策依据。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="success-stories-carousel">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Success stories carousel</h3>
+          <p class="section-summary">5 field entries, 0 missing, 5 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>5 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Homepage</td>
+      <td>Success stories carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>Kotler card quote</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS[*].quote</td>
+      <td>Kotler Impact has entered into a strategic collaboration with ByteDance and Basicware AI to jointly launch AI FIRST — a transformative global initiative to deliver accessible, practical and high-value AI education to people of all ages, backgrounds and proficiency levels across the globe.</td>
+      <td>享誉全球的世界营销峰会主办机构 Kotler Impact 集团与 TikTok 母公司字节跳动、Basicware AI 达成战略合作，共同推出全球变革性项目「AI 先行计划（AI FIRST）」，旨在让全球不同年龄、不同背景、不同专业水平的人群都能接触到实用、高价值的人工智能教育。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Success stories carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>AI FIRST stat value</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS_ZH[1].stats[2].value</td>
+      <td>AI FIRST</td>
+      <td>AI 先行计划</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Success stories carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>Global Programme stat label</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS[*][1].stats[2].label</td>
+      <td>Global Programme</td>
+      <td>全球项目</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Success stories carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>Countries stat label</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS[*][1].stats[0].label</td>
+      <td>Countries</td>
+      <td>覆盖国家/地区</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Success stories carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>Founding Partners stat label</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Source: components/home/SuccessStoriesSection.tsx → CARDS[*][1].stats[1].label</td>
+      <td>Founding Partners</td>
+      <td>核心创始合作方</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -736,11 +877,14 @@
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/news-en.png" alt="News listing page on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>News listing page on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>News listing page on local preview.</span>
+        </div>
+        <figcaption>News listing page on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
@@ -774,7 +918,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -793,9 +937,9 @@
         </div>
       </td>
       <td>-</td>
+      <td>Dedicated /news page</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -825,7 +969,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -845,8 +989,8 @@
       </td>
       <td>-</td>
       <td>Fresh from the field.</td>
-      <td>Fresh from the field.</td>
-      <td>Fresh from the field.</td>
+      <td>一线快讯。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -876,7 +1020,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -896,8 +1040,8 @@
       </td>
       <td>-</td>
       <td>View all</td>
-      <td>View all</td>
-      <td>View all</td>
+      <td>查看全部</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -927,7 +1071,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -947,8 +1091,8 @@
       </td>
       <td>-</td>
       <td>The latest from</td>
-      <td>The latest from</td>
-      <td>The latest from</td>
+      <td>最新资讯来自</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -967,7 +1111,7 @@
       <td>-</td>
       <td>Basicware</td>
       <td>Basicware</td>
-      <td>Basicware</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -985,8 +1129,8 @@
       </td>
       <td>-</td>
       <td>News &amp; Press Release</td>
-      <td>News &amp; Press Release</td>
-      <td>News &amp; Press Release</td>
+      <td>新闻与新闻稿</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1004,8 +1148,8 @@
       </td>
       <td>-</td>
       <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
-      <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
-      <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
+      <td>汇集 Basicware 在 AI、云和企业转型领域的最新动态、合作进展与一线观察。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1035,7 +1179,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1055,8 +1199,8 @@
       </td>
       <td>-</td>
       <td>Official release</td>
-      <td>Official release</td>
-      <td>Official release</td>
+      <td>官方新闻稿</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1075,7 +1219,7 @@
       <td>-</td>
       <td>View on Hutchison Telecom Hong Kong (English)</td>
       <td>在和记电讯香港查看官方新闻稿</td>
-      <td>在和記電訊香港查看官方新聞稿</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1105,7 +1249,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1123,10 +1267,10 @@
           </div>
         </div>
       </td>
-      <td>Article excerpt EN: &quot;HTHK unveils INMO GO3 AI glasses, an AI Travel Planner, and partners with Basicware AI to offer complimentary AI Tokens via BasicRouter for new and renewing subscribers.&quot;,</td>
+      <td>Article excerpt EN: &quot;HTHK will partner with Basicware AI to roll out a large-model experience campaign, distributing 80 billion AI tokens to new subscribers and 5G contract renewal customers via BasicRouter.&quot;,</td>
       <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
       <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1156,7 +1300,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1170,14 +1314,14 @@
           <div class="issue-meta">
             <span class="badge badge--status badge--partial">partial</span>
             <span class="badge badge--priority">Medium</span>
-            <span class="badge badge--source">code</span>
+            <span class="badge badge--source">csv</span>
           </div>
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Fresh from the field. / View all / News &amp; Press Release</td>
+      <td>一线快讯。 / 查看全部 / 新闻与新闻稿</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1204,11 +1348,14 @@
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/contact-zh.png" alt="Contact page in Simplified Chinese on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>Contact page in Simplified Chinese on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>Contact page in Simplified Chinese on local preview.</span>
+        </div>
+        <figcaption>Contact page in Simplified Chinese on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
@@ -1242,7 +1389,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1263,7 +1410,7 @@
       <td>-</td>
       <td>Full name</td>
       <td>全名</td>
-      <td>全名</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1282,7 +1429,7 @@
       <td>-</td>
       <td>Email address</td>
       <td>电子邮件地址</td>
-      <td>電子郵件地址</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1301,7 +1448,7 @@
       <td>-</td>
       <td>Company</td>
       <td>公司名称</td>
-      <td>公司名稱</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1320,7 +1467,7 @@
       <td>-</td>
       <td>What are you working on?</td>
       <td>您在做什么？</td>
-      <td>您在做什麼？</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1339,7 +1486,7 @@
       <td>-</td>
       <td>Send message</td>
       <td>发送消息</td>
-      <td>發送消息</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1358,7 +1505,7 @@
       <td>-</td>
       <td>Sending…</td>
       <td>发送中…</td>
-      <td>發送中…</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1377,7 +1524,7 @@
       <td>-</td>
       <td>Message sent.</td>
       <td>消息已发送。</td>
-      <td>消息已發送。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1396,7 +1543,7 @@
       <td>-</td>
       <td>We&#39;ll be in touch within one business day.</td>
       <td>我们将在一个工作日内与您联系。</td>
-      <td>我們將在一個工作日內與您聯繫。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1415,7 +1562,7 @@
       <td>-</td>
       <td>Something went wrong. Please try again.</td>
       <td>出现错误，请重试。</td>
-      <td>出現錯誤，請重試。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1445,7 +1592,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1459,14 +1606,14 @@
           <div class="issue-meta">
             <span class="badge badge--status badge--partial">partial</span>
             <span class="badge badge--priority">Medium</span>
-            <span class="badge badge--source">code</span>
+            <span class="badge badge--source">csv</span>
           </div>
         </div>
       </td>
       <td>-</td>
+      <td>The report should call out that the local contact page is currently email-only, even though form strings exist in locale files.</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1493,11 +1640,14 @@
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/about-en.png" alt="About page on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>About page on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>About page on local preview.</span>
+        </div>
+        <figcaption>About page on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
@@ -1531,7 +1681,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1552,7 +1702,7 @@
       <td>-</td>
       <td>AI Business Co-Creation.</td>
       <td>AI 商业共创</td>
-      <td>AI 商業共創</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1571,7 +1721,7 @@
       <td>-</td>
       <td>Founded to Break the Deadlock.</td>
       <td>为打破僵局而生</td>
-      <td>為打破僵局而生</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1590,7 +1740,7 @@
       <td>-</td>
       <td>AI Enabler of Enterprise Community</td>
       <td>企业共同体的 AI 赋能者</td>
-      <td>企業共同體的 AI 賦能者</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1609,7 +1759,7 @@
       <td>-</td>
       <td>Empowered by AI, Unlimited Global Possibilities</td>
       <td>以 AI 打开全球无限可能</td>
-      <td>AI 賦能，打開全球無限可能</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1627,8 +1777,8 @@
       </td>
       <td>-</td>
       <td>What drives us</td>
-      <td>什麼驅動著我們</td>
-      <td>什麼驅動著我們</td>
+      <td>什么驱动着我们</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1655,11 +1805,14 @@
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/success-stories-zh.png" alt="Success story detail page in Simplified Chinese on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>Success story detail page in Simplified Chinese on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>Success story detail page in Simplified Chinese on local preview.</span>
+        </div>
+        <figcaption>Success story detail page in Simplified Chinese on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
@@ -1693,7 +1846,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1714,7 +1867,7 @@
       <td>-</td>
       <td>Customer Satisfaction / Content Efficiency / Operational Efficiency</td>
       <td>客户满意度 / 内容效率 / 运营效率</td>
-      <td>客戶滿意度 / 內容效率 / 運營效率</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1730,10 +1883,10 @@
           </div>
         </div>
       </td>
-      <td>Case study 1 ZH headline: 从默默无闻，到不可或缺。单月受众规模暴涨 40 倍，新增粉丝 63200 位 | Case study 1 ZH-TW headline: 從默默無聞，到不可或缺。單月受眾規模暴漲 40 倍，新增粉絲 63200 位</td>
+      <td>Source: components/success-stories/CaseStudyDetailPage.tsx → CHALLENGE_BODY (shared template on all detail pages)</td>
+      <td>Not found</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1749,10 +1902,10 @@
           </div>
         </div>
       </td>
-      <td>Case study 3 ZH headline: 在一个月内，为企业制作高质量的系列产品宣传视频用于企业的全球市场营销活动，使企业产品曝光量提升 200%，并为企业降低 70% 的市场营销成本。 | Case study 3 ZH-TW headline: 在一個月內，為企業製作高質量的系列產品宣傳視頻用於企業的全球市場營銷活動，使企業產品曝光量提升 200%，並為企業降低 70% 的市場營銷成本。</td>
+      <td>Source: components/success-stories/CaseStudyDetailPage.tsx → SOLUTION_BODY (shared template on all detail pages)</td>
+      <td>Not found</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -1768,10 +1921,10 @@
           </div>
         </div>
       </td>
-      <td>Case study 5 EN short headline: Co-launching AI FIRST — a global AI education initiative. | Case study 5 ZH short headline: 联合发起 AI FIRST 全球 AI 教育项目。</td>
+      <td>Source: components/success-stories/CaseStudyDetailPage.tsx → RESULTS (shared template on all detail pages)</td>
+      <td>Key Results card titles and bodies</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1801,7 +1954,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1820,9 +1973,9 @@
         </div>
       </td>
       <td>No local Case Study 7 object is present in `lib/case-studies.ts`.</td>
+      <td>Macau AI Education case study</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1849,11 +2002,14 @@
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/products-en.png" alt="BasicRouter product page on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>BasicRouter product page on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>BasicRouter product page on local preview.</span>
+        </div>
+        <figcaption>BasicRouter product page on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
@@ -1887,7 +2043,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1906,9 +2062,9 @@
         </div>
       </td>
       <td>BasicRouter EN FAQ count: See lib/products.ts with 3 FAQs in EN product data.</td>
+      <td>FAQs / Who it&#39;s for / CTA blocks beyond CSV bullets</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1938,7 +2094,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1957,9 +2113,9 @@
         </div>
       </td>
       <td>Available product ids include: token, employees, content, education</td>
+      <td>Full product page if separate from solutions card</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -1986,11 +2142,14 @@
       <div class="page-layout">
         <div class="page-visual">
           
-    <figure class="page-shot">
-      <img src="screenshots/basicrouter-en.png" alt="BasicRouter marketing page on local preview." width="1280" height="900" loading="lazy" />
-      <figcaption>BasicRouter marketing page on local preview.</figcaption>
-    </figure>
-  
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>BasicRouter marketing page on local preview.</span>
+        </div>
+        <figcaption>BasicRouter marketing page on local preview.</figcaption>
+      </figure>
+    
           
     <div class="page-checklist">
       <h3>Quick scan</h3>
@@ -2024,7 +2183,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -2045,7 +2204,7 @@
       <td>-</td>
       <td>One API. Every leading AI model. Zero vendor lock-in.</td>
       <td>一个 API，连接全球顶尖 AI 模型，彻底摆脱厂商绑定。</td>
-      <td>一個 API，連接全球頂尖 AI 模型，徹底擺脫廠商綁定。</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -2062,11 +2221,11 @@
         <div>
           <p class="eyebrow">Page Audit</p>
           <h2>Locale</h2>
-          <p class="page-summary">2 issue cards, 1 missing, 1 partial.</p>
+          <p class="page-summary">2 issue cards, 2 missing, 0 partial.</p>
         </div>
         <div class="page-stats">
-          <span>1 missing</span>
-          <span>1 partial</span>
+          <span>2 missing</span>
+          <span>0 partial</span>
         </div>
       </header>
       <div class="page-layout">
@@ -2096,11 +2255,11 @@
         <div>
           <p class="section-kicker">Section</p>
           <h3>zh-tw</h3>
-          <p class="section-summary">2 field entries, 1 missing, 1 partial.</p>
+          <p class="section-summary">2 field entries, 2 missing, 0 partial.</p>
         </div>
         <div class="section-stats">
-          <span>1 missing</span>
-          <span>1 partial</span>
+          <span>2 missing</span>
+          <span>0 partial</span>
         </div>
       </header>
       <div class="table-wrap">
@@ -2113,7 +2272,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -2132,9 +2291,9 @@
         </div>
       </td>
       <td>Local dev server responds on `/zh-tw`.</td>
+      <td>Traditional Chinese locale and routing</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -2144,16 +2303,16 @@
         <div class="field-cell">
           <strong>Local route availability</strong>
           <div class="issue-meta">
-            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--status badge--missing">missing</span>
             <span class="badge badge--priority">High</span>
-            <span class="badge badge--source">code</span>
+            <span class="badge badge--source">csv</span>
           </div>
         </div>
       </td>
       <td>-</td>
+      <td>The audit should distinguish between deployed 404 behavior and current local route availability.</td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -2221,7 +2380,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -2240,9 +2399,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>Ai 赋能</td>
-      <td>Ai 賦能</td>
+      <td>Ai vs AI in Chinese hero</td>
+      <td>AI 赋能</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -2272,7 +2431,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -2291,9 +2450,9 @@
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>什麼驅動著我們</td>
-      <td>什麼驅動著我們</td>
+      <td>Traditional chars in Simplified file</td>
+      <td>什么驱动着我们</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
     <tr>
@@ -2305,14 +2464,14 @@
           <div class="issue-meta">
             <span class="badge badge--status badge--missing">missing</span>
             <span class="badge badge--priority">Low</span>
-            <span class="badge badge--source">code</span>
+            <span class="badge badge--source">csv</span>
           </div>
         </div>
       </td>
       <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
+      <td>Simplified Chinese file should use Simplified script for the values title.</td>
+      <td>什么驱动着我们</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>
@@ -2342,7 +2501,7 @@
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -2363,7 +2522,7 @@
       <td>-</td>
       <td>AI Large Model Specialist</td>
       <td>首席技术顾问</td>
-      <td>首席技術顧問</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   
           </tbody>

@@ -41,6 +41,10 @@ export default function LogoScroller() {
         backgroundColor: isDark ? "#0d0d0d" : "#fff",
         padding: "20px 0 28px",
         overflow: "hidden",
+        width: "100%",
+        maxWidth: "100vw",
+        minWidth: 0,
+        boxSizing: "border-box",
       }}
     >
       <div

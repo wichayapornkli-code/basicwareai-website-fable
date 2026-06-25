@@ -12,7 +12,7 @@
     "home": "首页"
   },
   "hero": {
-    "titlePart1": "Ai 赋能",
+    "titlePart1": "AI 赋能",
     "titleAccent": "打开",
     "titlePart1b": "全球",
     "titlePart2": "无限可能",
@@ -129,7 +129,8 @@
     ]
   },
   "footer": {
-    "tagline": "Ai 赋能 打开全球无限可能",
+    "tagline": "AI 赋能 打开全球无限可能",
+    "taglineAccent": "无限可能",
     "subtagline": "总部位于香港 · 服务遍及中国地区、东南亚、日本及更广泛地区",
     "copyright": "版权所有。"
   },
@@ -151,6 +152,7 @@
     "title": "让我们共同构建卓越的未来。",
     "body": "告诉我们您正在做什么。无论是从零开始还是扩展现有业务——我们将帮助您找到下一步。",
     "tagline": "总部位于香港 · 服务遍及东南亚及更广泛地区",
+    "reachUsAt": "联系我们",
     "form": {
       "name": "全名",
       "email": "电子邮件地址",
@@ -172,20 +174,157 @@
     "line1Accent": "AI 为您",
     "line2": "的业务赋能"
   },
+  "solutionsPage": {
+    "headingBefore": "五种方式",
+    "headingEm": "助您增长",
+    "learnMore": "了解更多 →",
+    "resultsHeadingBefore": "成果",
+    "resultsHeadingEm": "不言而喻",
+    "ctaTitleBefore": "让我们找到您最快的",
+    "ctaTitleEm": "AI 增长路径",
+    "solutions": [
+      {
+        "id": "token",
+        "title": "集中式 Token 管理",
+        "shortDesc": "一个网关连接全球顶尖 AI 模型。一次接入，自由切换，无限扩展。",
+        "longDesc": "一站式聚合 GPT、Gemini、豆包、通义、Claude、DeepSeek 等国内外主流大语言模型。作为首批获得 Seedance 2.0 授权的海外企业之一，我们提供企业级安全、实时成本分析与灵活的多云计费方案，显著降低企业在多模型集成、采购和运维上的投入。",
+        "testimonialQuote": "“Basicware 的 AI 解决方案改变了我们的业务。他们的专业团队和前沿技术帮助我们实现了前所未有的增长与效率提升。”",
+        "testimonialAuthor": "— Anya Sharma，StellarTech 首席执行官",
+        "bulletsTitle": "您将获得：",
+        "bullets": [
+          "一个 API，即时接入 10+ 个全球领先 AI 模型",
+          "降本增效：一次集成即可调用所有模型，省去多平台接入流程，将数月开发工作压缩至数天",
+          "团队统一账单与实时成本监控",
+          "企业级安全：端到端加密、分级权限、完整审计追踪",
+          "云厂商直供，不采集您的对话数据"
+        ],
+        "ctaLabel": "了解更多"
+      },
+      {
+        "id": "employees",
+        "title": "AI 数字员工",
+        "shortDesc": "团队不应把大量时间耗在不需要人工完成的事务上。OpenClaw 可部署全天候运作的 AI 数字员工。",
+        "longDesc": "面向企业打造的大规模 AI 协作系统，支持一键部署 AI 工作节点，并兼容飞书、WhatsApp、微信等多种协作平台。系统配备企业级权限控制、API Key 管理和成本监控能力，可生成覆盖营销、客服、销售、研发、运维和知识管理等多角色的数字员工，实现 7×24 小时自动化办公，提升组织协作效率。",
+        "testimonialQuote": "“OpenClaw 的 AI 智能体在夜间接管了我们的客户支持。响应时间从数小时降至数秒，满意度提升了 85%。”",
+        "testimonialAuthor": "— 游戏公司运营负责人",
+        "bulletsTitle": "可覆盖角色：",
+        "bullets": [
+          "品牌营销：内容排期、社媒监测、活动报告",
+          "客户支持：7×24 小时多语言响应、智能转人工",
+          "销售助理：线索跟进、会议安排、报价生成",
+          "人力资源：简历筛选、入职流程、员工档案",
+          "财务：单据核验、月结、税务申报"
+        ],
+        "ctaLabel": "了解更多"
+      },
+      {
+        "id": "content",
+        "title": "AI 内容与增长",
+        "shortDesc": "营销团队需要更快、更多格式、更多渠道地生产内容，而压力只会继续增加。",
+        "longDesc": "我们与字节跳动旗下抖音、TikTok、火山引擎保持深度集成。依托 AIGC 技术，批量生产文案、图片、短视频、虚拟直播间等营销资产，并通过智能数据算法实现精准广告投放、用户洞察分析和私域运营，帮助品牌、电商商家与跨境企业降本增效、提升 GMV。",
+        "testimonialQuote": "“我们的 TikTok 账号在一个月内从 3,000 粉丝增长到 63,200。没有 Basicware，我们无法实现 40 倍增长。”",
+        "testimonialAuthor": "— 酒店品牌营销总监",
+        "bulletsTitle": "我们交付：",
+        "bullets": [
+          "AI 文案：营销文案、广告标题、商品描述、社交内容",
+          "AI 图片生成：广告创意与视觉内容，数小时内完成而非数周",
+          "AI 视频生产：自动剪辑与动态内容生成",
+          "数字人直播：支持多语言的虚拟主播",
+          "TikTok 与抖音增长：端到端短视频策略与效果优化"
+        ],
+        "ctaLabel": "了解更多"
+      },
+      {
+        "id": "education",
+        "title": "AI 教育",
+        "shortDesc": "如果团队不知道如何使用 AI，AI 转型就难以落地。我们帮助组织补齐这道能力缺口。",
+        "longDesc": "构建覆盖亚太地区的 AI 人才培养体系。我们与 BytePlus（字节跳动）和 Pearson 联合推出权威 AI 认证体系，并与香港、澳门及东南亚的高校和地方政府合作，提供线上线下培训项目，建立标准化 AI 人才发展路径，持续为产业输送具备实战能力的人才。",
+        "testimonialQuote": "“这项认证让我们的团队获得了竞争优势，在区域内被认可，也受到每一位企业客户重视。”",
+        "testimonialAuthor": "— 大学合作伙伴培训负责人",
+        "bulletsTitle": "包含内容：",
+        "bullets": [
+          "线上课程：面向跨地区团队的 AI 技能训练",
+          "线下课程与测评：通过区域合作伙伴开展面授教学",
+          "AI 工程师认证：由 TikTok 与 Pearson 联合认证，获区域内政府与企业认可",
+          "认证由顶级平台与全球权威机构联合独家颁发，具备较高行业价值"
+        ],
+        "ctaLabel": "了解更多"
+      },
+      {
+        "id": "multicloud",
+        "title": "多云计算平台",
+        "shortDesc": "整合全球多云资源，构建弹性统一的算力底座，为全场景 AI 应用提供稳定可靠的计算能力。",
+        "longDesc": "我们整合阿里云、腾讯云、AWS、华为云等五大主流全球云厂商资源，打造稳定、弹性的统一计算基础设施，为各类 AI 应用提供高可靠算力支持。",
+        "testimonialQuote": "",
+        "testimonialAuthor": "",
+        "bulletsTitle": "核心优势：",
+        "bullets": [
+          "聚合主流全球云生态，资源覆盖完整、调度灵活",
+          "多云冗余架构保障稳定运行与高可用性",
+          "统一运维管理，大幅降低企业算力采购与维护成本"
+        ],
+        "ctaLabel": "联系我们"
+      }
+    ],
+    "results": [
+      { "target": 40, "prefix": "", "suffix": "x", "label": "酒店品牌受众增长" },
+      { "target": 4, "prefix": "$", "suffix": "M", "label": "游戏公司新增营收" },
+      { "target": 300, "prefix": "", "suffix": "%", "label": "跨行业运营效率提升" }
+    ]
+  },
+  "successStoriesDetail": {
+    "challengeHeading": "挑战",
+    "solutionHeading": "解决方案",
+    "resultsHeading": "关键成果",
+    "metrics": [
+      { "value": "40×", "label": "受众增长" },
+      { "value": "63,200", "label": "新增粉丝" },
+      { "value": "85%", "label": "生产时间减少" }
+    ],
+    "challengeBody": "客户希望在竞争激烈的多语言市场中扩大数字影响力，但内容团队的大部分时间都耗在低价值的生产任务上，几乎没有余力投入策略规划。原有工具彼此割裂，需要在六个平台之间手动交接，也导致品牌输出不够一致。",
+    "solutionBody": "Basicware 部署了一套统一的 AI 内容与分发平台，并根据客户的品牌语气和目标市场进行定制。我们的专有模型组合可同时处理创意构思、内容生成与渠道优化，覆盖 12 种语言和 6 个平台；同时保留人工审核环节，在不拖慢产出的前提下确保编辑质量。",
+    "results": [
+      { "title": "受众增长 40 倍", "body": "通过 AI 优化的跨渠道发布与实时互动评分，在一个月内实现增长。" },
+      { "title": "新增粉丝 63,200", "body": "通过算法定时发布和语言本地化内容，在所有平台实现自然获客。" },
+      { "title": "内容生产提速 85%", "body": "内容交付周期从 4 天缩短至 8 小时以内，让团队重新聚焦品牌策略。" }
+    ]
+  },
+  "productDetail": {
+    "problem": "问题所在",
+    "howItWorks": "运作方式",
+    "included": "核心功能",
+    "whoFor": "适合哪些人",
+    "ctaTitle": "准备好开始了吗？",
+    "ctaBody": "联系我们，了解适合您团队的方案。",
+    "faq": "常见问题"
+  },
+  "basicRouter": {
+    "finalCta": "联系我们"
+  },
+  "newsArticle": {
+    "share": "分享",
+    "copied": "已复制",
+    "linkCopied": "链接已复制"
+  },
+  "pagination": {
+    "previous": "上一页",
+    "next": "下一页",
+    "page": "第 {page} 页"
+  },
   "newsHero": {
-    "line1": "Fresh from the field."
+    "line1": "一线快讯。"
   },
   "homeNews": {
-    "viewAll": "View all"
+    "viewAll": "查看全部"
   },
   "newsPage": {
-    "sectionTitleLine1": "The latest from",
+    "sectionTitleLine1": "最新资讯来自",
     "sectionTitleAccent": "Basicware",
-    "sectionEyebrow": "News & Press Release",
-    "sectionBody": "Updates, partnerships, and field notes from Basicware's work across AI, cloud, and enterprise transformation."
+    "sectionEyebrow": "新闻与新闻稿",
+    "sectionBody": "汇集 Basicware 在 AI、云和企业转型领域的最新动态、合作进展与一线观察。"
   },
   "pressRelease3hk": {
-    "officialHeading": "Official release",
+    "officialHeading": "官方新闻稿",
     "officialLink": "在和记电讯香港查看官方新闻稿"
   },
   "about": {
@@ -256,8 +395,8 @@
     },
     "values": {
       "eyebrow": "我们的价值主张",
-      "title": "什麼驅動著我們",
-      "subtitle": "五項原則，指引我們在每個市場、與每位客戶的合作方式。",
+      "title": "什么驱动着我们",
+      "subtitle": "五项原则，指引我们在每个市场、与每位客户的合作方式。",
       "cards": [
         {
           "title": "客户成功即品牌成功",

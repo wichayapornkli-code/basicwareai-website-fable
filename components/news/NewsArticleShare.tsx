@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
@@ -32,6 +33,7 @@ type Props = {
 
 export default function NewsArticleShare({ onLight = false }: Props) {
   const { isDark } = useDark();
+  const t = useTranslations("newsArticle");
   const [copied, setCopied] = useState(false);
   const color = onLight ? "#fff" : isDark ? "#e0e0e0" : "#141414";
 
@@ -50,14 +52,14 @@ export default function NewsArticleShare({ onLight = false }: Props) {
       type="button"
       className="bw-news-share"
       onClick={handleCopyLink}
-      aria-label={copied ? "Link copied" : "Share"}
+      aria-label={copied ? t("linkCopied") : t("share")}
       style={{
         color,
         fontFamily: FONT,
       }}
     >
       <LinkIcon />
-      <span>{copied ? "Copied" : "Share"}</span>
+      <span>{copied ? t("copied") : t("share")}</span>
     </button>
   );
 }

@@ -86,7 +86,7 @@ const CARDS_ZH: Card[] = [
     stats: [
       { value: "10+", label: "覆盖国家/地区" },
       { value: "3", label: "核心创始合作方" },
-      { value: "AI FIRST", label: "全球项目" },
+      { value: "AI 先行计划", label: "全球项目" },
     ],
   },
   {
@@ -128,7 +128,7 @@ const CARDS_ZH_TW: Card[] = [
     stats: [
       { value: "10+", label: "覆蓋國家/地區" },
       { value: "3", label: "核心創始合作方" },
-      { value: "AI FIRST", label: "全球項目" },
+      { value: "AI 先行計劃", label: "全球項目" },
     ],
   },
   {

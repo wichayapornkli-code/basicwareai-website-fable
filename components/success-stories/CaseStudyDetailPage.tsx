@@ -11,23 +11,17 @@ import { getContentLocaleKey, mergeWithEnglishFallback } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
-const METRICS = [
-  { value: "40×", label: "Audience growth" },
-  { value: "63,200", label: "New followers" },
-  { value: "85%", label: "Less production time" },
-];
+const RESULT_ICONS = ["📈", "👥", "⚡"];
 
-const CHALLENGE_BODY =
-  "The client was struggling to scale their digital presence in a competitive, multi-language market. Their content team was spending the majority of their time on low-impact production tasks, leaving little bandwidth for strategy. Existing tools were siloed, requiring manual handoffs between six different platforms and generating inconsistent brand output.";
+type MetricCopy = {
+  value: string;
+  label: string;
+};
 
-const SOLUTION_BODY =
-  "Basicware deployed a unified AI content and distribution platform, tailored to the client's brand voice and market. Our proprietary model blend handled ideation, creation, and channel optimisation simultaneously — across 12 languages and 6 platforms — with a human-in-the-loop review layer that kept editorial quality high without slowing output.";
-
-const RESULTS = [
-  { icon: "📈", title: "40× audience growth", body: "Achieved in a single month through AI-optimised cross-channel publishing and real-time engagement scoring." },
-  { icon: "👥", title: "63,200 new followers", body: "Organic acquisition across all platforms, driven by algorithmically timed, language-localised content bursts." },
-  { icon: "⚡", title: "85% faster production", body: "Content turnaround dropped from 4 days to under 8 hours, freeing the team to focus on brand strategy." },
-];
+type ResultCopy = {
+  title: string;
+  body: string;
+};
 
 export default function CaseStudyDetailPage({
   study,
@@ -39,8 +33,11 @@ export default function CaseStudyDetailPage({
   const { isDark } = useDark();
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
+  const td = useTranslations("successStoriesDetail");
   const heroRef = useRef<HTMLDivElement>(null);
   const localeKey = getContentLocaleKey(locale);
+  const metrics = td.raw("metrics") as MetricCopy[];
+  const results = td.raw("results") as ResultCopy[];
   const copy =
     localeKey === "zh"
       ? mergeWithEnglishFallback(study.en, study.zh)
@@ -139,7 +136,8 @@ export default function CaseStudyDetailPage({
                   fontWeight: 500,
                   fontSize: "var(--fs-body-sm)",
                   color: muted,
-                  whiteSpace: "nowrap",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
                 }}
               >
                 {tag}
@@ -175,7 +173,7 @@ export default function CaseStudyDetailPage({
             border: `1px solid ${border}`,
           }}
         >
-          {METRICS.map(({ value, label }, i) => (
+          {metrics.map(({ value, label }, i) => (
             <div
               key={i}
               style={{
@@ -203,20 +201,20 @@ export default function CaseStudyDetailPage({
           {/* Challenge */}
           <section>
             <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
-              {localeKey === "zhTw" ? "挑戰" : localeKey === "zh" ? "挑战" : "The Challenge"}
+              {td("challengeHeading")}
             </p>
             <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
-              {CHALLENGE_BODY}
+              {td("challengeBody")}
             </p>
           </section>
 
           {/* Solution */}
           <section>
             <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
-              {localeKey === "zhTw" ? "解決方案" : localeKey === "zh" ? "解决方案" : "The Solution"}
+              {td("solutionHeading")}
             </p>
             <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
-              {SOLUTION_BODY}
+              {td("solutionBody")}
             </p>
           </section>
         </div>
@@ -227,10 +225,10 @@ export default function CaseStudyDetailPage({
         {/* Results */}
         <div style={{ marginBottom: "64px" }}>
           <p style={{ margin: "0 0 32px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-md)", color: text }}>
-            {localeKey === "zhTw" ? "關鍵成果" : localeKey === "zh" ? "关键成果" : "Key Results"}
+            {td("resultsHeading")}
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
-            {RESULTS.map(({ icon, title, body }, i) => (
+            {results.map(({ title, body }, i) => (
               <div
                 key={i}
                 style={{
@@ -243,7 +241,7 @@ export default function CaseStudyDetailPage({
                   gap: "12px",
                 }}
               >
-                <span style={{ fontSize: "28px" }}>{icon}</span>
+                <span style={{ fontSize: "28px" }}>{RESULT_ICONS[i]}</span>
                 <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body)", color: text, letterSpacing: "-0.2px" }}>{title}</p>
                 <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body)", lineHeight: 1.65, color: muted }}>{body}</p>
               </div>

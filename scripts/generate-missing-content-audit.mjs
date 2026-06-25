@@ -10,16 +10,18 @@ const CSV_PATH = path.join(ROOT, "docs/missing-content-gaps.csv");
 const OUTPUT_DIR = path.join(ROOT, "docs/audits/missing-content");
 const SCREENSHOT_DIR = path.join(OUTPUT_DIR, "screenshots");
 const OUTPUT_HTML = path.join(OUTPUT_DIR, "index.html");
+const OUTPUT_TABLE_CSV = path.join(OUTPUT_DIR, "translation-table.csv");
 
 const EN_MESSAGES = readJson("messages/en.json");
 const ZH_MESSAGES = readJson("messages/zh.json");
-const ZH_TW_MESSAGES = readJson("messages/zh-tw.json");
 const NEWS_SOURCE = readFile("lib/news.ts");
 const CASE_STUDIES_SOURCE = readFile("lib/case-studies.ts");
 const PRODUCTS_SOURCE = readFile("lib/products.ts");
 const CONTACT_SOURCE = readFile("components/contact/ContactPage.tsx");
 const BRAND_STORY_SOURCE = readFile("components/home/BrandStorySection.tsx");
 const OUTCOMES_SOURCE = readFile("components/home/CustomerOutcomes.tsx");
+const CASE_STUDY_DETAIL_SOURCE = readFile("components/success-stories/CaseStudyDetailPage.tsx");
+const SUCCESS_STORIES_HOME_SOURCE = readFile("components/home/SuccessStoriesSection.tsx");
 
 const PAGE_ORDER = [
   "Homepage",
@@ -137,38 +139,224 @@ function deriveStatus(row) {
 }
 
 function localeSummary(row) {
-  return `EN ${row.en || "-"} / ZH ${row.zh || "-"} / ZH-TW ${row.zhTw || "-"}`;
+  return `EN ${row.en || "-"} / ZH ${row.zh || "-"} / ZH-TW (for translator)`;
+}
+
+const TRANSLATOR_ZH = {
+  "News|News hero|line1": "一线快讯。",
+  "News|Home news|viewAll": "查看全部",
+  "News|News page|sectionTitleLine1": "最新资讯来自",
+  "News|News page|sectionTitleAccent": "Basicware",
+  "News|News page|sectionEyebrow": "新闻与新闻稿",
+  "News|News page|sectionBody":
+    "汇集 Basicware 在 AI、云和企业转型领域的最新动态、合作进展与一线观察。",
+  "News|Press release labels|officialHeading": "官方新闻稿",
+  "Homepage|Success stories carousel|AI FIRST stat value": "AI 先行计划",
+};
+
+function extractHomeSuccessCard(locale, authorNeedle) {
+  const arrayName = locale === "zh" ? "CARDS_ZH" : "CARDS_EN";
+  const arrayStart = SUCCESS_STORIES_HOME_SOURCE.indexOf(`const ${arrayName}`);
+  const nextArray = SUCCESS_STORIES_HOME_SOURCE.indexOf("const ", arrayStart + 1);
+  const arrayBlock = SUCCESS_STORIES_HOME_SOURCE.slice(
+    arrayStart,
+    nextArray === -1 ? undefined : nextArray,
+  );
+  const segment = arrayBlock
+    .split(/\n\s*\},\s*\n/)
+    .find((part) => part.includes(`author: "${authorNeedle}"`));
+  if (!segment) return null;
+
+  const quote = segment.match(/quote:\s*\n\s*"([\s\S]*?)"/)?.[1]?.replace(/\s+/g, " ").trim() ?? "-";
+  const stats = [...segment.matchAll(/\{\s*value:\s*"([^"]*)",\s*label:\s*"([^"]*)"\s*\}/g)].map(
+    ([, value, label]) => ({ value, label }),
+  );
+
+  return { quote, stats };
+}
+
+function homeSuccessCardEvidence({ enAuthor, zhAuthor, sourceLabel }) {
+  const en = extractHomeSuccessCard("en", enAuthor);
+  const zh = extractHomeSuccessCard("zh", zhAuthor);
+  if (!en || !zh) {
+    return {
+      currentText: [`Source: components/home/SuccessStoriesSection.tsx → ${sourceLabel}`],
+      codeNote: "Could not extract homepage success story card copy from SuccessStoriesSection.tsx.",
+    };
+  }
+
+  return {
+    currentText: [
+      `Source: components/home/SuccessStoriesSection.tsx → ${sourceLabel}`,
+      `EN quote: ${en.quote}`,
+      `ZH quote: ${zh.quote}`,
+    ],
+    codeNote: "Homepage success stories carousel uses hardcoded card arrays in SuccessStoriesSection.tsx.",
+    en,
+    zh,
+  };
+}
+
+const PRACTICE_CARD_LABELS = ["AI Commerce", "AI Agent", "AI Education", "Centralized Token Control"];
+
+function extractCaseStudyDetailConstant(name) {
+  const pattern = new RegExp(`const ${name}\\s*=\\s*\\n?\\s*"([\\s\\S]*?)";`);
+  return CASE_STUDY_DETAIL_SOURCE.match(pattern)?.[1] ?? "Not found";
+}
+
+function extractCaseStudyDetailResults() {
+  const block = CASE_STUDY_DETAIL_SOURCE.match(/const RESULTS = \[([\s\S]*?)\];/)?.[1] ?? "";
+  return [...block.matchAll(/\{\s*icon:\s*"[^"]*",\s*title:\s*"([^"]*)",\s*body:\s*"([^"]*)"\s*\}/g)].map(
+    ([, title, body]) => ({ title, body }),
+  );
+}
+
+function formatResultCards(cards) {
+  return cards.map((card) => `${card.title} — ${card.body}`).join(" | ");
+}
+
+function practiceCardEvidence(index) {
+  const card = EN_MESSAGES.practice.cards[index];
+  const zhCard = ZH_MESSAGES.practice.cards[index];
+  return {
+    currentText: [
+      `Source: messages/en.json → practice.cards[${index}].body (${PRACTICE_CARD_LABELS[index]})`,
+      `EN: ${card.body}`,
+      `ZH: ${zhCard.body}`,
+    ],
+    codeNote: `Long-form practice copy for ${card.title} exists in locale files; the homepage currently shows only the short grid tagline.`,
+  };
 }
 
 function buildEvidenceMap() {
+  const challengeBody = extractCaseStudyDetailConstant("CHALLENGE_BODY");
+  const solutionBody = extractCaseStudyDetailConstant("SOLUTION_BODY");
+  const resultCards = extractCaseStudyDetailResults();
+  const kotlerCard = homeSuccessCardEvidence({
+    enAuthor: "Kotler Impact",
+    zhAuthor: "Kotler Impact",
+    sourceLabel: "CARDS[*] Kotler Impact card",
+  });
+  const stateOwnedCard = homeSuccessCardEvidence({
+    enAuthor: "Local State-owned Enterprise",
+    zhAuthor: "国有烟草企业",
+    sourceLabel: "CARDS[*] Local State-owned Enterprise card",
+  });
+
   return {
+    "Homepage|Brand story|Eyebrow": {
+      currentText: [
+        `EN: ${EN_MESSAGES.home.brandStory.eyebrow}`,
+        `ZH: ${ZH_MESSAGES.home.brandStory.eyebrow}`,
+      ],
+      codeNote: "Brand story eyebrow exists locally in all locale files but the section is not on the deployed homepage.",
+    },
+    "Homepage|Brand story|Title": {
+      currentText: [
+        `EN: ${EN_MESSAGES.home.brandStory.title}`,
+        `ZH: ${ZH_MESSAGES.home.brandStory.title}`,
+      ],
+      codeNote: "Brand story title is localized in Simplified Chinese; Traditional Chinese is left for the translator.",
+    },
+    "Homepage|Brand story|Paragraph 1": {
+      currentText: [
+        `EN: ${EN_MESSAGES.home.brandStory.p1}`,
+        `ZH: ${ZH_MESSAGES.home.brandStory.p1}`,
+      ],
+      codeNote: "First brand story paragraph is present locally with Simplified Chinese copy.",
+    },
+    "Homepage|Brand story|Paragraph 2": {
+      currentText: [
+        `EN: ${EN_MESSAGES.home.brandStory.p2}`,
+        `ZH: ${ZH_MESSAGES.home.brandStory.p2}`,
+      ],
+      codeNote: "Second brand story paragraph is present locally with Simplified Chinese copy.",
+    },
+    "Homepage|Brand story|Paragraph 3": {
+      currentText: [
+        `EN: ${EN_MESSAGES.home.brandStory.p3}`,
+        `ZH: ${ZH_MESSAGES.home.brandStory.p3}`,
+      ],
+      codeNote: "Third brand story paragraph is present locally with Simplified Chinese copy.",
+    },
     "Homepage|Brand story|Link text": {
       currentText: [
         `EN: ${EN_MESSAGES.home.brandStory.link}`,
         `ZH: ${ZH_MESSAGES.home.brandStory.link}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.home.brandStory.link}`,
       ],
       codeNote: "The local homepage brand story section already renders a CTA link, but the deployed homepage does not show this section.",
     },
+    "Homepage|Practice detail cards|Card 1 body": practiceCardEvidence(0),
+    "Homepage|Practice detail cards|Card 2 body": practiceCardEvidence(1),
+    "Homepage|Practice detail cards|Card 3 body": practiceCardEvidence(2),
+    "Homepage|Practice detail cards|Card 4 body": practiceCardEvidence(3),
     "Homepage|Outcomes carousel|Snippet 2": {
       currentText: [
-        `EN card 2 headline: ${EN_MESSAGES.outcomes.cards[1].headline}`,
-        `EN card 2 body: ${EN_MESSAGES.outcomes.cards[1].body}`,
+        `Source: components/home/SuccessStoriesSection.tsx → CARDS_EN[1] (Kotler Impact)`,
+        `EN: ${kotlerCard.en?.quote ?? "-"}`,
+        `ZH: ${kotlerCard.zh?.quote ?? "-"}`,
       ],
-      codeNote: "The local outcomes carousel still repeats the HR Technology story pattern instead of showing distinct CSV snippets for Kotler Impact and Local State-owned Tobacco.",
+      codeNote: "CSV labels this Kotler Impact snippet; the live homepage copy is in the success stories carousel, not messages/outcomes.cards.",
     },
     "Homepage|Outcomes carousel|Snippet 3": {
       currentText: [
-        `EN card 3 headline: ${EN_MESSAGES.outcomes.cards[2].headline}`,
-        `EN card 3 body: ${EN_MESSAGES.outcomes.cards[2].body}`,
+        `Source: components/home/SuccessStoriesSection.tsx → CARDS_EN[2] (Local State-owned Enterprise)`,
+        `EN: ${stateOwnedCard.en?.quote ?? "-"}`,
+        `ZH: ${stateOwnedCard.zh?.quote ?? "-"}`,
       ],
-      codeNote: "The third homepage outcome card also reuses the same HR Technology narrative rather than the CSV-specific short story.",
+      codeNote: "CSV labels this Local State-owned Tobacco snippet; the live homepage copy is in the success stories carousel.",
+    },
+    "Homepage|Success stories carousel|Kotler card quote": {
+      currentText: [
+        `Source: components/home/SuccessStoriesSection.tsx → CARDS[*].quote`,
+        `EN: ${kotlerCard.en?.quote ?? "-"}`,
+        `ZH: ${kotlerCard.zh?.quote ?? "-"}`,
+      ],
+      codeNote: "Kotler Impact carousel quote is localized in Simplified Chinese; Traditional Chinese is left for the translator.",
+    },
+    "Homepage|Success stories carousel|AI FIRST stat value": {
+      currentText: [
+        "Source: components/home/SuccessStoriesSection.tsx → CARDS_ZH[1].stats[2].value",
+        `EN: ${kotlerCard.en?.stats[2]?.value ?? "AI FIRST"}`,
+        `ZH: ${kotlerCard.zh?.stats[2]?.value ?? "AI FIRST"}`,
+      ],
+      codeNote: "The programme badge still shows `AI FIRST` in Simplified Chinese even though the quote uses 「AI 先行计划（AI FIRST）」.",
+    },
+    "Homepage|Success stories carousel|Global Programme stat label": {
+      currentText: [
+        "Source: components/home/SuccessStoriesSection.tsx → CARDS[*][1].stats[2].label",
+        `EN: ${kotlerCard.en?.stats[2]?.label ?? "Global Programme"}`,
+        `ZH: ${kotlerCard.zh?.stats[2]?.label ?? "-"}`,
+      ],
+      codeNote: "The stat label is localized; the adjacent stat value `AI FIRST` is not.",
+    },
+    "Homepage|Success stories carousel|Countries stat label": {
+      currentText: [
+        "Source: components/home/SuccessStoriesSection.tsx → CARDS[*][1].stats[0].label",
+        `EN: ${kotlerCard.en?.stats[0]?.label ?? "-"}`,
+        `ZH: ${kotlerCard.zh?.stats[0]?.label ?? "-"}`,
+      ],
+      codeNote: "First Kotler stat label on the homepage carousel card.",
+    },
+    "Homepage|Success stories carousel|Founding Partners stat label": {
+      currentText: [
+        "Source: components/home/SuccessStoriesSection.tsx → CARDS[*][1].stats[1].label",
+        `EN: ${kotlerCard.en?.stats[1]?.label ?? "-"}`,
+        `ZH: ${kotlerCard.zh?.stats[1]?.label ?? "-"}`,
+      ],
+      codeNote: "Second Kotler stat label on the homepage carousel card.",
+    },
+    "News|Locale carry-over|zh and zh-tw page copy": {
+      currentText: [
+        `EN: ${EN_MESSAGES.newsHero.line1} / ${EN_MESSAGES.homeNews.viewAll} / ${EN_MESSAGES.newsPage.sectionEyebrow}`,
+        `ZH: ${TRANSLATOR_ZH["News|News hero|line1"]} / ${TRANSLATOR_ZH["News|Home news|viewAll"]} / ${TRANSLATOR_ZH["News|News page|sectionEyebrow"]}`,
+      ],
+      codeNote: "Several news UI strings are still English in zh.json; suggested Simplified Chinese is shown in the table for translator reference.",
     },
     "News|News hero|line1": {
       currentText: [
         `EN: ${EN_MESSAGES.newsHero.line1}`,
         `ZH: ${ZH_MESSAGES.newsHero.line1}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.newsHero.line1}`,
       ],
       codeNote: "The Chinese locale files still keep the English hero line word for word.",
     },
@@ -176,7 +364,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.homeNews.viewAll}`,
         `ZH: ${ZH_MESSAGES.homeNews.viewAll}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.homeNews.viewAll}`,
       ],
       codeNote: "The Chinese locale files keep the English CTA label `View all` instead of localized text.",
     },
@@ -184,7 +371,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.newsPage.sectionTitleLine1}`,
         `ZH: ${ZH_MESSAGES.newsPage.sectionTitleLine1}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.newsPage.sectionTitleLine1}`,
       ],
       codeNote: "All three locale files currently use the same English line in the listing page heading.",
     },
@@ -192,7 +378,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.newsPage.sectionTitleAccent}`,
         `ZH: ${ZH_MESSAGES.newsPage.sectionTitleAccent}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.newsPage.sectionTitleAccent}`,
       ],
       codeNote: "The accent line is identical across locales and is not localized in Chinese files.",
     },
@@ -200,7 +385,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.newsPage.sectionEyebrow}`,
         `ZH: ${ZH_MESSAGES.newsPage.sectionEyebrow}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.newsPage.sectionEyebrow}`,
       ],
       codeNote: "Both Chinese files still keep the English eyebrow text.",
     },
@@ -208,7 +392,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.newsPage.sectionBody}`,
         `ZH: ${ZH_MESSAGES.newsPage.sectionBody}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.newsPage.sectionBody}`,
       ],
       codeNote: "The news listing body copy is still English in all locales, even though the page route exists locally.",
     },
@@ -216,7 +399,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.pressRelease3hk.officialHeading}`,
         `ZH: ${ZH_MESSAGES.pressRelease3hk.officialHeading}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.pressRelease3hk.officialHeading}`,
       ],
       codeNote: "The 3HK press release component renders this label, but the Chinese locale files still keep it in English.",
     },
@@ -224,7 +406,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.pressRelease3hk.officialLink}`,
         `ZH: ${ZH_MESSAGES.pressRelease3hk.officialLink}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.pressRelease3hk.officialLink}`,
       ],
       codeNote: "The external release CTA is visible in code and still uses English text in both Chinese locale files.",
     },
@@ -239,7 +420,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.name}`,
         `ZH: ${ZH_MESSAGES.contact.form.name}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.name}`,
       ],
       codeNote: "The local contact page currently uses an email-only card rather than the fuller form strings listed in locale files and CSV.",
     },
@@ -247,7 +427,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.email}`,
         `ZH: ${ZH_MESSAGES.contact.form.email}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.email}`,
       ],
       codeNote: "Field copy exists in locale files, but the current visible local implementation does not render the full form.",
     },
@@ -255,7 +434,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.company}`,
         `ZH: ${ZH_MESSAGES.contact.form.company}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.company}`,
       ],
       codeNote: "This form field label exists in translation files but does not appear in the current contact page component.",
     },
@@ -263,7 +441,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.message}`,
         `ZH: ${ZH_MESSAGES.contact.form.message}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.message}`,
       ],
       codeNote: "The local contact page uses a direct email card rather than a textarea field, so this copy is present only as dormant translation data.",
     },
@@ -271,7 +448,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.submit}`,
         `ZH: ${ZH_MESSAGES.contact.form.submit}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.submit}`,
       ],
       codeNote: "The submit CTA is translated in locale files, but no visible submit button is rendered in the current component.",
     },
@@ -279,7 +455,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.submitting}`,
         `ZH: ${ZH_MESSAGES.contact.form.submitting}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.submitting}`,
       ],
       codeNote: "Transient submission copy exists in locale files only; the current contact page does not have submit-state UI.",
     },
@@ -287,7 +462,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.successTitle}`,
         `ZH: ${ZH_MESSAGES.contact.form.successTitle}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.successTitle}`,
       ],
       codeNote: "Success feedback copy exists in messages, but the present local contact page does not render a form success state.",
     },
@@ -295,7 +469,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.successBody}`,
         `ZH: ${ZH_MESSAGES.contact.form.successBody}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.successBody}`,
       ],
       codeNote: "The CSV correctly distinguishes between the deployed email-first contact page and the dormant local form-state copy.",
     },
@@ -303,7 +476,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.contact.form.errorBody}`,
         `ZH: ${ZH_MESSAGES.contact.form.errorBody}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.contact.form.errorBody}`,
       ],
       codeNote: "Error-state wording is localized in files but not currently reachable in the visible contact page implementation.",
     },
@@ -311,7 +483,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN title: ${EN_MESSAGES.about.brandCore.title}`,
         `ZH title: ${ZH_MESSAGES.about.brandCore.title}`,
-        `ZH-TW title: ${ZH_TW_MESSAGES.about.brandCore.title}`,
       ],
       codeNote: "The About page already contains the rewritten multi-section structure locally, which supports the CSV-driven replacement request.",
     },
@@ -319,7 +490,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN title: ${EN_MESSAGES.about.brandIntent.title}`,
         `ZH title: ${ZH_MESSAGES.about.brandIntent.title}`,
-        `ZH-TW title: ${ZH_TW_MESSAGES.about.brandIntent.title}`,
       ],
       codeNote: "Brand Intent is implemented as a three-card section locally and can be cited word for word from locale files.",
     },
@@ -327,7 +497,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN title: ${EN_MESSAGES.about.ourRole.title}`,
         `ZH title: ${ZH_MESSAGES.about.ourRole.title}`,
-        `ZH-TW title: ${ZH_TW_MESSAGES.about.ourRole.title}`,
       ],
       codeNote: "The local page already exposes the CSV-style `Our role` framing, unlike the older deployed version noted in the audit.",
     },
@@ -335,7 +504,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN title: ${EN_MESSAGES.about.ourVision.title}`,
         `ZH title: ${ZH_MESSAGES.about.ourVision.title}`,
-        `ZH-TW title: ${ZH_TW_MESSAGES.about.ourVision.title}`,
       ],
       codeNote: "The full `Our vision` section exists locally with localized paragraphs in all three locale files.",
     },
@@ -343,7 +511,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN title: ${EN_MESSAGES.about.values.title}`,
         `ZH title: ${ZH_MESSAGES.about.values.title}`,
-        `ZH-TW title: ${ZH_TW_MESSAGES.about.values.title}`,
       ],
       codeNote: "The local About page uses the new five-value layout, but the Simplified Chinese title currently contains Traditional Chinese script.",
     },
@@ -351,30 +518,29 @@ function buildEvidenceMap() {
       currentText: [
         `EN labels: ${EN_MESSAGES.successStories.stat1Label} / ${EN_MESSAGES.successStories.stat2Label} / ${EN_MESSAGES.successStories.stat4Label}`,
         `ZH labels: ${ZH_MESSAGES.successStories.stat1Label} / ${ZH_MESSAGES.successStories.stat2Label} / ${ZH_MESSAGES.successStories.stat4Label}`,
-        `ZH-TW labels: ${ZH_TW_MESSAGES.successStories.stat1Label} / ${ZH_TW_MESSAGES.successStories.stat2Label} / ${ZH_TW_MESSAGES.successStories.stat4Label}`,
       ],
       codeNote: "The page-level metric labels are localized, but the CSV note is about detail-page labels such as `Audience growth / New followers / Less production time` still showing in English on some detail views.",
     },
     "Success Stories|Case study detail|Challenge body": {
       currentText: [
-        `Case study 1 ZH headline: ${extractCaseStudyField(1, "zh", "headline")}`,
-        `Case study 1 ZH-TW headline: ${extractCaseStudyField(1, "zhTw", "headline")}`,
+        "Source: components/success-stories/CaseStudyDetailPage.tsx → CHALLENGE_BODY (shared template on all detail pages)",
+        `EN: ${challengeBody}`,
       ],
-      codeNote: "Case study source data is localized, but the detail-page challenge/solution/result template copy called out in the CSV is separate from these headlines.",
+      codeNote: "This paragraph is hardcoded in English on every case study detail page; it is not per-case-study copy from lib/case-studies.ts.",
     },
     "Success Stories|Case study detail|Solution body": {
       currentText: [
-        `Case study 3 ZH headline: ${extractCaseStudyField(3, "zh", "headline")}`,
-        `Case study 3 ZH-TW headline: ${extractCaseStudyField(3, "zhTw", "headline")}`,
+        "Source: components/success-stories/CaseStudyDetailPage.tsx → SOLUTION_BODY (shared template on all detail pages)",
+        `EN: ${solutionBody}`,
       ],
-      codeNote: "Localized story data exists in `lib/case-studies.ts`, but the challenge/solution template text still needs alignment at the detail-page level.",
+      codeNote: "This paragraph is hardcoded in English on every case study detail page; it is not per-case-study copy from lib/case-studies.ts.",
     },
     "Success Stories|Case study detail|Results cards": {
       currentText: [
-        `Case study 5 EN short headline: ${extractCaseStudyField(5, "en", "shortHeadline")}`,
-        `Case study 5 ZH short headline: ${extractCaseStudyField(5, "zh", "shortHeadline")}`,
+        "Source: components/success-stories/CaseStudyDetailPage.tsx → RESULTS (shared template on all detail pages)",
+        `EN: ${formatResultCards(resultCards)}`,
       ],
-      codeNote: "Result-oriented headlines exist in the case study dataset, which helps show the gap between available source material and the generic results-card template.",
+      codeNote: "These three result cards are the same MGM-style template on every detail page; ZH is not implemented yet in the component.",
     },
     "Success Stories|Case Study 7|All fields": {
       currentText: [
@@ -398,7 +564,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN headline: ${extractProductField("token", "en", "headline")}`,
         `ZH headline: ${extractProductField("token", "zh", "headline")}`,
-        `ZH-TW headline: ${extractProductField("token", "zhTw", "headline")}`,
       ],
       codeNote: "The local product source already includes long-form problem, how-it-works, feature, audience, CTA, and FAQ copy for BasicRouter.",
     },
@@ -411,14 +576,12 @@ function buildEvidenceMap() {
     "Implementation|Hero casing|titlePart1": {
       currentText: [
         `ZH hero part 1: ${ZH_MESSAGES.hero.titlePart1}`,
-        `ZH-TW hero part 1: ${ZH_TW_MESSAGES.hero.titlePart1}`,
       ],
       codeNote: "Both Chinese locale files currently use `Ai` casing rather than `AI` in the first hero fragment.",
     },
     "Implementation|zh.json script mix|about.values.title": {
       currentText: [
         `ZH current: ${ZH_MESSAGES.about.values.title}`,
-        `ZH-TW current: ${ZH_TW_MESSAGES.about.values.title}`,
       ],
       codeNote: "The Simplified Chinese title uses Traditional Chinese characters and should be normalized if exact script separation matters.",
     },
@@ -426,7 +589,6 @@ function buildEvidenceMap() {
       currentText: [
         `EN: ${EN_MESSAGES.about.team.members[4].title}`,
         `ZH: ${ZH_MESSAGES.about.team.members[4].title}`,
-        `ZH-TW: ${ZH_TW_MESSAGES.about.team.members[4].title}`,
       ],
       codeNote: "English uses `AI Large Model Specialist`, while both Chinese locale files currently use `首席技术顾问 / 首席技術顧問`.",
     },
@@ -457,6 +619,86 @@ function extractProductField(id, locale, field) {
 
 function buildSupplementalFindings() {
   return [
+    {
+      id: "supplemental-home-ai-first",
+      page: "Homepage",
+      section: "Success stories carousel",
+      field: "Kotler card quote",
+      needed: "Kotler Impact homepage carousel quote",
+      en: "Yes",
+      zh: "Partial",
+      zhTw: "Partial",
+      deployed: "Partial",
+      priority: "Medium",
+      action: "Translate remaining English programme labels on the Kotler homepage carousel card.",
+      notes: "Quote is localized, but the stat badge still shows `AI FIRST` in English on /zh.",
+      status: "partial",
+      source: "code",
+    },
+    {
+      id: "supplemental-home-ai-first-stat",
+      page: "Homepage",
+      section: "Success stories carousel",
+      field: "AI FIRST stat value",
+      needed: "AI FIRST",
+      en: "Yes",
+      zh: "No",
+      zhTw: "No",
+      deployed: "Partial",
+      priority: "Medium",
+      action: "Localize the Kotler carousel stat value from `AI FIRST` to the Chinese programme name.",
+      notes: "Suggested Simplified Chinese: `AI 先行计划`.",
+      status: "partial",
+      source: "code",
+    },
+    {
+      id: "supplemental-home-global-programme",
+      page: "Homepage",
+      section: "Success stories carousel",
+      field: "Global Programme stat label",
+      needed: "Global Programme",
+      en: "Yes",
+      zh: "Yes",
+      zhTw: "No",
+      deployed: "Partial",
+      priority: "Low",
+      action: "Provide Traditional Chinese for the adjacent programme label if needed.",
+      notes: "Simplified Chinese already uses `全球项目`.",
+      status: "partial",
+      source: "code",
+    },
+    {
+      id: "supplemental-home-kotler-countries",
+      page: "Homepage",
+      section: "Success stories carousel",
+      field: "Countries stat label",
+      needed: "Countries",
+      en: "Yes",
+      zh: "Yes",
+      zhTw: "No",
+      deployed: "Partial",
+      priority: "Low",
+      action: "Provide Traditional Chinese for Kotler carousel stat labels if needed.",
+      notes: "Simplified Chinese already uses `覆盖国家/地区`.",
+      status: "partial",
+      source: "code",
+    },
+    {
+      id: "supplemental-home-kotler-partners",
+      page: "Homepage",
+      section: "Success stories carousel",
+      field: "Founding Partners stat label",
+      needed: "Founding Partners",
+      en: "Yes",
+      zh: "Yes",
+      zhTw: "No",
+      deployed: "Partial",
+      priority: "Low",
+      action: "Provide Traditional Chinese for Kotler carousel stat labels if needed.",
+      notes: "Simplified Chinese already uses `核心创始合作方`.",
+      status: "partial",
+      source: "code",
+    },
     {
       id: "supplemental-zh-script",
       page: "Implementation",
@@ -641,23 +883,77 @@ function renderCurrentText(items) {
 }
 
 function extractExistingByLocale(issue) {
-  const result = { en: "-", zh: "-", zhTw: "-" };
+  const result = { en: "-", zh: "-" };
   for (const item of issue.currentText ?? []) {
-    const match = item.match(/^(EN|ZH-TW|ZH)(?:[^:]*)?:\s*(.*)$/);
+    const match = item.match(/^(EN|ZH)(?:[^:]*)?:\s*(.*)$/);
     if (!match) continue;
     const [, locale, value] = match;
     const normalized = value?.trim() || "-";
     if (locale === "EN") result.en = normalized;
     if (locale === "ZH") result.zh = normalized;
-    if (locale === "ZH-TW") result.zhTw = normalized;
   }
   return result;
+}
+
+function issueKey(issue) {
+  return `${issue.page}|${issue.section}|${issue.field}`;
+}
+
+function resolveTableEn(issue, existing) {
+  if (existing.en !== "-") return existing.en;
+  return issue.needed?.trim() || "-";
+}
+
+function resolveTableZh(issue, existing) {
+  const key = issueKey(issue);
+  if (TRANSLATOR_ZH[key]) return TRANSLATOR_ZH[key];
+  if (existing.zh !== "-" && existing.zh !== existing.en) return existing.zh;
+  if (existing.zh !== "-") return existing.zh;
+  return "-";
 }
 
 function extractSingleValue(issue) {
   const nonLocaleItems = (issue.currentText ?? []).filter((item) => !/^(EN|ZH|ZH-TW)(?:[^:]*)?:\s*/.test(item));
   if (nonLocaleItems.length === 0) return "-";
   return nonLocaleItems.join(" | ");
+}
+
+function buildTableRow(issue) {
+  const existing = extractExistingByLocale(issue);
+  return {
+    page: issue.page,
+    section: issue.section,
+    field: issue.field,
+    single: extractSingleValue(issue),
+    en: resolveTableEn(issue, existing),
+    zh: resolveTableZh(issue, existing),
+    zhTw: "",
+  };
+}
+
+function escapeCsvCell(value) {
+  const text = String(value ?? "");
+  if (/[",\r\n]/.test(text)) {
+    return `"${text.replaceAll('"', '""')}"`;
+  }
+  return text;
+}
+
+function buildTranslationTableCsv(issuesByPage) {
+  const headers = ["Page", "Section", "Field", "Single", "EN", "ZH", "ZH-TW"];
+  const rows = [];
+
+  for (const page of PAGE_ORDER) {
+    for (const issue of issuesByPage[page] ?? []) {
+      const row = buildTableRow(issue);
+      rows.push(headers.map((header) => {
+        const key = header === "ZH-TW" ? "zhTw" : header.toLowerCase();
+        return escapeCsvCell(row[key]);
+      }).join(","));
+    }
+  }
+
+  return `${headers.join(",")}\n${rows.join("\n")}\n`;
 }
 
 function groupIssuesBySection(issues) {
@@ -671,15 +967,14 @@ function groupIssuesBySection(issues) {
 }
 
 function renderIssueRow(issue) {
-  const existing = extractExistingByLocale(issue);
-  const single = extractSingleValue(issue);
+  const row = buildTableRow(issue);
   return `
     <tr>
-      <td>${escapeHtml(issue.page)}</td>
-      <td>${escapeHtml(issue.section)}</td>
+      <td>${escapeHtml(row.page)}</td>
+      <td>${escapeHtml(row.section)}</td>
       <td>
         <div class="field-cell">
-          <strong>${escapeHtml(issue.field)}</strong>
+          <strong>${escapeHtml(row.field)}</strong>
           <div class="issue-meta">
             <span class="badge badge--status badge--${escapeHtml(issue.status)}">${escapeHtml(issue.status)}</span>
             <span class="badge badge--priority">${escapeHtml(issue.priority || "Code note")}</span>
@@ -687,10 +982,10 @@ function renderIssueRow(issue) {
           </div>
         </div>
       </td>
-      <td>${escapeHtml(single)}</td>
-      <td>${escapeHtml(existing.en)}</td>
-      <td>${escapeHtml(existing.zh)}</td>
-      <td>${escapeHtml(existing.zhTw)}</td>
+      <td>${escapeHtml(row.single)}</td>
+      <td>${escapeHtml(row.en)}</td>
+      <td>${escapeHtml(row.zh)}</td>
+      <td class="cell--zh-tw-pending" aria-label="Traditional Chinese for translator"></td>
     </tr>
   `;
 }
@@ -733,7 +1028,7 @@ function renderSectionGroup(section, issues) {
               <th>Single</th>
               <th>EN</th>
               <th>ZH</th>
-              <th>ZH-TW</th>
+              <th>ZH-TW <span class="th-note">(for translator)</span></th>
             </tr>
           </thead>
           <tbody>
@@ -1036,6 +1331,17 @@ function buildStyles() {
     .audit-table tbody tr:last-child td {
       border-bottom: none;
     }
+    .audit-table .cell--zh-tw-pending {
+      min-width: 120px;
+      background: rgba(11, 99, 206, 0.04);
+    }
+    .th-note {
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: normal;
+      text-transform: none;
+    }
     .field-cell {
       display: grid;
       gap: 8px;
@@ -1179,7 +1485,7 @@ async function main() {
   const csvRows = parseCsv(readFileSync(CSV_PATH, "utf8"));
   const evidenceMap = buildEvidenceMap();
   const enrichedRows = csvRows.map((row) => enrichRow(row, evidenceMap));
-  const supplementalFindings = buildSupplementalFindings();
+  const supplementalFindings = buildSupplementalFindings().map((row) => enrichRow(row, evidenceMap));
   const issuesByPage = groupIssues(enrichedRows, supplementalFindings);
   const summary = buildSummary(issuesByPage);
   const screenshotRun = await captureScreenshots(SCREENSHOT_TARGETS);
@@ -1193,7 +1499,9 @@ async function main() {
   }
 
   const html = buildHtml(summary, issuesByPage, screenshotsByPage);
+  const translationTableCsv = buildTranslationTableCsv(issuesByPage);
   writeFileSync(OUTPUT_HTML, html);
+  writeFileSync(OUTPUT_TABLE_CSV, translationTableCsv);
 
   console.log(`Parsed ${csvRows.length} CSV rows.`);
   console.log(`Rendered ${summary.totalIssues} total issue cards across ${summary.pages.length} page groups.`);
@@ -1204,6 +1512,7 @@ async function main() {
     console.log(`Captured ${okCount}/${screenshotRun.results.length} screenshots.`);
   }
   console.log(`Wrote ${path.relative(ROOT, OUTPUT_HTML)}`);
+  console.log(`Wrote ${path.relative(ROOT, OUTPUT_TABLE_CSV)}`);
 }
 
 main().catch((error) => {

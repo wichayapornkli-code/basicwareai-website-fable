@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
@@ -87,6 +88,7 @@ export default function Pagination({ currentPage, totalPages }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { isDark } = useDark();
+  const t = useTranslations("pagination");
 
   if (totalPages <= 1) return null;
 
@@ -112,7 +114,7 @@ export default function Pagination({ currentPage, totalPages }: Props) {
       }}
     >
       <PageButton
-        ariaLabel="Previous page"
+        ariaLabel={t("previous")}
         isDark={isDark}
         onClick={currentPage > 1 ? () => goToPage(currentPage - 1) : undefined}
       >
@@ -125,14 +127,14 @@ export default function Pagination({ currentPage, totalPages }: Props) {
           active={page === currentPage}
           isDark={isDark}
           onClick={() => goToPage(page)}
-          ariaLabel={`Page ${page}`}
+          ariaLabel={t("page", { page })}
         >
           {page}
         </PageButton>
       ))}
 
       <PageButton
-        ariaLabel="Next page"
+        ariaLabel={t("next")}
         isDark={isDark}
         onClick={
           currentPage < totalPages ? () => goToPage(currentPage + 1) : undefined

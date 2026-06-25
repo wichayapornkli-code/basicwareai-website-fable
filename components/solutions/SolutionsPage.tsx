@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDark } from "@/components/ThemeProvider";
@@ -17,6 +17,7 @@ type Solution = {
   title: string;
   shortDesc: string;
   longDesc: string;
+  ctaLabel: string;
   imageSrc: string;
   testimonialIconSrc: string;
   testimonialQuote: string;
@@ -25,115 +26,42 @@ type Solution = {
   bullets: string[];
 };
 
-const SOLUTIONS: Solution[] = [
+type SolutionCopy = Omit<Solution, "imageSrc" | "testimonialIconSrc">;
+
+const SOLUTION_META = [
   {
     id: "token",
-    title: "Centralized Token Control",
-    shortDesc:
-      "One gateway to the world's top AI models. Connect once, switch freely, scale without limits.",
-    longDesc:
-      "It aggregates mainstream domestic and overseas large language models including GPT, Gemini, Doubao, Qwen, Claude and DeepSeek in one stop. As one of the first overseas enterprises licensed for Seedance 2.0, we deliver enterprise-grade security, real-time cost analytics and flexible multi-cloud billing solutions, significantly cutting enterprises' expenses on multi-model integration, procurement and operation & maintenance.",
     imageSrc: "/assets/2_practice_01.avif",
     testimonialIconSrc: "/assets/solutions_01.png",
-    testimonialQuote:
-      '"Basicware\'s AI solutions transformed our business. Their team\'s expertise and cutting-edge technology helped us achieve unprecedented growth and efficiency."',
-    testimonialAuthor: "— Anya Sharma, CEO of StellarTech",
-    bulletsTitle: "What you get:",
-    bullets: [
-      "One API, instant access to 10+ leading global AI models",
-      "Cost Reduction & Efficiency Boost: Gain access to all models with a single integration, eliminating cumbersome multi-platform connection procedures and slashing months of development work down to just a few days",
-      "Unified billing and real-time cost monitoring across your whole team",
-      "Enterprise-grade security — end-to-end encryption, tiered permissions, full audit trail",
-      "Direct supply from cloud providers — no data collected from your conversations",
-    ],
   },
   {
     id: "employees",
-    title: "AI Digital Employees",
-    shortDesc:
-      "Your teams spend too much time on tasks that don't need a human. OpenClaw deploys AI digital employees that operate around the clock.",
-    longDesc:
-      "Built for enterprises, this large-scale AI collaborative system supports one-click deployment of AI work nodes and is compatible with various collaboration platforms including Lark, WhatsApp and WeChat. Equipped with enterprise-level permission control, API key management and cost monitoring functions, it can generate digital employees for multiple roles such as marketing, customer service, sales, R&D, operation & maintenance and knowledge management. It enables 24/7 automated office operations and improves organizational collaboration efficiency.",
     imageSrc: "/assets/2_practice_02.avif",
     testimonialIconSrc: "/assets/solutions_01.png",
-    testimonialQuote:
-      '"OpenClaw\'s AI agents handled our customer support overnight. Response time dropped from hours to seconds, and satisfaction scores climbed 85%."',
-    testimonialAuthor: "— Operations Lead, Gaming Co.",
-    bulletsTitle: "Roles available:",
-    bullets: [
-      "Brand Marketing — content scheduling, social media monitoring, campaign reporting",
-      "Customer Support — 24/7 multilingual responses, smart human handoff",
-      "Sales Assistant — lead follow-up, meeting scheduling, quote generation",
-      "HR — resume screening, onboarding, employee records",
-      "Finance — document verification, monthly closing, tax filing",
-    ],
   },
   {
     id: "content",
-    title: "AI Content & Growth",
-    shortDesc:
-      "Marketing teams are under pressure to produce more — faster, in more formats, across more channels than ever.",
-    longDesc:
-      "We maintain deep integration with ByteDance's Douyin, TikTok and VolcEngine. Powered by AIGC technology, we mass-produce marketing assets including copywriting, images, short videos and virtual live streamers. Intelligent data algorithms enable targeted ad placement, user insight analysis and private domain operations, helping brands, e-commerce merchants and cross-border businesses cut costs, boost efficiency and lift GMV.",
     imageSrc: "/assets/2_practice_03.avif",
     testimonialIconSrc: "/assets/solutions_01.png",
-    testimonialQuote:
-      '"Our TikTok account went from 3,000 to 63,200 followers in a single month. 40x growth we couldn\'t have achieved without Basicware."',
-    testimonialAuthor: "— Marketing Director, Hospitality Brand",
-    bulletsTitle: "What we deliver:",
-    bullets: [
-      "AI Copywriting — marketing copy, ad headlines, product descriptions, social posts",
-      "AI Image Generation — ad creatives and visual content, produced in hours not weeks",
-      "AI Video Production — automated editing, dynamic content generation",
-      "Digital Avatar Broadcast — virtual presenters with multi-language support",
-      "TikTok & Douyin Growth — end-to-end short-video strategy and performance optimization",
-    ],
   },
   {
     id: "education",
-    title: "AI Education",
-    shortDesc:
-      "AI adoption fails when teams don't know how to use it. We help organizations close that gap.",
-    longDesc:
-      "Build an AI talent cultivation system covering the Asia-Pacific region. We have launched an authoritative AI certification system in partnership with BytePlus (ByteDance) and Pearson. Cooperating with universities and local governments in Hong Kong, Macao and Southeast Asia, we provide online and offline training programs to build standardized pathways for AI talent development and continuously supply skilled professionals to the industry.",
     imageSrc: "/assets/2_practice_04.avif",
     testimonialIconSrc: "/assets/solutions_01.png",
-    testimonialQuote:
-      '"The certification gave our team a competitive edge. Recognized across the region and valued by every enterprise client we approached."',
-    testimonialAuthor: "— Head of Training, University Partner",
-    bulletsTitle: "What's included:",
-    bullets: [
-      "Online courses — AI skill training accessible to teams across geographies",
-      "Offline courses & assessments — in-person instruction delivered through regional partnerships",
-      "AI Engineer Certification — co-certified by TikTok and Pearson, recognized by governments and enterprises across the region",
-      "Issued exclusively in joint cooperation with top-tier platforms and globally authoritative institutions, the certification carries high industry value",
-    ],
   },
   {
     id: "multicloud",
-    title: "Multi-Cloud Computing Platform",
-    shortDesc:
-      "Unify global multi-cloud resources to build an elastic, unified computing foundation, delivering stable and reliable computing power for full-scenario AI applications.",
-    longDesc:
-      "We integrate resources from five major global cloud vendors including Alibaba Cloud, Tencent Cloud, AWS and Huawei Cloud to build a stable and elastic unified computing infrastructure, delivering highly reliable computing power to all types of AI applications.",
     imageSrc: "/assets/2_practice_05.avif",
     testimonialIconSrc: "/assets/solutions_01.png",
-    testimonialQuote: "",
-    testimonialAuthor: "",
-    bulletsTitle: "Core Advantages:",
-    bullets: [
-      "Aggregate mainstream global cloud ecosystems with full resource coverage and flexible scheduling",
-      "Multi-cloud redundant architecture ensures stable operation and high availability",
-      "Unified operation and management drastically cut enterprises' costs on computing resource procurement and maintenance",
-    ],
   },
 ];
 
-const RESULTS = [
-  { target: 40, prefix: "", suffix: "x", label: "audience growth for a hospitality brand" },
-  { target: 4, prefix: "$", suffix: "M", label: "in new revenue for a gaming company" },
-  { target: 300, prefix: "", suffix: "%", label: "increased operational efficiency across industries" },
-];
+type ResultCopy = {
+  target: number;
+  prefix: string;
+  suffix: string;
+  label: string;
+};
 
 // ─── Animated stat number ─────────────────────────────────────────────────────
 
@@ -184,8 +112,15 @@ export default function SolutionsPage() {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
   const locale = useLocale();
+  const t = useTranslations("solutionsPage");
+  const tStories = useTranslations("successStories");
   const [activeTab, setActiveTab] = useState(0);
-  const solution = SOLUTIONS[activeTab];
+  const solutions = (t.raw("solutions") as SolutionCopy[]).map((copy, index) => ({
+    ...copy,
+    ...SOLUTION_META[index],
+  }));
+  const results = t.raw("results") as ResultCopy[];
+  const solution = solutions[activeTab];
   const imageLeft = activeTab % 2 === 1;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const pinnedRef = useRef<HTMLDivElement>(null);
@@ -206,8 +141,8 @@ export default function SolutionsPage() {
         pinSpacing: false,
         onUpdate: (self) => {
           const next = Math.min(
-            Math.floor(self.progress * SOLUTIONS.length),
-            SOLUTIONS.length - 1
+            Math.floor(self.progress * solutions.length),
+            solutions.length - 1
           );
           if (next !== activeTabRef.current) {
             activeTabRef.current = next;
@@ -219,7 +154,7 @@ export default function SolutionsPage() {
 
     const tabParam = new URLSearchParams(window.location.search).get("tab");
     if (tabParam !== null) {
-      const tabIndex = Math.min(Math.max(parseInt(tabParam, 10) || 0, 0), SOLUTIONS.length - 1);
+      const tabIndex = Math.min(Math.max(parseInt(tabParam, 10) || 0, 0), solutions.length - 1);
       if (tabIndex > 0) {
         setTimeout(() => {
           const container = scrollContainerRef.current;
@@ -231,7 +166,7 @@ export default function SolutionsPage() {
     }
 
     return () => ctx.revert();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [solutions.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div style={{ backgroundColor: isDark ? "#0d0d0d" : "#ffffff", overflowX: "hidden", position: "relative", zIndex: 20 }}>
@@ -239,7 +174,7 @@ export default function SolutionsPage() {
       {/* ── Scroll container ─────────────────────────────────────────── */}
       <div
         ref={scrollContainerRef}
-        style={{ height: isMobile ? "auto" : `${SOLUTIONS.length * 75}vh` }}
+        style={{ height: isMobile ? "auto" : `${solutions.length * 75}vh` }}
       >
         <div
           ref={pinnedRef}
@@ -273,7 +208,7 @@ export default function SolutionsPage() {
                 textAlign: "center",
               }}
             >
-              Five ways <em>we help</em>
+              {t("headingBefore")} <em>{t("headingEm")}</em>
             </h2>
 
             {/* Pill tab nav (desktop) / dropdown (mobile) */}
@@ -299,7 +234,7 @@ export default function SolutionsPage() {
                     outline: "none",
                   }}
                 >
-                  {SOLUTIONS.map((s, i) => (
+                  {solutions.map((s, i) => (
                     <option key={s.id} value={i}>{s.title}</option>
                   ))}
                 </select>
@@ -311,16 +246,16 @@ export default function SolutionsPage() {
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "nowrap",
+                  flexWrap: "wrap",
                   gap: 8,
                   marginBottom: "clamp(12px, 1.5vw, 20px)",
                 }}
               >
-                {SOLUTIONS.map((s, i) => (
+                {solutions.map((s, i) => (
                   <button
                     key={s.id}
                     style={{
-                      flex: 1,
+                      flex: "1 1 150px",
                       background: activeTab === i
                         ? (isDark ? "#e0e0e0" : "#191c26")
                         : (isDark ? "#2a2a2a" : "#fff"),
@@ -335,7 +270,7 @@ export default function SolutionsPage() {
                         ? (isDark ? "#191c26" : "#fff")
                         : (isDark ? "rgba(255,255,255,0.4)" : "rgba(25,28,38,0.4)"),
                       letterSpacing: "-0.22px",
-                      whiteSpace: "nowrap",
+                      whiteSpace: "normal",
                       transition: "background 0.2s ease, color 0.2s ease, font-weight 0.2s ease",
                     }}
                   >
@@ -397,7 +332,7 @@ export default function SolutionsPage() {
                       marginTop: "4px",
                     }}
                   >
-                    Learn more →
+                    {t("learnMore")}
                   </Link>
                 </div>
 
@@ -499,7 +434,7 @@ export default function SolutionsPage() {
                 marginTop: "clamp(8px, 1vw, 12px)",
               }}
             >
-              {solution.id === "multicloud" ? "Get in touch" : "Read more"}
+              {solution.ctaLabel}
               <img src={isDark ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"} alt="" width={20} height={13} style={{ display: "block" }} />
             </Link>
           </div>
@@ -523,7 +458,7 @@ export default function SolutionsPage() {
             textAlign: "center",
           }}
         >
-          The results <em>speak</em>
+          {t("resultsHeadingBefore")} <em>{t("resultsHeadingEm")}</em>
         </h2>
         <div
           style={{
@@ -540,7 +475,7 @@ export default function SolutionsPage() {
           }}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1 }}>
-            {RESULTS.slice(0, 2).map((r) => (
+            {results.slice(0, 2).map((r) => (
               <div
                 key={r.suffix + r.prefix + r.label}
                 style={{
@@ -577,8 +512,8 @@ export default function SolutionsPage() {
               textAlign: "center",
             }}
           >
-            <AnimatedNumber target={RESULTS[2].target} prefix={RESULTS[2].prefix} suffix={RESULTS[2].suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414", maxWidth: 254 }}>{RESULTS[2].label}</p>
+            <AnimatedNumber target={results[2].target} prefix={results[2].prefix} suffix={results[2].suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414", maxWidth: 254 }}>{results[2].label}</p>
           </div>
         </div>
       </div>
@@ -600,13 +535,13 @@ export default function SolutionsPage() {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #ffffff, #003B63)", mixBlendMode: "screen" }} />
         <div style={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 24, textAlign: "center", maxWidth: 567, padding: "0 40px" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, width: "100%" }}>
-            <p className="bw-eyebrow" style={{ color: "#ffab1b", justifyContent: "center" }}>Next</p>
+            <p className="bw-eyebrow" style={{ color: "#ffab1b", justifyContent: "center" }}>{tStories("ctaEyebrow")}</p>
             <h2 className="bw-display" style={{ fontWeight: 600, fontSize: "var(--fs-heading-xl)", color: isDark ? "#e8e8e8" : "#141414" }}>
-              Let&apos;s find your fastest path to <em style={{ color: "inherit" }}>AI growth</em>
+              {t("ctaTitleBefore")} <em style={{ color: "inherit" }}>{t("ctaTitleEm")}</em>
             </h2>
           </div>
           <Link href={`/${locale}/contact`} className="bw-btn" style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "#141414", borderRadius: 40, padding: "16px 32px", textDecoration: "none", color: "#fff", fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.154px", whiteSpace: "nowrap" }}>
-            Talk to us
+            {tStories("ctaButton")}
             <img src="/assets/arrow-white.svg" alt="" width={13} height={13} style={{ display: "block" }} />
           </Link>
         </div>

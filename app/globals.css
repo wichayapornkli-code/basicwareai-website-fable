@@ -66,6 +66,17 @@ html {
   scroll-behavior: auto;
 }
 
+html:lang(zh),
+html:lang(zh-Hans),
+html:lang(zh-CN),
+html:lang(zh-tw),
+html:lang(zh-Hant),
+html:lang(zh-TW) {
+  line-break: strict;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
 body {
   margin: 0;
   padding: 0;
