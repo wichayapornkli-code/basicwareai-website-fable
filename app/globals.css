@@ -436,6 +436,27 @@ html.dark .bw-grain {
   100% { transform: translateY(0); opacity: 1; }
 }
 
+/* ── Practice Areas ─────────────────────────────────────────── */
+.practice-areas-section {
+  height: 350vh;
+  position: relative;
+}
+
+.practice-areas-list-wrap {
+  height: 50vh;
+}
+
+/* Medium-desktop (e.g. 1440px): all cards visible, no scroll-through */
+@media (min-width: 1280px) and (max-width: 1600px) {
+  .practice-areas-section {
+    height: 100vh;
+  }
+
+  .practice-areas-list-wrap {
+    height: 630px;
+  }
+}
+
 /* ── Reduced motion ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .bw-grain { animation: none; }

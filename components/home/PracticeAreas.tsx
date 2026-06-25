@@ -23,25 +23,33 @@ const PRODUCT_IDS: (string | null)[] = ["token", "content", "education", "employ
 function CardWrapper({
   href,
   style,
+  className,
   children,
 }: {
   href: string | null;
   style: CSSProperties;
+  className?: string;
   children: ReactNode;
 }) {
   if (href) {
     return (
-      <Link href={href} style={{ ...style, textDecoration: "none" }}>
+      <Link href={href} className={className} style={{ ...style, textDecoration: "none" }}>
         {children}
       </Link>
     );
   }
-  return <div style={style}>{children}</div>;
+  return <div className={className} style={style}>{children}</div>;
 }
 
 const CARD_H = 144;
 const CARD_GAP = 18;
 const LIST_H = IMAGES.length * CARD_H + (IMAGES.length - 1) * CARD_GAP;
+const COMPACT_DESKTOP_MIN = 1280;
+const COMPACT_DESKTOP_MAX = 1600;
+
+function isCompactDesktopWidth(width: number) {
+  return width >= COMPACT_DESKTOP_MIN && width <= COMPACT_DESKTOP_MAX;
+}
 
 
 export default function PracticeAreas() {
@@ -63,6 +71,15 @@ export default function PracticeAreas() {
     // Check viewport once at mount — never re-run on resize to avoid GSAP
     // pin conflicting with React's DOM reconciliation (removeChild crash)
     if (window.innerWidth < 768) return;
+
+    // 1280–1600px (e.g. 1440 design width): show all cards, no scroll-through pin
+    if (isCompactDesktopWidth(window.innerWidth)) {
+      const wrapH = listWrapperRef.current?.offsetHeight ?? LIST_H;
+      if (listRef.current) {
+        listRef.current.style.marginTop = `${Math.max(0, (wrapH - LIST_H) / 2)}px`;
+      }
+      return;
+    }
 
     const wrapH      = listWrapperRef.current?.offsetHeight ?? 0;
     const scrollDist = LIST_H - wrapH;
@@ -216,7 +233,7 @@ export default function PracticeAreas() {
   }
 
   return (
-    <div ref={containerRef} style={{ height: "350vh", position: "relative" }}>
+    <div ref={containerRef} className="practice-areas-section">
       <div
         ref={pinnedRef}
         style={{
@@ -254,13 +271,16 @@ export default function PracticeAreas() {
           />
 
           <div
+            className="practice-areas-row"
             style={{
-              maxWidth: "calc(50vw + 50px)",
+              maxWidth: "min(1100px, calc(100vw - 80px))",
               margin: "0 auto",
               width: "100%",
               display: "flex",
               alignItems: "center",
-              gap: "80px",
+              gap: "clamp(48px, 5vw, 80px)",
+              padding: "0 clamp(20px, 5vw, 40px)",
+              boxSizing: "border-box",
               position: "relative",
               zIndex: 1,
             }}
@@ -304,11 +324,12 @@ export default function PracticeAreas() {
             {/* Right: clipped scrolling list */}
             <div
               ref={listWrapperRef}
+              className="practice-areas-list-wrap"
               style={{
                 flex: 1,
+                minWidth: 0,
                 maxWidth: "680px",
                 position: "relative",
-                height: "50vh",
                 overflow: "hidden",
               }}
             >
@@ -325,6 +346,7 @@ export default function PracticeAreas() {
                   <CardWrapper
                     key={i}
                     href={PRODUCT_IDS[i] ? `/${locale}/solutions/${PRODUCT_IDS[i]}` : null}
+                    className="practice-areas-card"
                     style={{
                       backgroundColor: "#f9f9f9",
                       border: "2px solid #fff",
@@ -334,6 +356,9 @@ export default function PracticeAreas() {
                       gap: "32px",
                       overflow: "hidden",
                       flexShrink: 0,
+                      width: "100%",
+                      minWidth: 0,
+                      boxSizing: "border-box",
                       height: `${CARD_H}px`,
                       cursor: PRODUCT_IDS[i] ? "pointer" : "default",
                     }}
@@ -345,7 +370,17 @@ export default function PracticeAreas() {
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", pointerEvents: "none" }}
                       />
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <div
+                      className="practice-areas-card-text"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
+                        flex: 1,
+                        minWidth: 0,
+                        paddingRight: "20px",
+                      }}
+                    >
                       <p
                         style={{
                           margin: 0,
@@ -354,12 +389,12 @@ export default function PracticeAreas() {
                           fontSize: "var(--fs-body-lg)",
                           letterSpacing: "-0.2px",
                           color: "#141414",
-                          whiteSpace: "nowrap",
                         }}
                       >
                         {t(`grid.${i}.title`)}
                       </p>
                       <p
+                        className="practice-areas-card-tagline"
                         style={{
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
@@ -367,7 +402,6 @@ export default function PracticeAreas() {
                           fontSize: "var(--fs-body-sm)",
                           letterSpacing: "-0.14px",
                           color: "#141414",
-                          whiteSpace: "nowrap",
                         }}
                       >
                         {t(`grid.${i}.tagline`)}
