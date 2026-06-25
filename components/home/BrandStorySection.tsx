@@ -13,7 +13,7 @@ const FONT = '"Plus Jakarta Sans", sans-serif';
 const bodyStyle = {
   margin: 0,
   fontFamily: FONT,
-  fontWeight: 400,
+  fontWeight: 500,
   fontSize: "var(--fs-body)",
   lineHeight: 1.7,
   letterSpacing: "-0.154px",

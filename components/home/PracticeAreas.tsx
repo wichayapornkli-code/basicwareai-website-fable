@@ -214,11 +214,10 @@ export default function PracticeAreas() {
                     style={{
                       margin: 0,
                       fontFamily: '"Plus Jakarta Sans", sans-serif',
-                      fontWeight: 400,
-                      fontSize: "var(--fs-overline)",
-                      letterSpacing: "-0.12px",
+                      fontWeight: 500,
+                      fontSize: "var(--fs-body)",
+                      letterSpacing: "-0.154px",
                       color: "#141414",
-                      opacity: 0.75,
                     }}
                   >
                     {t(`grid.${i}.tagline`)}
@@ -398,9 +397,9 @@ export default function PracticeAreas() {
                         style={{
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
-                          fontWeight: 400,
-                          fontSize: "var(--fs-body-sm)",
-                          letterSpacing: "-0.14px",
+                          fontWeight: 500,
+                          fontSize: "var(--fs-body)",
+                          letterSpacing: "-0.154px",
                           color: "#141414",
                         }}
                       >

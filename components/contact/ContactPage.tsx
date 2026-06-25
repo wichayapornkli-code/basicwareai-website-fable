@@ -97,7 +97,7 @@ export default function ContactPage() {
           style={{
             margin: 0,
             fontFamily: FONT,
-            fontWeight: 400,
+            fontWeight: 500,
             fontSize: "var(--fs-body-lg)",
             lineHeight: 1.7,
             color: isDark ? "#a0a0a0" : "#757575",
@@ -112,11 +112,11 @@ export default function ContactPage() {
           style={{
             margin: 0,
             fontFamily: FONT,
-            fontWeight: 400,
-            fontSize: "var(--fs-caption)",
+            fontWeight: 500,
+            fontSize: "var(--fs-body-sm)",
             color: isDark ? "#e0e0e0" : "#141414",
             textTransform: "uppercase",
-            opacity: 0.38,
+            opacity: 0.7,
             letterSpacing: "0.05em",
           }}
         >

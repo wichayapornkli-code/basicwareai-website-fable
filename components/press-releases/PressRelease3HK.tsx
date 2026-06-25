@@ -299,7 +299,7 @@ export default function PressRelease3HK({
               <span
                 style={{
                   fontFamily: FONT,
-                  fontWeight: 400,
+                  fontWeight: 500,
                   fontSize: "var(--fs-overline)",
                   color: "rgba(255,255,255,0.7)",
                   whiteSpace: "nowrap",

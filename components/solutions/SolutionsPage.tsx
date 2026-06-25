@@ -375,10 +375,10 @@ export default function SolutionsPage() {
                   <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-md)", letterSpacing: "-0.352px", color: isDark ? "#79b8ff" : "#318ff5", lineHeight: "normal" }}>
                     {solution.title}
                   </p>
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: isDark ? "#d0d0d0" : "#141414", lineHeight: "normal" }}>
+                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body)", letterSpacing: "-0.176px", color: isDark ? "#d0d0d0" : "#141414", lineHeight: "normal" }}>
                     {solution.shortDesc}
                   </p>
-                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: "#a9a9a9", lineHeight: "normal" }}>
+                  <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: "#a9a9a9", lineHeight: "normal" }}>
                     {solution.longDesc}
                   </p>
                   <Link
@@ -468,7 +468,7 @@ export default function SolutionsPage() {
                   </p>
                   <ul style={{ margin: 0, padding: "0 0 0 20px", display: "flex", flexDirection: "column", gap: 4 }}>
                     {solution.bullets.map((b, i) => (
-                      <li key={i} style={{ fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: "normal" }}>
+                      <li key={i} style={{ fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body)", letterSpacing: "-0.176px", color: isDark ? "#c0c0c0" : "#141414", lineHeight: "normal" }}>
                         {b}
                       </li>
                     ))}
@@ -558,7 +558,7 @@ export default function SolutionsPage() {
                 }}
               >
                 <AnimatedNumber target={r.target} prefix={r.prefix} suffix={r.suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
-                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414" }}>{r.label}</p>
+                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414" }}>{r.label}</p>
               </div>
             ))}
           </div>
@@ -578,7 +578,7 @@ export default function SolutionsPage() {
             }}
           >
             <AnimatedNumber target={RESULTS[2].target} prefix={RESULTS[2].prefix} suffix={RESULTS[2].suffix} style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#e0e0e0" : "#141414" }} />
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414", maxWidth: 254 }}>{RESULTS[2].label}</p>
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", lineHeight: 1.5, letterSpacing: "-0.176px", color: isDark ? "#a0a0a0" : "#141414", maxWidth: 254 }}>{RESULTS[2].label}</p>
           </div>
         </div>
       </div>

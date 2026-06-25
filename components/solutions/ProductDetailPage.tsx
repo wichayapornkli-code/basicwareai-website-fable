@@ -156,7 +156,7 @@ export default function ProductDetailPage({
               flex: 1,
               margin: 0,
               fontFamily: FONT,
-              fontWeight: 400,
+              fontWeight: 500,
               fontSize: "var(--fs-heading-sm)",
               lineHeight: 1.7,
               letterSpacing: "-0.02em",
@@ -190,7 +190,7 @@ export default function ProductDetailPage({
             style={{
               margin: 0,
               fontFamily: FONT,
-              fontWeight: 400,
+              fontWeight: 500,
               fontSize: "var(--fs-body-lg)",
               lineHeight: 1.75,
               letterSpacing: "-0.01em",
@@ -279,8 +279,8 @@ export default function ProductDetailPage({
                   style={{
                     margin: 0,
                     fontFamily: FONT,
-                    fontWeight: 400,
-                    fontSize: "var(--fs-body-sm)",
+                    fontWeight: 500,
+                    fontSize: "var(--fs-body)",
                     lineHeight: 1.65,
                     letterSpacing: "-0.01em",
                     color: muted,
@@ -397,7 +397,7 @@ export default function ProductDetailPage({
           style={{
             margin: 0,
             fontFamily: FONT,
-            fontWeight: 400,
+            fontWeight: 500,
             fontSize: "var(--fs-body-lg)",
             lineHeight: 1.6,
             color: muted,
@@ -487,8 +487,8 @@ export default function ProductDetailPage({
                   style={{
                     margin: 0,
                     fontFamily: FONT,
-                    fontWeight: 400,
-                    fontSize: "var(--fs-body-sm)",
+                    fontWeight: 500,
+                    fontSize: "var(--fs-body)",
                     lineHeight: 1.7,
                     letterSpacing: "-0.01em",
                     color: muted,

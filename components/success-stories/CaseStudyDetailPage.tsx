@@ -182,7 +182,7 @@ export default function CaseStudyDetailPage({
               <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-lg)", color: headline, letterSpacing: "-0.5px", lineHeight: 1 }}>
                 {value}
               </p>
-              <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", color: muted, lineHeight: 1.4 }}>
+              <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-sm)", color: muted, lineHeight: 1.4 }}>
                 {label}
               </p>
             </div>
@@ -197,7 +197,7 @@ export default function CaseStudyDetailPage({
             <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
               The Challenge
             </p>
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
               {CHALLENGE_BODY}
             </p>
           </section>
@@ -207,7 +207,7 @@ export default function CaseStudyDetailPage({
             <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
               The Solution
             </p>
-            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
+            <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
               {SOLUTION_BODY}
             </p>
           </section>
@@ -237,7 +237,7 @@ export default function CaseStudyDetailPage({
               >
                 <span style={{ fontSize: "28px" }}>{icon}</span>
                 <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body)", color: text, letterSpacing: "-0.2px" }}>{title}</p>
-                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 400, fontSize: "var(--fs-body-sm)", lineHeight: 1.65, color: muted }}>{body}</p>
+                <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body)", lineHeight: 1.65, color: muted }}>{body}</p>
               </div>
             ))}
           </div>

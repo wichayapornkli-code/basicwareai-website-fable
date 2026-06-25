@@ -144,7 +144,7 @@ export default function NewsArticleCard({ article, locale }: Props) {
               style={{
                 margin: 0,
                 fontFamily: FONT,
-                fontWeight: 400,
+                fontWeight: 500,
                 fontSize: "var(--fs-body-sm)",
                 lineHeight: 1.55,
                 letterSpacing: "-0.154px",

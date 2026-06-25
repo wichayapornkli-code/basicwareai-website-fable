@@ -35,7 +35,7 @@ function PageButton({
         color: active ? "#fff" : "#7c7c7c",
         fontFamily: FONT,
         fontWeight: 700,
-        fontSize: "13px",
+        fontSize: "14px",
         cursor: onClick ? "pointer" : "default",
         display: "flex",
         alignItems: "center",

@@ -116,7 +116,7 @@ function AccentBody({
       style={{
         margin: 0,
         fontFamily: FONT,
-        fontWeight: 400,
+        fontWeight: 500,
         fontSize: "var(--fs-body)",
         lineHeight: 1.65,
         letterSpacing: "-0.154px",
@@ -191,7 +191,7 @@ function TwoColumnHeader({
             flex: "1 1 240px",
             margin: 0,
             fontFamily: FONT,
-            fontWeight: 400,
+            fontWeight: 500,
             fontSize: "var(--fs-body)",
             lineHeight: 1.65,
             color: isDark ? "#a0a0a0" : "#757575",
@@ -368,7 +368,7 @@ function DotDividerGrid({
             style={{
               margin: 0,
               fontFamily: FONT,
-              fontWeight: 400,
+              fontWeight: 500,
               fontSize: "var(--fs-body)",
               lineHeight: 1.65,
               letterSpacing: "-0.154px",
@@ -446,7 +446,7 @@ function LabelBodyStack({
               flex: 1,
               margin: 0,
               fontFamily: FONT,
-              fontWeight: 400,
+              fontWeight: 500,
               fontSize: "18px",
               lineHeight: 1.7,
               letterSpacing: "-0.02em",
@@ -543,7 +543,7 @@ export default function AboutPage() {
                     style={{
                       margin: 0,
                       fontFamily: FONT,
-                      fontWeight: 400,
+                      fontWeight: 500,
                       fontSize: "var(--fs-body)",
                       lineHeight: 1.7,
                       letterSpacing: "-0.154px",
@@ -631,7 +631,7 @@ export default function AboutPage() {
                     style={{
                       margin: 0,
                       fontFamily: FONT,
-                      fontWeight: 400,
+                      fontWeight: 500,
                       fontSize: "var(--fs-body)",
                       lineHeight: 1.65,
                       letterSpacing: "-0.154px",
@@ -838,7 +838,7 @@ export default function AboutPage() {
                 style={{
                   margin: 0,
                   fontFamily: FONT,
-                  fontWeight: 400,
+                  fontWeight: 500,
                   fontSize: "18px",
                   lineHeight: 1.6,
                   letterSpacing: "-0.01em",
@@ -853,7 +853,7 @@ export default function AboutPage() {
                 style={{
                   margin: 0,
                   fontFamily: FONT,
-                  fontWeight: 400,
+                  fontWeight: 500,
                   fontSize: "18px",
                   lineHeight: 1.6,
                   letterSpacing: "-0.01em",
@@ -967,7 +967,7 @@ export default function AboutPage() {
                       style={{
                         margin: 0,
                         fontFamily: FONT,
-                        fontWeight: 400,
+                        fontWeight: 500,
                         fontSize: "var(--fs-body-sm)",
                         lineHeight: 1.65,
                         color: bodyMuted,

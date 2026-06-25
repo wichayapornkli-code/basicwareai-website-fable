@@ -237,7 +237,7 @@ function SuccessStoryCardBody({
                   fontFamily: FONT,
                   fontWeight: 700,
                   fontStyle: "italic",
-                  fontSize: "var(--fs-caption)",
+                  fontSize: "var(--fs-body-sm)",
                   letterSpacing: "-0.132px",
                   color: textPrimary,
                 }}
@@ -248,9 +248,9 @@ function SuccessStoryCardBody({
                 style={{
                   margin: 0,
                   fontFamily: FONT,
-                  fontWeight: 400,
+                  fontWeight: 500,
                   fontStyle: "italic",
-                  fontSize: "var(--fs-caption)",
+                  fontSize: "var(--fs-body-sm)",
                   letterSpacing: "-0.132px",
                   color: textSecondary,
                 }}
@@ -301,8 +301,8 @@ function SuccessStoryCardBody({
               style={{
                 margin: 0,
                 fontFamily: FONT,
-                fontWeight: 400,
-                fontSize: "var(--fs-caption)",
+                fontWeight: 500,
+                fontSize: "var(--fs-body-sm)",
                 lineHeight: 1.5,
                 letterSpacing: "-0.132px",
                 color: textSecondary,
