@@ -85,6 +85,8 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
   const imgWrapRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const copy = getStudyCopy(study, locale);
+  const logoSrc = isDark && study.logoDarkSrc ? study.logoDarkSrc : study.logoSrc;
+  const hasDarkLogo = isDark && Boolean(study.logoDarkSrc);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = imgWrapRef.current;
@@ -169,7 +171,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                   width: "52px",
                   height: "52px",
                   borderRadius: "50%",
-                  backgroundColor: "#f0f4f8",
+                  backgroundColor: hasDarkLogo ? "#011e5b" : "#f0f4f8",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -179,7 +181,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                 }}
               >
                 <img
-                  src={study.logoSrc}
+                  src={logoSrc}
                   alt={study.logoAlt}
                   style={{ width: "100%", height: "100%", objectFit: "contain" }}
                 />
@@ -219,12 +221,12 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
           <img
-            src={study.logoSrc}
+            src={logoSrc}
             alt={study.logoAlt}
             style={{
               height: study.logoHeight,
               width: "auto",
-              opacity: 0.5,
+              opacity: hasDarkLogo ? 0.85 : 0.5,
               display: "block",
               alignSelf: "flex-start",
             }}

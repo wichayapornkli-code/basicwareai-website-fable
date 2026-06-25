@@ -80,6 +80,8 @@ export default function CaseStudyDetailPage({
   const subtle = isDark ? "#1a1a1a" : "#f5f5f7";
   const border = isDark ? "rgba(255,255,255,0.08)" : "#e8e8e8";
   const headline = isDark ? "#90c0f0" : "#011e5b";
+  const logoSrc = isDark && study.logoDarkSrc ? study.logoDarkSrc : study.logoSrc;
+  const logoOpacity = isDark && study.logoDarkSrc ? 0.9 : isDark ? 0.8 : 0.65;
 
   return (
     <div style={{ backgroundColor: bg, minHeight: "100vh" }}>
@@ -120,9 +122,9 @@ export default function CaseStudyDetailPage({
         {/* Logo + tags row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px", marginBottom: "32px" }}>
           <img
-            src={study.logoSrc}
+            src={logoSrc}
             alt={study.logoAlt}
-            style={{ height: study.logoHeight * 1.6, width: "auto", display: "block", opacity: isDark ? 0.8 : 0.65 }}
+            style={{ height: study.logoHeight * 1.6, width: "auto", display: "block", opacity: logoOpacity }}
           />
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
             {copy.tags.map((tag) => (

@@ -10,6 +10,7 @@ export type CaseStudy = {
   id: number;
   size: "full" | "half";
   logoSrc: string;
+  logoDarkSrc?: string;
   logoHeight: number;
   logoAlt: string;
   imageHeight: number;
@@ -54,6 +55,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: 2,
     size: "half",
     logoSrc: "/assets/Christies.png",
+    logoDarkSrc: "/assets/Christies_negative.png",
     logoHeight: 14,
     logoAlt: "Christie's",
     imageHeight: 500,
@@ -174,6 +176,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     id: 6,
     size: "full",
     logoSrc: "/assets/Midea.png",
+    logoDarkSrc: "/assets/Midea_negative.png",
     logoHeight: 33,
     logoAlt: "State-owned Enterprise",
     imageHeight: 500,
