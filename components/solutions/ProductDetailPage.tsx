@@ -7,6 +7,7 @@ import Reveal from "@/components/anim/Reveal";
 import Breadcrumb from "@/components/Breadcrumb";
 import { type Product } from "@/lib/products";
 import { useTranslations } from "next-intl";
+import { getContentLocaleKey, mergeWithEnglishFallback } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -21,8 +22,15 @@ export default function ProductDetailPage({
   const { isMobile } = useBreakpoint();
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
-  const isZh = locale === "zh";
-  const copy = isZh ? product.zh : product.en;
+  const localeKey = getContentLocaleKey(locale);
+  const isChinese = localeKey !== "en";
+  const isTraditional = localeKey === "zhTw";
+  const copy =
+    localeKey === "zh"
+      ? mergeWithEnglishFallback(product.en, product.zh)
+      : localeKey === "zhTw"
+        ? mergeWithEnglishFallback(product.en, product.zhTw)
+        : product.en;
 
   const bg = isDark ? "#0d0d0d" : "#fff";
   const bgAlt = isDark ? "#111111" : "#f9f9f9";
@@ -146,7 +154,7 @@ export default function ProductDetailPage({
                 color: muted,
               }}
             >
-              {isZh ? "问题所在" : "The Problem"}
+              {isTraditional ? "問題所在" : isChinese ? "问题所在" : "The Problem"}
             </p>
           </div>
           <Reveal
@@ -182,7 +190,7 @@ export default function ProductDetailPage({
       >
         <div style={{ maxWidth: "780px", margin: "0 auto", textAlign: "center" }}>
           <p className="bw-eyebrow" style={{ color: "var(--c-accent)", marginBottom: "clamp(16px, 2vw, 24px)", justifyContent: "center" }}>
-            {isZh ? "运作方式" : "How it works"}
+            {isTraditional ? "運作方式" : isChinese ? "运作方式" : "How it works"}
           </p>
           <Reveal
             as="p"
@@ -221,7 +229,7 @@ export default function ProductDetailPage({
               color: text,
             }}
           >
-            {isZh ? "核心功能" : "What's included"}
+            {isTraditional ? "核心功能" : isChinese ? "核心功能" : "What's included"}
           </Reveal>
 
           <div
@@ -314,7 +322,7 @@ export default function ProductDetailPage({
               color: text,
             }}
           >
-            {isZh ? "适合哪些人" : "Who it's for"}
+            {isTraditional ? "適合哪些人" : isChinese ? "适合哪些人" : "Who it's for"}
           </Reveal>
 
           <div
@@ -391,7 +399,7 @@ export default function ProductDetailPage({
             maxWidth: "520px",
           }}
         >
-          {isZh ? "准备好开始了吗？" : "Ready to get started?"}
+          {isTraditional ? "準備好開始了嗎？" : isChinese ? "准备好开始了吗？" : "Ready to get started?"}
         </Reveal>
         <p
           style={{
@@ -404,8 +412,10 @@ export default function ProductDetailPage({
             maxWidth: "400px",
           }}
         >
-          {isZh
-            ? "联系我们，了解适合您团队的方案。"
+          {isChinese
+            ? isTraditional
+              ? "聯繫我們，了解適合您團隊的方案。"
+              : "联系我们，了解适合您团队的方案。"
             : "Talk to our team about the right solution for you."}
         </p>
         <Link
@@ -458,7 +468,7 @@ export default function ProductDetailPage({
               color: text,
             }}
           >
-            {isZh ? "常见问题" : "Frequently asked"}
+            {isTraditional ? "常見問題" : isChinese ? "常见问题" : "Frequently asked"}
           </Reveal>
 
           <div style={{ display: "flex", flexDirection: "column" }}>

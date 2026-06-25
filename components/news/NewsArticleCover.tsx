@@ -5,6 +5,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 import { useDark } from "@/components/ThemeProvider";
 import { useTranslations } from "next-intl";
 import NewsArticleShare from "@/components/news/NewsArticleShare";
+import { isTraditionalChineseLocale, isChineseLocale } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 const DEFAULT_COVER_SRC = "/assets/news_default_cover.jpg";
@@ -18,10 +19,11 @@ export default function NewsArticleCover({ article, locale }: Props) {
   const t = useTranslations("newsPage");
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
-  const isZh = locale === "zh";
+  const isZh = isChineseLocale(locale);
+  const isZhTw = isTraditionalChineseLocale(locale);
   const { headline, subhead } = getNewsArticleCoverHeadlines(article, locale);
   const dateLabel = isZh
-    ? `香港，${formatNewsDate(article.publishedAt, locale)}`
+    ? `${isZhTw ? "香港" : "香港"}，${formatNewsDate(article.publishedAt, locale)}`
     : `Hong Kong, ${formatNewsDate(article.publishedAt, locale)}`;
   const hasCustomCover = Boolean(article.coverSrc);
 

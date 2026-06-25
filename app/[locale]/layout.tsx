@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { cookies } from "next/headers";
 import "../globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import CustomCursor from "@/components/anim/CustomCursor";
@@ -31,16 +32,19 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   const messages = await getMessages();
+  const cookieStore = await cookies();
+  const initialIsDark = cookieStore.get("bw-theme")?.value === "dark";
+  const htmlLang =
+    locale === "zh" ? "zh-Hans" : locale === "zh-tw" ? "zh-Hant" : locale;
 
   return (
-    <html lang={locale} className="h-full" suppressHydrationWarning>
+    <html
+      lang={htmlLang}
+      className={`h-full${initialIsDark ? " dark" : ""}`}
+      suppressHydrationWarning
+      style={{ colorScheme: initialIsDark ? "dark" : "light" }}
+    >
       <head>
-        {/* Prevent flash of wrong theme on load */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem('bw-theme');if(t==='dark')document.documentElement.classList.add('dark');})();`,
-          }}
-        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -49,7 +53,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="min-h-full antialiased">
-        <ThemeProvider>
+        <ThemeProvider initialIsDark={initialIsDark}>
           <NextIntlClientProvider messages={messages}>
             {children}
             <CustomCursor />

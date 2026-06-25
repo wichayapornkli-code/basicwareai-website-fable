@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Missing Content Audit</title>
+    <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef3f8;
+      --panel: #ffffff;
+      --line: #d8e1eb;
+      --text: #0f172a;
+      --muted: #526072;
+      --accent: #0b63ce;
+      --missing: #c2410c;
+      --partial: #b7791f;
+      --exists: #2f855a;
+      --deferred: #6b46c1;
+      --shadow: 0 12px 34px rgba(15, 23, 42, 0.08);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(11, 99, 206, 0.08), transparent 24rem),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code {
+      font: 500 0.93rem/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #f5f7fb;
+      padding: 0.1rem 0.32rem;
+      border-radius: 0.45rem;
+    }
+    .layout {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 32px 20px 80px;
+    }
+    .hero,
+    .page-section,
+    .summary-card {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(216, 225, 235, 0.8);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+    .hero {
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1 { font-size: clamp(2rem, 3.6vw, 3.6rem); line-height: 1.04; margin-bottom: 12px; }
+    h2 { font-size: clamp(1.6rem, 2.2vw, 2.25rem); line-height: 1.1; margin-bottom: 8px; }
+    h3 { font-size: 1.08rem; line-height: 1.3; margin-bottom: 14px; }
+    h4 { font-size: 0.92rem; margin-bottom: 10px; }
+    .lead { max-width: 72ch; color: var(--muted); }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 18px 0 20px;
+    }
+    .summary-card {
+      padding: 18px;
+    }
+    .summary-card strong {
+      display: block;
+      font-size: 1.7rem;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .nav-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .nav-list a {
+      display: inline-flex;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #edf4ff;
+      border: 1px solid #cfe0ff;
+      font-weight: 600;
+    }
+    .page-section {
+      margin-top: 24px;
+      padding: 24px;
+    }
+    .page-header {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .page-summary { color: var(--muted); margin-bottom: 0; }
+    .page-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .page-stats span,
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.36rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .page-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .page-visual {
+      display: grid;
+      gap: 18px;
+      position: sticky;
+      top: 18px;
+    }
+    .page-shot {
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .page-shot img,
+    .shot {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+    .page-shot img {
+      display: block;
+      height: auto;
+      object-fit: cover;
+    }
+    .page-shot figcaption { color: var(--muted); font-size: 0.92rem; }
+    .shot--placeholder {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      background: linear-gradient(180deg, #f8fafc, #eef2f7);
+      border-style: dashed;
+    }
+    .page-checklist {
+      padding: 18px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    .page-checklist ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .section-stack {
+      display: grid;
+      gap: 16px;
+    }
+    .section-group {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    }
+    .section-group-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #e9eef5;
+    }
+    .section-kicker {
+      margin: 0 0 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .section-summary {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+    .section-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .section-stats span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.34rem 0.68rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid #e5ebf3;
+      border-radius: 16px;
+      background: #fff;
+    }
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1100px;
+    }
+    .audit-table th,
+    .audit-table td {
+      vertical-align: top;
+      text-align: left;
+      padding: 14px 12px;
+      border-bottom: 1px solid #e9eef5;
+    }
+    .audit-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f7fbff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .audit-table tbody tr:nth-child(even) {
+      background: #fcfdff;
+    }
+    .audit-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .field-cell {
+      display: grid;
+      gap: 8px;
+      min-width: 160px;
+    }
+    .issue-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .badge--missing { color: var(--missing); border-color: rgba(194, 65, 12, 0.18); background: rgba(255, 237, 213, 0.72); }
+    .badge--partial { color: var(--partial); border-color: rgba(183, 121, 31, 0.18); background: rgba(254, 243, 199, 0.72); }
+    .badge--exists { color: var(--exists); border-color: rgba(47, 133, 90, 0.18); background: rgba(220, 252, 231, 0.72); }
+    .badge--deferred { color: var(--deferred); border-color: rgba(107, 70, 193, 0.18); background: rgba(237, 233, 254, 0.72); }
+    .dot { color: #94a3b8; }
+    .evidence-block {
+      margin-top: 0;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+    }
+    .evidence-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .code-note,
+    .muted {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+    .footer-note {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 1100px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
+      .page-visual {
+        position: static;
+      }
+    }
+    @media (max-width: 700px) {
+      .layout {
+        padding-inline: 14px;
+      }
+      .hero,
+      .page-section {
+        padding: 18px;
+      }
+      .section-group-header {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+      .page-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+  </head>
+  <body>
+    <main class="layout">
+      <header class="hero">
+        <p class="eyebrow">Standalone HTML Audit</p>
+        <h1>Missing Content Audit</h1>
+        <p class="lead">
+          This report rewrites <code>docs/missing-content-gaps.csv</code> into a page-by-page review artifact.
+          Each card shows what is missing, which locales are affected, whether the deployed site already has it,
+          and any supporting implementation detail found in the local codebase.
+        </p>
+        <section class="summary-grid" aria-label="Audit summary">
+          <article class="summary-card">
+            <strong>52</strong>
+            <span>Total issue cards</span>
+          </article>
+          <article class="summary-card">
+            <strong>37</strong>
+            <span>Marked missing</span>
+          </article>
+          <article class="summary-card">
+            <strong>13</strong>
+            <span>Marked partial</span>
+          </article>
+          <article class="summary-card">
+            <strong>1</strong>
+            <span>Deferred items</span>
+          </article>
+        </section>
+        <nav aria-label="Page sections">
+          <ul class="nav-list">
+            <li><a href="#homepage">Homepage <span>(12)</span></a></li><li><a href="#news">News <span>(11)</span></a></li><li><a href="#contact">Contact <span>(10)</span></a></li><li><a href="#about">About <span>(5)</span></a></li><li><a href="#success-stories">Success Stories <span>(5)</span></a></li><li><a href="#products">Products <span>(2)</span></a></li><li><a href="#token-selling-page">Token selling page <span>(1)</span></a></li><li><a href="#locale">Locale <span>(2)</span></a></li><li><a href="#implementation">Implementation <span>(4)</span></a></li>
+          </ul>
+        </nav>
+      </header>
+      
+    <section class="page-section" id="homepage">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Homepage</h2>
+          <p class="page-summary">12 issue cards, 12 missing, 0 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>12 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/homepage-zh.png" alt="Homepage in Simplified Chinese on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>Homepage in Simplified Chinese on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>Brand story (6)</li><li>Practice detail cards (4)</li><li>Outcomes carousel (2)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="brand-story">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Brand story</h3>
+          <p class="section-summary">6 field entries, 6 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>6 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Homepage</td>
+      <td>Brand story</td>
+      <td>
+        <div class="field-cell">
+          <strong>Eyebrow</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Brand story</td>
+      <td>
+        <div class="field-cell">
+          <strong>Title</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Brand story</td>
+      <td>
+        <div class="field-cell">
+          <strong>Paragraph 1</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Brand story</td>
+      <td>
+        <div class="field-cell">
+          <strong>Paragraph 2</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Brand story</td>
+      <td>
+        <div class="field-cell">
+          <strong>Paragraph 3</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Brand story</td>
+      <td>
+        <div class="field-cell">
+          <strong>Link text</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Our full story</td>
+      <td>完整品牌故事</td>
+      <td>完整品牌故事</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="practice-detail-cards">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Practice detail cards</h3>
+          <p class="section-summary">4 field entries, 4 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>4 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Homepage</td>
+      <td>Practice detail cards</td>
+      <td>
+        <div class="field-cell">
+          <strong>Card 1 body</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Practice detail cards</td>
+      <td>
+        <div class="field-cell">
+          <strong>Card 2 body</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Practice detail cards</td>
+      <td>
+        <div class="field-cell">
+          <strong>Card 3 body</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Practice detail cards</td>
+      <td>
+        <div class="field-cell">
+          <strong>Card 4 body</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="outcomes-carousel">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Outcomes carousel</h3>
+          <p class="section-summary">2 field entries, 2 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>2 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Homepage</td>
+      <td>Outcomes carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>Snippet 2</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks.</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Homepage</td>
+      <td>Outcomes carousel</td>
+      <td>
+        <div class="field-cell">
+          <strong>Snippet 3</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Together we shipped an agent layer that reads policy, drafts decisions, and surfaces edge cases before they become escalations — deployed across HQ and three regional offices in 11 weeks.</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="news">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>News</h2>
+          <p class="page-summary">11 issue cards, 9 missing, 2 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>9 missing</span>
+          <span>2 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/news-en.png" alt="News listing page on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>News listing page on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>News listing page (1)</li><li>News hero (1)</li><li>Home news (1)</li><li>News page (4)</li><li>Press release labels (2)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="news-listing-page">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>News listing page</h3>
+          <p class="section-summary">1 field entries, 1 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>1 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>News listing page</td>
+      <td>
+        <div class="field-cell">
+          <strong>Entire page</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="news-hero">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>News hero</h3>
+          <p class="section-summary">1 field entries, 1 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>1 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>News hero</td>
+      <td>
+        <div class="field-cell">
+          <strong>line1</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Fresh from the field.</td>
+      <td>Fresh from the field.</td>
+      <td>Fresh from the field.</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="home-news">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Home news</h3>
+          <p class="section-summary">1 field entries, 1 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>1 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>Home news</td>
+      <td>
+        <div class="field-cell">
+          <strong>viewAll</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>View all</td>
+      <td>View all</td>
+      <td>View all</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="news-page">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>News page</h3>
+          <p class="section-summary">4 field entries, 4 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>4 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>News page</td>
+      <td>
+        <div class="field-cell">
+          <strong>sectionTitleLine1</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>The latest from</td>
+      <td>The latest from</td>
+      <td>The latest from</td>
+    </tr>
+  
+    <tr>
+      <td>News</td>
+      <td>News page</td>
+      <td>
+        <div class="field-cell">
+          <strong>sectionTitleAccent</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Basicware</td>
+      <td>Basicware</td>
+      <td>Basicware</td>
+    </tr>
+  
+    <tr>
+      <td>News</td>
+      <td>News page</td>
+      <td>
+        <div class="field-cell">
+          <strong>sectionEyebrow</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>News &amp; Press Release</td>
+      <td>News &amp; Press Release</td>
+      <td>News &amp; Press Release</td>
+    </tr>
+  
+    <tr>
+      <td>News</td>
+      <td>News page</td>
+      <td>
+        <div class="field-cell">
+          <strong>sectionBody</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
+      <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
+      <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="press-release-labels">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Press release labels</h3>
+          <p class="section-summary">2 field entries, 2 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>2 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>Press release labels</td>
+      <td>
+        <div class="field-cell">
+          <strong>officialHeading</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Official release</td>
+      <td>Official release</td>
+      <td>Official release</td>
+    </tr>
+  
+    <tr>
+      <td>News</td>
+      <td>Press release labels</td>
+      <td>
+        <div class="field-cell">
+          <strong>officialLink</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>View on Hutchison Telecom Hong Kong (English)</td>
+      <td>在和记电讯香港查看官方新闻稿</td>
+      <td>在和記電訊香港查看官方新聞稿</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="article-listing">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Article listing</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>Article listing</td>
+      <td>
+        <div class="field-cell">
+          <strong>description</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Article excerpt EN: &quot;HTHK unveils INMO GO3 AI glasses, an AI Travel Planner, and partners with Basicware AI to offer complimentary AI Tokens via BasicRouter for new and renewing subscribers.&quot;,</td>
+      <td>Updates, partnerships, and field notes from Basicware&#39;s work across AI, cloud, and enterprise transformation.</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="locale-carry-over">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Locale carry-over</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>News</td>
+      <td>Locale carry-over</td>
+      <td>
+        <div class="field-cell">
+          <strong>zh and zh-tw page copy</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">code</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="contact">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Contact</h2>
+          <p class="page-summary">10 issue cards, 8 missing, 2 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>8 missing</span>
+          <span>2 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/contact-zh.png" alt="Contact page in Simplified Chinese on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>Contact page in Simplified Chinese on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>Contact form (9)</li><li>Page implementation (1)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="contact-form">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Contact form</h3>
+          <p class="section-summary">9 field entries, 8 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>8 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>name</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Full name</td>
+      <td>全名</td>
+      <td>全名</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>email</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Email address</td>
+      <td>电子邮件地址</td>
+      <td>電子郵件地址</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>company</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Company</td>
+      <td>公司名称</td>
+      <td>公司名稱</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>message</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>What are you working on?</td>
+      <td>您在做什么？</td>
+      <td>您在做什麼？</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>submit</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Send message</td>
+      <td>发送消息</td>
+      <td>發送消息</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>submitting</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Sending…</td>
+      <td>发送中…</td>
+      <td>發送中…</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>successTitle</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Message sent.</td>
+      <td>消息已发送。</td>
+      <td>消息已發送。</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>successBody</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>We&#39;ll be in touch within one business day.</td>
+      <td>我们将在一个工作日内与您联系。</td>
+      <td>我們將在一個工作日內與您聯繫。</td>
+    </tr>
+  
+    <tr>
+      <td>Contact</td>
+      <td>Contact form</td>
+      <td>
+        <div class="field-cell">
+          <strong>errorBody</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Something went wrong. Please try again.</td>
+      <td>出现错误，请重试。</td>
+      <td>出現錯誤，請重試。</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="page-implementation">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Page implementation</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Contact</td>
+      <td>Page implementation</td>
+      <td>
+        <div class="field-cell">
+          <strong>Current visible structure</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">code</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="about">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>About</h2>
+          <p class="page-summary">5 issue cards, 5 missing, 0 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>5 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/about-en.png" alt="About page on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>About page on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>CSV About rewrite (5)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="csv-about-rewrite">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>CSV About rewrite</h3>
+          <p class="section-summary">5 field entries, 5 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>5 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>About</td>
+      <td>CSV About rewrite</td>
+      <td>
+        <div class="field-cell">
+          <strong>brandCore</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>AI Business Co-Creation.</td>
+      <td>AI 商业共创</td>
+      <td>AI 商業共創</td>
+    </tr>
+  
+    <tr>
+      <td>About</td>
+      <td>CSV About rewrite</td>
+      <td>
+        <div class="field-cell">
+          <strong>brandIntent</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Founded to Break the Deadlock.</td>
+      <td>为打破僵局而生</td>
+      <td>為打破僵局而生</td>
+    </tr>
+  
+    <tr>
+      <td>About</td>
+      <td>CSV About rewrite</td>
+      <td>
+        <div class="field-cell">
+          <strong>ourRole</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>AI Enabler of Enterprise Community</td>
+      <td>企业共同体的 AI 赋能者</td>
+      <td>企業共同體的 AI 賦能者</td>
+    </tr>
+  
+    <tr>
+      <td>About</td>
+      <td>CSV About rewrite</td>
+      <td>
+        <div class="field-cell">
+          <strong>ourVision</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Empowered by AI, Unlimited Global Possibilities</td>
+      <td>以 AI 打开全球无限可能</td>
+      <td>AI 賦能，打開全球無限可能</td>
+    </tr>
+  
+    <tr>
+      <td>About</td>
+      <td>CSV About rewrite</td>
+      <td>
+        <div class="field-cell">
+          <strong>values</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>What drives us</td>
+      <td>什麼驅動著我們</td>
+      <td>什麼驅動著我們</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="success-stories">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Success Stories</h2>
+          <p class="page-summary">5 issue cards, 0 missing, 4 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>0 missing</span>
+          <span>4 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/success-stories-zh.png" alt="Success story detail page in Simplified Chinese on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>Success story detail page in Simplified Chinese on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>Case study detail (4)</li><li>Case Study 7 (1)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="case-study-detail">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Case study detail</h3>
+          <p class="section-summary">4 field entries, 0 missing, 4 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>4 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Success Stories</td>
+      <td>Case study detail</td>
+      <td>
+        <div class="field-cell">
+          <strong>Metrics labels</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>Customer Satisfaction / Content Efficiency / Operational Efficiency</td>
+      <td>客户满意度 / 内容效率 / 运营效率</td>
+      <td>客戶滿意度 / 內容效率 / 運營效率</td>
+    </tr>
+  
+    <tr>
+      <td>Success Stories</td>
+      <td>Case study detail</td>
+      <td>
+        <div class="field-cell">
+          <strong>Challenge body</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Case study 1 ZH headline: 从默默无闻，到不可或缺。单月受众规模暴涨 40 倍，新增粉丝 63200 位 | Case study 1 ZH-TW headline: 從默默無聞，到不可或缺。單月受眾規模暴漲 40 倍，新增粉絲 63200 位</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Success Stories</td>
+      <td>Case study detail</td>
+      <td>
+        <div class="field-cell">
+          <strong>Solution body</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Case study 3 ZH headline: 在一个月内，为企业制作高质量的系列产品宣传视频用于企业的全球市场营销活动，使企业产品曝光量提升 200%，并为企业降低 70% 的市场营销成本。 | Case study 3 ZH-TW headline: 在一個月內，為企業製作高質量的系列產品宣傳視頻用於企業的全球市場營銷活動，使企業產品曝光量提升 200%，並為企業降低 70% 的市場營銷成本。</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Success Stories</td>
+      <td>Case study detail</td>
+      <td>
+        <div class="field-cell">
+          <strong>Results cards</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Case study 5 EN short headline: Co-launching AI FIRST — a global AI education initiative. | Case study 5 ZH short headline: 联合发起 AI FIRST 全球 AI 教育项目。</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="case-study-7">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Case Study 7</h3>
+          <p class="section-summary">1 field entries, 0 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Success Stories</td>
+      <td>Case Study 7</td>
+      <td>
+        <div class="field-cell">
+          <strong>All fields</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--deferred">deferred</span>
+            <span class="badge badge--priority">Deferred</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>No local Case Study 7 object is present in `lib/case-studies.ts`.</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="products">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Products</h2>
+          <p class="page-summary">2 issue cards, 0 missing, 1 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/products-en.png" alt="BasicRouter product page on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>BasicRouter product page on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>Product detail pages (1)</li><li>Multi-Cloud Computing Platform (1)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="product-detail-pages">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Product detail pages</h3>
+          <p class="section-summary">1 field entries, 0 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Products</td>
+      <td>Product detail pages</td>
+      <td>
+        <div class="field-cell">
+          <strong>Page structure</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--exists">exists</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>BasicRouter EN FAQ count: See lib/products.ts with 3 FAQs in EN product data.</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="multi-cloud-computing-platform">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Multi-Cloud Computing Platform</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Products</td>
+      <td>Multi-Cloud Computing Platform</td>
+      <td>
+        <div class="field-cell">
+          <strong>Listing + detail</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Available product ids include: token, employees, content, education</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="token-selling-page">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Token selling page</h2>
+          <p class="page-summary">1 issue cards, 0 missing, 1 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+    <figure class="page-shot">
+      <img src="screenshots/basicrouter-en.png" alt="BasicRouter marketing page on local preview." width="1280" height="900" loading="lazy" />
+      <figcaption>BasicRouter marketing page on local preview.</figcaption>
+    </figure>
+  
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>BasicRouter marketing page (1)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="basicrouter-marketing-page">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>BasicRouter marketing page</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Token selling page</td>
+      <td>BasicRouter marketing page</td>
+      <td>
+        <div class="field-cell">
+          <strong>Long-form content</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Medium</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>One API. Every leading AI model. Zero vendor lock-in.</td>
+      <td>一个 API，连接全球顶尖 AI 模型，彻底摆脱厂商绑定。</td>
+      <td>一個 API，連接全球頂尖 AI 模型，徹底擺脫廠商綁定。</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="locale">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Locale</h2>
+          <p class="page-summary">2 issue cards, 1 missing, 1 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>1 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>Screenshot unavailable for this page.</span>
+        </div>
+        <figcaption>Screenshot unavailable for this page.</figcaption>
+      </figure>
+    
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>zh-tw (2)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="zh-tw">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>zh-tw</h3>
+          <p class="section-summary">2 field entries, 1 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>1 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Locale</td>
+      <td>zh-tw</td>
+      <td>
+        <div class="field-cell">
+          <strong>Entire site</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>Local dev server responds on `/zh-tw`.</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+    <tr>
+      <td>Locale</td>
+      <td>zh-tw</td>
+      <td>
+        <div class="field-cell">
+          <strong>Local route availability</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">High</span>
+            <span class="badge badge--source">code</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+    <section class="page-section" id="implementation">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Page Audit</p>
+          <h2>Implementation</h2>
+          <p class="page-summary">4 issue cards, 2 missing, 2 partial.</p>
+        </div>
+        <div class="page-stats">
+          <span>2 missing</span>
+          <span>2 partial</span>
+        </div>
+      </header>
+      <div class="page-layout">
+        <div class="page-visual">
+          
+      <figure class="page-shot">
+        <div class="shot shot--placeholder">
+          <strong>Screenshot unavailable</strong>
+          <span>Screenshot unavailable for this page.</span>
+        </div>
+        <figcaption>Screenshot unavailable for this page.</figcaption>
+      </figure>
+    
+          
+    <div class="page-checklist">
+      <h3>Quick scan</h3>
+      <ul>
+        <li>Hero casing (1)</li><li>zh.json script mix (2)</li><li>Team title (1)</li>
+      </ul>
+    </div>
+  
+        </div>
+        <div class="section-stack">
+          
+    <section class="section-group" id="hero-casing">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Hero casing</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Implementation</td>
+      <td>Hero casing</td>
+      <td>
+        <div class="field-cell">
+          <strong>titlePart1</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>Ai 赋能</td>
+      <td>Ai 賦能</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="zh-json-script-mix">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>zh.json script mix</h3>
+          <p class="section-summary">2 field entries, 2 missing, 0 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>2 missing</span>
+          <span>0 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Implementation</td>
+      <td>zh.json script mix</td>
+      <td>
+        <div class="field-cell">
+          <strong>about.values.title</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>什麼驅動著我們</td>
+      <td>什麼驅動著我們</td>
+    </tr>
+  
+    <tr>
+      <td>Implementation</td>
+      <td>zh.json script mix</td>
+      <td>
+        <div class="field-cell">
+          <strong>about.values.title</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--missing">missing</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">code</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+    <section class="section-group" id="team-title">
+      <header class="section-group-header">
+        <div>
+          <p class="section-kicker">Section</p>
+          <h3>Team title</h3>
+          <p class="section-summary">1 field entries, 0 missing, 1 partial.</p>
+        </div>
+        <div class="section-stats">
+          <span>0 missing</span>
+          <span>1 partial</span>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Section</th>
+              <th>Field</th>
+              <th>Single</th>
+              <th>EN</th>
+              <th>ZH</th>
+              <th>ZH-TW</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td>Implementation</td>
+      <td>Team title</td>
+      <td>
+        <div class="field-cell">
+          <strong>Richard Liu job title</strong>
+          <div class="issue-meta">
+            <span class="badge badge--status badge--partial">partial</span>
+            <span class="badge badge--priority">Low</span>
+            <span class="badge badge--source">csv</span>
+          </div>
+        </div>
+      </td>
+      <td>-</td>
+      <td>AI Large Model Specialist</td>
+      <td>首席技术顾问</td>
+      <td>首席技術顧問</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </section>
+  
+        </div>
+      </div>
+    </section>
+  
+      <p class="footer-note">
+        Generated from local code and audit CSV on this machine. Screenshots fall back to placeholders if browser automation is unavailable.
+      </p>
+    </main>
+  </body>
+</html>

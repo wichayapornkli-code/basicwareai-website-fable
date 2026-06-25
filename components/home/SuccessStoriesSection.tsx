@@ -5,22 +5,11 @@ import gsap from "gsap";
 import { useLocale } from "next-intl";
 import { useDark } from "@/components/ThemeProvider";
 import Reveal from "@/components/anim/Reveal";
+import ClientLogoMarquee from "@/components/home/ClientLogoMarquee";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { getContentLocaleKey } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
-
-const LOGOS = [
-  { src: "/assets/LKF_Concepts.png", height: 15, alt: "LKF Concepts" },
-  { src: "/assets/HKU_Business_School.png", height: 32, alt: "HKU Business School" },
-  { src: "/assets/City_Super.png", height: 29, alt: "CitySuper" },
-  { src: "/assets/Midea.png", height: 46, alt: "Midea" },
-  { src: "/assets/Christies.png", height: 14, alt: "Christie's" },
-  { src: "/assets/Cyberport.png", height: 49, alt: "Cyberport" },
-  { src: "/assets/OOCL.png", height: 37, alt: "OOCL" },
-  { src: "/assets/Payoneer.png", height: 43, alt: "Payoneer" },
-  { src: "/assets/Kimberly-Clark.png", height: 23, alt: "Kimberly-Clark" },
-  { src: "/assets/HSBC.png", height: 33, alt: "HSBC" },
-];
 
 type Card = {
   quote: string;
@@ -115,6 +104,48 @@ const CARDS_ZH: Card[] = [
   },
 ];
 
+const CARDS_ZH_TW: Card[] = [
+  {
+    quote:
+      "香港某企業的原有人力資源系統僅用於數據記錄，而我們對其完成了智能化重構。雙方聯合搭建智能代理層，可自動解讀制度規章、擬定處理方案，並提前識別潛在異常問題，避免事態升級。整套方案歷時 11 周，完成總部及三大區域辦事處的全面落地部署。",
+    author: "人力資源科技企業",
+    role: "泰國",
+    flag: "🇹🇭",
+    photo: "/assets/2_success_home.png",
+    stats: [
+      { value: "+400%", label: "運營效率提升" },
+      { value: "11 周", label: "完成交付" },
+      { value: "4", label: "覆蓋辦公室" },
+    ],
+  },
+  {
+    quote:
+      "享譽全球的世界營銷峰會主辦機構 Kotler Impact 集團與 TikTok 母公司字節跳動、Basicware AI 達成戰略合作，共同推出全球變革性項目「AI 先行計劃（AI FIRST）」，旨在讓全球不同年齡、不同背景、不同專業水平的人群都能接觸到實用、高價值的人工智能教育。",
+    author: "Kotler Impact",
+    role: "亞洲",
+    flag: "🌏",
+    photo: "/assets/2_success_home_a.png",
+    stats: [
+      { value: "10+", label: "覆蓋國家/地區" },
+      { value: "3", label: "核心創始合作方" },
+      { value: "AI FIRST", label: "全球項目" },
+    ],
+  },
+  {
+    quote:
+      "為企業 50 餘名核心人員提供專屬 AI 數字員工分身搭建的全流程服務。幫助企業員工快速搭建適配自身工作的專屬 AI 數字分身，實現全場景工作提效；同時通過全週期數據監測與 AI 智能分析，精準評估企業員工適配 AI 時代的能力，為後續規模化 AI 部署提供可落地的決策依據。",
+    author: "國有煙草企業",
+    role: "中國大陸",
+    flag: "🇨🇳",
+    photo: "/assets/2_success_home_b.png",
+    stats: [
+      { value: "50+", label: "服務員工人數" },
+      { value: "7×24", label: "AI 自動化運營" },
+      { value: "3 月", label: "全面落地週期" },
+    ],
+  },
+];
+
 const SECTION_COPY = {
   en: {
     eyebrow: "Success stories",
@@ -128,43 +159,13 @@ const SECTION_COPY = {
     subtitle:
       "从政府到游戏，从教育到电商。我们与香港、东南亚及更广泛地区的合作伙伴共同打造解决方案。",
   },
+  zhTw: {
+    eyebrow: "成功案例",
+    title: "獲得行業領軍者的信賴",
+    subtitle:
+      "從政府到遊戲，從教育到電商。我們與香港、東南亞及更廣泛地區的合作伙伴共同打造解決方案。",
+  },
 };
-
-function LogoStrip({ bg, isDark }: { bg: string; isDark: boolean }) {
-  return (
-    <div aria-hidden style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-      {LOGOS.map((logo, i) => (
-        <div key={i} style={{ display: "flex", alignItems: "center" }}>
-          <div style={{ padding: "0 44px" }}>
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              style={{
-                height: logo.height,
-                width: "auto",
-                maxWidth: "none",
-                objectFit: "contain",
-                opacity: isDark ? 0.45 : 0.5,
-                filter: "grayscale(1)",
-                display: "block",
-              }}
-            />
-          </div>
-          {i < LOGOS.length - 1 && (
-            <div
-              style={{
-                width: 1,
-                height: 32,
-                backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#d8d8d8",
-                flexShrink: 0,
-              }}
-            />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 type CardBodyProps = {
   card: Card;
@@ -323,9 +324,10 @@ export default function SuccessStoriesSection() {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
   const locale = useLocale();
-  const isZh = locale === "zh";
-  const CARDS = isZh ? CARDS_ZH : CARDS_EN;
-  const copy = isZh ? SECTION_COPY.zh : SECTION_COPY.en;
+  const localeKey = getContentLocaleKey(locale);
+  const CARDS =
+    localeKey === "zh" ? CARDS_ZH : localeKey === "zhTw" ? CARDS_ZH_TW : CARDS_EN;
+  const copy = SECTION_COPY[localeKey];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [stageHeight, setStageHeight] = useState<number | undefined>(undefined);
@@ -444,7 +446,7 @@ export default function SuccessStoriesSection() {
           className="bw-display"
           style={{ fontSize: "var(--fs-heading-xl)", lineHeight: 1.08 }}
         >
-          {isZh ? copy.title : <>{copy.title.split("the best")[0]}<em>the best</em></>}
+          {localeKey === "en" ? <>{copy.title.split("the best")[0]}<em>the best</em></> : copy.title}
         </Reveal>
         <Reveal
           as="p"
@@ -504,62 +506,13 @@ export default function SuccessStoriesSection() {
       </div>
 
       {/* ── Logo scroller ───────────────────────────────────────────── */}
-      <div
-        style={{
-          maxWidth: "774px",
-          margin: "0 auto",
-          padding: "0 clamp(20px, 5vw, 40px)",
-          boxSizing: "content-box",
-        }}
-      >
-        <div
-          style={{
-            overflow: "hidden",
-            padding: "clamp(36px, 4vw, 60px) 0 clamp(40px, 5vw, 70px)",
-            position: "relative",
-          }}
-        >
-          {/* Left fade */}
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              bottom: 0,
-              width: "clamp(40px, 8vw, 100px)",
-              background: `linear-gradient(to right, ${bg}, transparent)`,
-              zIndex: 1,
-              pointerEvents: "none",
-            }}
-          />
-          {/* Right fade */}
-          <div
-            style={{
-              position: "absolute",
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: "100px",
-              background: `linear-gradient(to left, ${bg}, transparent)`,
-              zIndex: 1,
-              pointerEvents: "none",
-            }}
-          />
-
-          <div
-            role="marquee"
-            aria-label="Trusted by our clients"
-            style={{
-              display: "flex",
-              animation: "marquee 36s linear infinite",
-              willChange: "transform",
-            }}
-          >
-            <LogoStrip bg={bg} isDark={isDark} />
-            <LogoStrip bg={bg} isDark={isDark} />
-          </div>
-        </div>
-      </div>
+      <ClientLogoMarquee
+        durationSec={36}
+        grayscale
+        opacity={{ light: 0.5, dark: 0.45 }}
+        edgeFadeColor={bg}
+        contained
+      />
     </section>
   );
 }

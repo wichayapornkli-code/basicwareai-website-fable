@@ -55,17 +55,18 @@ function isCompactDesktopWidth(width: number) {
 export default function PracticeAreas() {
   const t = useTranslations("practice");
   const locale = useLocale();
-  // Static mount-time check — never reactive. If isMobile were state from
-  // useBreakpoint(), a viewport resize would change the branch React renders,
-  // causing React to delete the GSAP-pinned div while GSAP has moved it to a
-  // wrapper node → removeChild crash.
-  const [isMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
-  );
+  // Keep the first client render aligned with SSR, then switch once after
+  // mount. Staying non-reactive on resize avoids the GSAP pin/removeChild
+  // crash this section hit when React swapped layouts mid-scroll.
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef    = useRef<HTMLDivElement>(null);
   const pinnedRef       = useRef<HTMLDivElement>(null);
   const listWrapperRef  = useRef<HTMLDivElement>(null);
   const listRef         = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useEffect(() => {
     // Check viewport once at mount — never re-run on resize to avoid GSAP

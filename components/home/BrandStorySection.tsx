@@ -62,7 +62,7 @@ export default function BrandStorySection() {
                 alt=""
                 draggable={false}
                 style={{
-                  width: "clamp(76px, 10vw, 112px)",
+                  width: "clamp(140px, 16vw, 220px)",
                   height: "auto",
                   display: "block",
                   userSelect: "none",
@@ -75,7 +75,13 @@ export default function BrandStorySection() {
                 {t("eyebrow").replace(/·/g, "").trim()}
               </p>
             </Reveal>
-            <Reveal as="h2" className="bw-display" style={{ fontSize: "var(--fs-heading-lg)", textWrap: "balance" }}>
+            <Reveal
+              as="h2"
+              mode="fade"
+              y={20}
+              className="bw-display"
+              style={{ fontSize: "var(--fs-heading-lg)", textWrap: "balance" }}
+            >
               <AccentWords text={t("title")} />
             </Reveal>
 

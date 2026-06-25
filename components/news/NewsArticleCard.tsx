@@ -6,6 +6,7 @@ import NewsThumbnail from "@/components/news/NewsThumbnail";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import type { CSSProperties } from "react";
+import { getContentLocaleKey } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -57,8 +58,9 @@ function NewsCardTag({ tag, isDark }: { tag: string; isDark: boolean }) {
 export default function NewsArticleCard({ article, locale }: Props) {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
-  const isZh = locale === "zh";
-  const localeCopy = isZh ? article.zh : article.en;
+  const localeKey = getContentLocaleKey(locale);
+  const localeCopy =
+    localeKey === "zh" ? article.zh : localeKey === "zhTw" ? article.zhTw : article.en;
   const title = localeCopy.title;
   const description = localeCopy.description;
 
@@ -97,7 +99,11 @@ export default function NewsArticleCard({ article, locale }: Props) {
           pointerEvents: "none",
         }}
       >
-        <NewsThumbnail coverSrc={article.coverSrc} alt={title} borderRadius="12px" />
+        <NewsThumbnail
+          coverSrc={article.thumbnailSrc ?? article.coverSrc}
+          alt={title}
+          borderRadius="12px"
+        />
 
         <div
           style={{

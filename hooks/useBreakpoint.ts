@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 
 export function useBreakpoint() {
-  const [w, setW] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth : 1200
-  );
+  // Keep the first client render aligned with SSR to avoid hydration mismatches.
+  const [w, setW] = useState(1200);
 
   useEffect(() => {
     const fn = () => setW(window.innerWidth);
+    fn();
     window.addEventListener("resize", fn, { passive: true });
     return () => window.removeEventListener("resize", fn);
   }, []);

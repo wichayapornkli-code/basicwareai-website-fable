@@ -46,6 +46,8 @@ export default function CtaSection() {
           <p className="bw-eyebrow">{t("eyebrow").replace(/·/g, "").trim()}</p>
           <Reveal
             as="h2"
+            mode="fade"
+            y={20}
             className="bw-display"
             style={{ fontSize: "var(--fs-display)" }}
           >

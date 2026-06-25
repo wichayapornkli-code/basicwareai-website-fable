@@ -1,0 +1,49 @@
+ID,Page,Section,Field,What's needed,EN in client CSV,ZH in client CSV,ZH-TW in client CSV,Exists on deployed (basic-ware.ai),Priority,Recommended action,Notes
+1,Homepage,Brand story,Eyebrow,· Brand story ·,No,No,No,No,Medium,Provide copy or remove section,In local codebase only; not on live homepage
+1,Homepage,Brand story,Title,AI Business Co-Creation,No,No,No,No,Medium,Provide copy or remove section,In local codebase only; not on live homepage
+1,Homepage,Brand story,Paragraph 1,Brand story opening paragraph,No,No,No,No,Medium,Provide copy or remove section,Differs from About CSV brand core block
+1,Homepage,Brand story,Paragraph 2,Brand story middle paragraph,No,No,No,No,Medium,Provide copy or remove section,
+1,Homepage,Brand story,Paragraph 3,Brand story closing paragraph,No,No,No,No,Medium,Provide copy or remove section,
+1,Homepage,Brand story,Link text,Our full story,No,No,No,No,Low,Provide copy or remove section,
+2,Homepage,Practice detail cards,Card 1 body,AI Commerce long description,No,No,No,No,Medium,Provide copy or remove section,Live site only shows short practice grid cards
+2,Homepage,Practice detail cards,Card 2 body,AI Agent long description,No,No,No,No,Medium,Provide copy or remove section,
+2,Homepage,Practice detail cards,Card 3 body,AI Education long description,No,No,No,No,Medium,Provide copy or remove section,
+2,Homepage,Practice detail cards,Card 4 body,Centralized Token Control long description,No,No,No,No,Medium,Provide copy or remove section,
+3,News,News listing page,Entire page,Dedicated /news page,No,No,No,No,High,Build page + provide copy,/en/news returns 404 on production
+4,News,News hero,line1,Fresh from the field.,No,No,No,No,Medium,Provide EN/ZH/ZH-TW or reuse homepage teaser pattern,Live homepage uses inline news block instead
+4,News,Home news,viewAll,View all,No,No,No,No,Medium,Provide EN/ZH/ZH-TW,Live site uses Read more on homepage teaser
+4,News,News page,sectionTitleLine1,The latest from,No,No,No,No,High,Provide EN/ZH/ZH-TW,No dedicated news listing on deployed site
+4,News,News page,sectionTitleAccent,Basicware,No,No,No,No,High,Provide EN/ZH/ZH-TW,
+4,News,News page,sectionEyebrow,News & Press Release,No,No,No,No,High,Provide EN/ZH/ZH-TW,
+4,News,News page,sectionBody,News section intro paragraph,No,No,No,No,High,Provide EN/ZH/ZH-TW,
+5,News,Press release labels,officialHeading,Official release,No,No,No,No,Low,Provide EN/ZH/ZH-TW or drop labels,Press article page exists; these UI labels do not
+5,News,Press release labels,officialLink,View on Hutchison Telecom Hong Kong (English),No,No,No,No,Low,Provide EN/ZH/ZH-TW or drop labels,
+6,News,Article listing,description,Card excerpt under news title,No,No,No,Partial,Medium,Translate ZH/ZH-TW,EN exists in lib/news.ts; zh/zh-tw descriptions still English
+7,Contact,Contact form,name,Full name,No,No,No,No,Medium,Provide EN/ZH/ZH-TW or keep form English,Deployed contact page is email-only; no form
+7,Contact,Contact form,email,Email address,No,No,No,No,Medium,Provide EN/ZH/ZH-TW or keep form English,
+7,Contact,Contact form,company,Company,No,No,No,No,Medium,Provide EN/ZH/ZH-TW or keep form English,
+7,Contact,Contact form,message,What are you working on?,No,No,No,No,Medium,Provide EN/ZH/ZH-TW or keep form English,
+7,Contact,Contact form,submit,Send message,No,No,No,No,Medium,Provide EN/ZH/ZH-TW or keep form English,
+7,Contact,Contact form,submitting,Sending…,No,No,No,No,Low,Provide EN/ZH/ZH-TW or keep form English,
+7,Contact,Contact form,successTitle,Message sent.,No,No,No,No,Low,Provide EN/ZH/ZH-TW or keep form English,
+7,Contact,Contact form,successBody,We'll be in touch within one business day.,No,No,No,Partial,Low,Provide EN/ZH/ZH-TW,Main contact body exists on deployed; form strings do not
+7,Contact,Contact form,errorBody,Something went wrong. Please try again.,No,No,No,No,Low,Provide EN/ZH/ZH-TW or keep form English,
+8,About,CSV About rewrite,brandCore,Brand core concept section,Yes,Yes,Yes,No,High,Replace deployed About with CSV copy,Deployed About still uses old 4-value version
+8,About,CSV About rewrite,brandIntent,Intention of brand establishment,Yes,Yes,Yes,No,High,Replace deployed About with CSV copy,
+8,About,CSV About rewrite,ourRole,AI Enabler of Enterprise Community,Yes,Yes,Yes,No,High,Replace deployed About with CSV copy,
+8,About,CSV About rewrite,ourVision,Our vision section,Yes,Yes,Yes,No,High,Replace deployed About with CSV copy,
+8,About,CSV About rewrite,values,Five value propositions,Yes,Yes,Yes,No,High,Replace deployed About with CSV copy,Deployed has 4 different principles
+9,Locale,zh-tw,Entire site,Traditional Chinese locale and routing,Partial,Yes,Yes,No,High,Deploy zh-tw locale,/zh-tw returns 404 on production
+10,Success Stories,Case study detail,Metrics labels,Audience growth / New followers / Less production time,No,No,No,Partial,High,Provide ZH/ZH-TW or keep English,EN exists on deployed; /zh detail page still English
+10,Success Stories,Case study detail,Challenge body,The Challenge paragraph,No,No,No,Partial,High,Provide ZH/ZH-TW or keep English,EN exists on deployed; not per-case-study in CSV
+10,Success Stories,Case study detail,Solution body,The Solution paragraph,No,No,No,Partial,High,Provide ZH/ZH-TW or keep English,EN exists on deployed; not per-case-study in CSV
+10,Success Stories,Case study detail,Results cards,Key Results card titles and bodies,No,No,No,Partial,High,Provide ZH/ZH-TW or keep English,EN exists on deployed; generic MGM template only
+11,Success Stories,Case Study 7,All fields,Macau AI Education case study,Partial,Yes,Yes,No,Deferred,Implement when approved,EN headline blank in client CSV; excluded per request
+12,Products,Product detail pages,Page structure,FAQs / Who it's for / CTA blocks beyond CSV bullets,No,No,No,Yes,Low,Keep deployed English; optional CSV later,Deployed longform exists; CSV only has intro/bullets/testimonial
+13,Products,Multi-Cloud Computing Platform,Listing + detail,Full product page if separate from solutions card,Partial,Yes,Yes,Partial,Medium,Confirm scope with client,Listed on deployed /en/solutions; detail page scope unclear
+14,Token selling page,BasicRouter marketing page,Long-form content,Market pain points / channel system / scenarios,Yes,Yes,Yes,Partial,Medium,Align BasicRouterPage with CSV,CSV has full block; verify against deployed BasicRouter page
+15,Homepage,Outcomes carousel,Snippet 2,Kotler Impact short story,Yes,Yes,Yes,No,Medium,Wire homepage carousel to CSV snippets 2–3,Deployed homepage repeats HR snippet only
+15,Homepage,Outcomes carousel,Snippet 3,Local State-owned Tobacco short story,Yes,Yes,Yes,No,Medium,Wire homepage carousel to CSV snippets 2–3,
+16,Implementation,Hero casing,titlePart1,Ai vs AI in Chinese hero,Yes,Yes,Yes,Partial,Low,Normalize to AI if client wants exact CSV match,Semantic match; literal casing differs
+17,Implementation,zh.json script mix,about.values.title,Traditional chars in Simplified file,No,No,No,N/A,Low,Fix to Simplified Chinese,什麼驅動著我們 should be 什么驱动着我们
+18,Implementation,Team title,Richard Liu job title,Chief AI Large Model Specialist vs 首席技术顾问,Yes,Yes,Yes,Partial,Low,Align with CSV,Deployed EN uses AI Large Model Specialist; local zh differs

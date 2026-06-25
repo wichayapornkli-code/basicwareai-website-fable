@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { APP_LOCALES } from "@/lib/locale";
 
 export default function Navbar() {
   const t = useTranslations("nav");
@@ -19,7 +20,17 @@ export default function Navbar() {
 
   const [visible, setVisible] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [localeMenuOpen, setLocaleMenuOpen] = useState(false);
   const lastY = useRef(0);
+  const localeMenuRef = useRef<HTMLDivElement | null>(null);
+
+  const localeOptions = [
+    { value: "en" as const, triggerLabel: "EN", menuLabel: "English" },
+    { value: "zh" as const, triggerLabel: "简中", menuLabel: "简体中文" },
+    { value: "zh-tw" as const, triggerLabel: "繁中", menuLabel: "繁體中文" },
+  ];
+  const currentLocale =
+    localeOptions.find((o) => o.value === locale) ?? localeOptions[0];
 
   useEffect(() => {
     const onScroll = () => {
@@ -35,8 +46,22 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menu on route change
-  useEffect(() => { setMenuOpen(false); }, [pathname]);
+  // Close menus on route change
+  useEffect(() => {
+    setMenuOpen(false);
+    setLocaleMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!localeMenuOpen) return;
+    function handlePointerDown(e: MouseEvent) {
+      if (!localeMenuRef.current?.contains(e.target as Node)) {
+        setLocaleMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handlePointerDown);
+    return () => document.removeEventListener("mousedown", handlePointerDown);
+  }, [localeMenuOpen]);
 
   // Prevent body scroll when drawer is open
   useEffect(() => {
@@ -44,13 +69,17 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  const otherLocale = locale === "en" ? "zh" : "en";
-  const otherLocaleLabel = locale === "en" ? "中文" : "EN";
-
-  function switchLocale() {
+  function switchLocale(nextLocale: (typeof APP_LOCALES)[number]) {
     const segments = pathname.split("/");
-    segments[1] = otherLocale;
-    router.replace(segments.join("/") || "/", { scroll: false });
+    if (
+      segments.length < 2 ||
+      !APP_LOCALES.includes(segments[1] as (typeof APP_LOCALES)[number])
+    ) {
+      router.replace(`/${nextLocale}`, { scroll: false });
+      return;
+    }
+    segments[1] = nextLocale;
+    router.replace(segments.join("/") || `/${nextLocale}`, { scroll: false });
   }
 
   const links = [
@@ -144,19 +173,84 @@ export default function Navbar() {
         {/* Desktop: CTA + locale switcher */}
         {!isMobile && (
           <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-            <button
-              onClick={switchLocale}
-              className="bw-btn-text bw-mono-label"
-              style={{
-                color: "var(--c-text-muted)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "0",
-              }}
-            >
-              {otherLocaleLabel}
-            </button>
+            <div ref={localeMenuRef} style={{ position: "relative" }}>
+              <button
+                type="button"
+                onClick={() => setLocaleMenuOpen((o) => !o)}
+                aria-haspopup="menu"
+                aria-expanded={localeMenuOpen}
+                className="bw-btn-text bw-mono-label"
+                style={{
+                  color: "var(--c-text-muted)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "0",
+                }}
+              >
+                {currentLocale.triggerLabel}
+              </button>
+              {localeMenuOpen && (
+                <div
+                  role="menu"
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 14px)",
+                    right: 0,
+                    minWidth: "156px",
+                    padding: "8px",
+                    borderRadius: "18px",
+                    backgroundColor: isDark ? "rgba(18,18,22,0.96)" : "rgba(255,255,255,0.96)",
+                    border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
+                    boxShadow: isDark ? "0 16px 40px rgba(0,0,0,0.38)" : "0 16px 40px rgba(0,0,0,0.12)",
+                    backdropFilter: "blur(18px)",
+                    WebkitBackdropFilter: "blur(18px)",
+                    zIndex: 220,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "4px",
+                  }}
+                >
+                  {localeOptions.map((option) => {
+                    const isActive = option.value === currentLocale.value;
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={isActive}
+                        onClick={() => {
+                          setLocaleMenuOpen(false);
+                          if (!isActive) switchLocale(option.value);
+                        }}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          gap: "12px",
+                          width: "100%",
+                          padding: "10px 12px",
+                          border: "none",
+                          borderRadius: "12px",
+                          background: isActive
+                            ? (isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)")
+                            : "transparent",
+                          color: "var(--c-text)",
+                          cursor: isActive ? "default" : "pointer",
+                          fontFamily: "var(--font-sans)",
+                          fontWeight: isActive ? 600 : 500,
+                          fontSize: "var(--fs-body-sm)",
+                          textAlign: "left",
+                        }}
+                      >
+                        <span>{option.menuLabel}</span>
+                        {isActive && <span aria-hidden="true">✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
             <Link
               href={`/${locale}/contact`}
@@ -337,21 +431,38 @@ export default function Navbar() {
               />
             </Link>
 
-            <button
-              onClick={() => { switchLocale(); setMenuOpen(false); }}
-              className="bw-btn-text bw-mono-label"
-              style={{
-                color: "var(--c-text-muted)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: "8px 0",
-                fontSize: "var(--fs-body-sm)",
-                textAlign: "center",
-              }}
-            >
-              {otherLocaleLabel}
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              {localeOptions.map((option) => {
+                const isActive = option.value === currentLocale.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      if (!isActive) switchLocale(option.value);
+                    }}
+                    className="bw-btn-text"
+                    aria-pressed={isActive}
+                    style={{
+                      color: "var(--c-text)",
+                      background: isActive
+                        ? (isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.05)")
+                        : "transparent",
+                      border: "none",
+                      borderRadius: "14px",
+                      cursor: isActive ? "default" : "pointer",
+                      padding: "12px 14px",
+                      fontSize: "var(--fs-body-sm)",
+                      textAlign: "left",
+                      fontWeight: isActive ? 600 : 500,
+                    }}
+                  >
+                    {option.menuLabel}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}

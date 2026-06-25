@@ -5,12 +5,9 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { NewsArticle } from "@/lib/news";
-import { getHomeNewsArticlesWithMock } from "@/lib/news-mock";
+import { getHomeNewsArticles, type NewsArticle } from "@/lib/news";
 import NewsArticleCard from "@/components/news/NewsArticleCard";
-import NewsMockToggle from "@/components/news/NewsMockToggle";
 import { useDark } from "@/components/ThemeProvider";
-import { useNewsMock } from "@/hooks/useNewsMock";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -193,9 +190,8 @@ function NewsSectionShell({
 export default function NewsSection() {
   const locale = useLocale();
   const { isDark } = useDark();
-  const { showMock, setShowMock, hydrated: mockHydrated } = useNewsMock();
   const dividerColor = isDark ? "rgba(255,255,255,0.08)" : "#e8e8e8";
-  const articles = getHomeNewsArticlesWithMock(showMock);
+  const articles = getHomeNewsArticles();
   const { isMobile } = useBreakpoint();
   const [reduceMotion] = useState(() =>
     typeof window !== "undefined"
@@ -209,7 +205,7 @@ export default function NewsSection() {
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || !mockHydrated) return;
+    if (!section) return;
 
     const pending = gsap.utils
       .toArray<HTMLElement>("[data-news-home-enter], [data-news-home-item]", section)
@@ -261,14 +257,12 @@ export default function NewsSection() {
     }, section);
 
     return () => ctx.revert();
-  }, [animate, showMock, articles.length, mockHydrated]);
+  }, [animate, articles.length]);
 
   if (articles.length === 0) return null;
 
-  const mockToggle = <NewsMockToggle enabled={showMock} onChange={setShowMock} />;
-
   return (
-    <NewsSectionShell animate={animate && mockHydrated} isDark={isDark}>
+    <NewsSectionShell animate={animate} isDark={isDark}>
       <div
         ref={sectionRef}
         style={{
@@ -284,7 +278,6 @@ export default function NewsSection() {
           dividerColor={dividerColor}
         />
       </div>
-      {mockToggle}
     </NewsSectionShell>
   );
 }

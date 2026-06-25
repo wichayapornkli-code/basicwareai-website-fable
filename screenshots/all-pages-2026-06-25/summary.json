@@ -1,0 +1,410 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "locales": [
+    "en",
+    "zh",
+    "zh-tw"
+  ],
+  "count": 57,
+  "results": [
+    {
+      "locale": "en",
+      "routePath": "/en",
+      "fileName": "en__home.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/about",
+      "fileName": "en__about.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/contact",
+      "fileName": "en__contact.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/solutions",
+      "fileName": "en__solutions.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/solutions/basicrouter",
+      "fileName": "en__solutions-basicrouter.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/solutions/token",
+      "fileName": "en__solutions-token.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/solutions/employees",
+      "fileName": "en__solutions-employees.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/solutions/content",
+      "fileName": "en__solutions-content.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/solutions/education",
+      "fileName": "en__solutions-education.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories",
+      "fileName": "en__success-stories.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories/1",
+      "fileName": "en__success-story-1.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories/2",
+      "fileName": "en__success-story-2.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories/3",
+      "fileName": "en__success-story-3.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories/4",
+      "fileName": "en__success-story-4.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories/5",
+      "fileName": "en__success-story-5.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/success-stories/6",
+      "fileName": "en__success-story-6.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/news",
+      "fileName": "en__news.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/news/3hk-alibaba-basicware-alliance",
+      "fileName": "en__news-3hk-alibaba-basicware-alliance.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "en",
+      "routePath": "/en/press-releases/3hk-alibaba-basicware-alliance",
+      "fileName": "en__press-release-3hk-alibaba-basicware-alliance.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh",
+      "fileName": "zh__home.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/about",
+      "fileName": "zh__about.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/contact",
+      "fileName": "zh__contact.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/solutions",
+      "fileName": "zh__solutions.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/solutions/basicrouter",
+      "fileName": "zh__solutions-basicrouter.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/solutions/token",
+      "fileName": "zh__solutions-token.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/solutions/employees",
+      "fileName": "zh__solutions-employees.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/solutions/content",
+      "fileName": "zh__solutions-content.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/solutions/education",
+      "fileName": "zh__solutions-education.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories",
+      "fileName": "zh__success-stories.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories/1",
+      "fileName": "zh__success-story-1.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories/2",
+      "fileName": "zh__success-story-2.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories/3",
+      "fileName": "zh__success-story-3.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories/4",
+      "fileName": "zh__success-story-4.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories/5",
+      "fileName": "zh__success-story-5.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/success-stories/6",
+      "fileName": "zh__success-story-6.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/news",
+      "fileName": "zh__news.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/news/3hk-alibaba-basicware-alliance",
+      "fileName": "zh__news-3hk-alibaba-basicware-alliance.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh",
+      "routePath": "/zh/press-releases/3hk-alibaba-basicware-alliance",
+      "fileName": "zh__press-release-3hk-alibaba-basicware-alliance.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw",
+      "fileName": "zh-tw__home.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/about",
+      "fileName": "zh-tw__about.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/contact",
+      "fileName": "zh-tw__contact.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/solutions",
+      "fileName": "zh-tw__solutions.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/solutions/basicrouter",
+      "fileName": "zh-tw__solutions-basicrouter.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/solutions/token",
+      "fileName": "zh-tw__solutions-token.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/solutions/employees",
+      "fileName": "zh-tw__solutions-employees.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/solutions/content",
+      "fileName": "zh-tw__solutions-content.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/solutions/education",
+      "fileName": "zh-tw__solutions-education.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories",
+      "fileName": "zh-tw__success-stories.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories/1",
+      "fileName": "zh-tw__success-story-1.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories/2",
+      "fileName": "zh-tw__success-story-2.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories/3",
+      "fileName": "zh-tw__success-story-3.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories/4",
+      "fileName": "zh-tw__success-story-4.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories/5",
+      "fileName": "zh-tw__success-story-5.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/success-stories/6",
+      "fileName": "zh-tw__success-story-6.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/news",
+      "fileName": "zh-tw__news.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/news/3hk-alibaba-basicware-alliance",
+      "fileName": "zh-tw__news-3hk-alibaba-basicware-alliance.png",
+      "status": 200,
+      "ok": true
+    },
+    {
+      "locale": "zh-tw",
+      "routePath": "/zh-tw/press-releases/3hk-alibaba-basicware-alliance",
+      "fileName": "zh-tw__press-release-3hk-alibaba-basicware-alliance.png",
+      "status": 200,
+      "ok": true
+    }
+  ]
+}

@@ -1,28 +1,16 @@
 "use client";
 
 import { useDark } from "@/components/ThemeProvider";
-
-const LOGOS = [
-  { src: "/assets/LKF_Concepts.png", height: 15, alt: "LKF Concepts" },
-  { src: "/assets/HKU_Business_School.png", height: 32, alt: "HKU Business School" },
-  { src: "/assets/City_Super.png", height: 29, alt: "CitySuper" },
-  { src: "/assets/Midea.png", height: 46, alt: "Midea" },
-  { src: "/assets/Christies.png", height: 14, alt: "Christie's" },
-  { src: "/assets/Cyberport.png", height: 49, alt: "Cyberport" },
-  { src: "/assets/OOCL.png", height: 37, alt: "OOCL" },
-  { src: "/assets/Payoneer.png", height: 43, alt: "Payoneer" },
-  { src: "/assets/Kimberly-Clark.png", height: 23, alt: "Kimberly-Clark" },
-  { src: "/assets/HSBC.png", height: 33, alt: "HSBC" },
-];
+import { CLIENT_LOGOS } from "@/components/home/clientLogos";
 
 function LogoStrip({ ariaHidden, isDark }: { ariaHidden?: boolean; isDark: boolean }) {
   return (
     <div aria-hidden={ariaHidden} style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-      {LOGOS.map((logo, i) => (
+      {CLIENT_LOGOS.map((logo, i) => (
         <div key={i} style={{ display: "flex", alignItems: "center" }}>
           <div style={{ padding: "0 44px" }}>
             <img
-              src={logo.src}
+              src={isDark ? logo.darkSrc : logo.src}
               alt={logo.alt}
               style={{
                 height: logo.height,
@@ -35,7 +23,7 @@ function LogoStrip({ ariaHidden, isDark }: { ariaHidden?: boolean; isDark: boole
               }}
             />
           </div>
-          {i < LOGOS.length - 1 && (
+          {i < CLIENT_LOGOS.length - 1 && (
             <div style={{ width: 1, height: 32, backgroundColor: isDark ? "rgba(255,255,255,0.15)" : "#e0e0e0", flexShrink: 0 }} />
           )}
         </div>

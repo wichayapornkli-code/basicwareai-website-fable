@@ -916,6 +916,8 @@ export default function AboutPage() {
                   key={i}
                   style={{
                     flex: "1 1 280px",
+                    display: "flex",
+                    flexDirection: "column",
                     backgroundColor: isDark ? "#1e1e1e" : "#fff",
                     borderRadius: "20px",
                     overflow: "hidden",
@@ -925,17 +927,25 @@ export default function AboutPage() {
                       : "0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04)",
                   }}
                 >
-                  <img
-                    src={`/assets/${TEAM_PHOTOS[i]}.png`}
-                    alt={name}
+                  <div
                     style={{
-                      display: "block",
                       width: "100%",
-                      height: "clamp(200px, 22vw, 300px)",
-                      objectFit: "cover",
-                      objectPosition: "center top",
+                      aspectRatio: "1 / 1",
+                      overflow: "hidden",
                     }}
-                  />
+                  >
+                    <img
+                      src={`/assets/${TEAM_PHOTOS[i]}.png`}
+                      alt={name}
+                      style={{
+                        display: "block",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center top",
+                      }}
+                    />
+                  </div>
 
                   <div style={{ padding: "24px 24px 28px" }}>
                     <p

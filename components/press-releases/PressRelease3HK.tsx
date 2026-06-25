@@ -7,6 +7,7 @@ import { useBreakpoint } from "@/hooks/useBreakpoint";
 import Breadcrumb from "@/components/Breadcrumb";
 import NewsArticleTags from "@/components/news/NewsArticleTags";
 import type { NewsArticle } from "@/lib/news";
+import { isChineseLocale } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -223,7 +224,7 @@ export default function PressRelease3HK({
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
   const tp = useTranslations("pressRelease3hk");
-  const isZh = locale === "zh";
+  const isZh = isChineseLocale(locale);
 
   const bg = isDark ? "#0d0d0d" : "#fff";
   const text = isDark ? "#e0e0e0" : "#141414";

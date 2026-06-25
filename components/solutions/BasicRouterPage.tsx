@@ -6,6 +6,7 @@ import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 import Reveal from "@/components/anim/Reveal";
 import Breadcrumb from "@/components/Breadcrumb";
+import { getContentLocaleKey, isTraditionalChineseLocale, mergeWithEnglishFallback } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 const HERO_COLOR = "#0148ae";
@@ -53,6 +54,27 @@ const COPY = {
       { title: "海外调用延迟高、稳定性差", body: "跨境网络延迟高、波动大，服务可用性受地域和链路影响，业务体验不稳定。" },
     ],
   },
+  zhTw: {
+    eyebrow: "BasicRouter · Basicware",
+    headline: "企業級全球大模型 API 聚合與 Token 管理平臺",
+    descriptionPoints: [
+      "統一連接全球主流大模型",
+      "提供穩定供給、統一協議、統一賬單、統一管理",
+      "支持企業自用、白牌、分銷、渠道合作",
+      "讓企業以更低成本、更高效率接入全球 AI 能力",
+    ],
+    cta: "立即體驗統一網關服務的強大能力",
+    modelsTitle: "支持的 AI 大模型",
+    painTitle: "企業為什麼需要 BasicRouter",
+    painPoints: [
+      { title: "多平臺接入複雜", body: "不同廠商的接入方式、鑑權機制、SDK 和文檔各不相同，集成成本高，維護工作量大。" },
+      { title: "Token 供給不穩定", body: "各平臺配額有限、波動頻繁，高峯期易出現額度不足或限流，影響業務連續性。" },
+      { title: "TPM/RPM 不可控", body: "速率限制策略不透明、調整滯後，難以滿足業務突發增長需求，影響用戶體驗。" },
+      { title: "賬單分散，成本難管理", body: "多平臺獨立結算、賬單格式不一，成本歸集與分析困難，預算控制和優化缺乏抓手。" },
+      { title: "數據安全與合規風險", body: "數據跨境傳輸與存儲不可控，不同平臺安全標準不一，合規審計與風險管理難度大。" },
+      { title: "海外調用延遲高、穩定性差", body: "跨境網絡延遲高、波動大，服務可用性受地域和鏈路影響，業務體驗不穩定。" },
+    ],
+  },
 };
 
 const MODELS = [
@@ -72,8 +94,15 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
   const { isMobile } = useBreakpoint();
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
-  const isZh = locale === "zh";
-  const copy = isZh ? COPY.zh : COPY.en;
+  const localeKey = getContentLocaleKey(locale);
+  const isZh = localeKey !== "en";
+  const isZhTw = isTraditionalChineseLocale(locale);
+  const copy =
+    localeKey === "zh"
+      ? mergeWithEnglishFallback(COPY.en, COPY.zh)
+      : localeKey === "zhTw"
+        ? mergeWithEnglishFallback(COPY.en, COPY.zhTw)
+        : COPY.en;
 
   const bg = isDark ? "#0d0d0d" : "#fff";
   const bgAlt = isDark ? "#111111" : "#f9f9f9";
@@ -440,7 +469,7 @@ export default function BasicRouterPage({ locale }: { locale: string }) {
             whiteSpace: "nowrap",
           }}
         >
-          {isZh ? "联系我们" : "Talk to our team"}
+          {isZh ? (isZhTw ? "聯繫我們" : "联系我们") : "Talk to our team"}
           <img
             src={isDark ? "/assets/arrow-dark.svg" : "/assets/arrow-white.svg"}
             alt=""

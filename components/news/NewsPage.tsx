@@ -3,13 +3,10 @@
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { NEWS_ARTICLES, paginateNewsArticles } from "@/lib/news";
-import { withNewsMocks } from "@/lib/news-mock";
 import NewsArticleCard from "@/components/news/NewsArticleCard";
-import NewsMockToggle from "@/components/news/NewsMockToggle";
 import Pagination from "@/components/news/Pagination";
 import { useDark } from "@/components/ThemeProvider";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
-import { useNewsMock } from "@/hooks/useNewsMock";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -19,11 +16,9 @@ export default function NewsPage() {
   const { isDark } = useDark();
   const { isMobile } = useBreakpoint();
   const searchParams = useSearchParams();
-  const { showMock, setShowMock } = useNewsMock();
   const page = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
-  const listingArticles = withNewsMocks(NEWS_ARTICLES, showMock);
   const { articles, totalPages, currentPage } = paginateNewsArticles(
-    listingArticles,
+    NEWS_ARTICLES,
     page,
   );
 
@@ -134,7 +129,6 @@ export default function NewsPage() {
         <Pagination currentPage={currentPage} totalPages={totalPages} />
       </div>
 
-      <NewsMockToggle enabled={showMock} onChange={setShowMock} />
     </div>
   );
 }

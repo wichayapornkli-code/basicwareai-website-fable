@@ -7,6 +7,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { type CaseStudy } from "@/lib/case-studies";
 import { useDark } from "@/components/ThemeProvider";
 import { consumeHeroTransition } from "@/lib/heroTransition";
+import { getContentLocaleKey, mergeWithEnglishFallback } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
@@ -39,6 +40,13 @@ export default function CaseStudyDetailPage({
   const t = useTranslations("nav");
   const tb = useTranslations("breadcrumb");
   const heroRef = useRef<HTMLDivElement>(null);
+  const localeKey = getContentLocaleKey(locale);
+  const copy =
+    localeKey === "zh"
+      ? mergeWithEnglishFallback(study.en, study.zh)
+      : localeKey === "zhTw"
+        ? mergeWithEnglishFallback(study.en, study.zhTw)
+        : study.en;
 
   useLayoutEffect(() => {
     const pending = consumeHeroTransition();
@@ -120,7 +128,7 @@ export default function CaseStudyDetailPage({
             style={{ height: study.logoHeight * 1.6, width: "auto", display: "block", opacity: isDark ? 0.8 : 0.65 }}
           />
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            {study.tags.map((tag) => (
+            {copy.tags.map((tag) => (
               <span
                 key={tag}
                 style={{
@@ -153,7 +161,7 @@ export default function CaseStudyDetailPage({
             maxWidth: "760px",
           }}
         >
-          {study.headline}
+          {copy.headline}
         </p>
 
         {/* Key metrics strip */}
@@ -195,7 +203,7 @@ export default function CaseStudyDetailPage({
           {/* Challenge */}
           <section>
             <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
-              The Challenge
+              {localeKey === "zhTw" ? "挑戰" : localeKey === "zh" ? "挑战" : "The Challenge"}
             </p>
             <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
               {CHALLENGE_BODY}
@@ -205,7 +213,7 @@ export default function CaseStudyDetailPage({
           {/* Solution */}
           <section>
             <p style={{ margin: "0 0 16px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-overline)", letterSpacing: "0.08em", textTransform: "uppercase", color: muted }}>
-              The Solution
+              {localeKey === "zhTw" ? "解決方案" : localeKey === "zh" ? "解决方案" : "The Solution"}
             </p>
             <p style={{ margin: 0, fontFamily: FONT, fontWeight: 500, fontSize: "var(--fs-body-lg)", lineHeight: 1.75, color: text }}>
               {SOLUTION_BODY}
@@ -219,7 +227,7 @@ export default function CaseStudyDetailPage({
         {/* Results */}
         <div style={{ marginBottom: "64px" }}>
           <p style={{ margin: "0 0 32px", fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-heading-md)", color: text }}>
-            Key Results
+            {localeKey === "zhTw" ? "關鍵成果" : localeKey === "zh" ? "关键成果" : "Key Results"}
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
             {RESULTS.map(({ icon, title, body }, i) => (
@@ -264,10 +272,10 @@ export default function CaseStudyDetailPage({
               letterSpacing: "-0.2px",
             }}
           >
-            &ldquo;{study.quote}&rdquo;
+            &ldquo;{copy.quote}&rdquo;
           </p>
           <p style={{ margin: 0, fontFamily: FONT, fontWeight: 700, fontSize: "var(--fs-body-sm)", color: isDark ? "#6a9fd8" : "#0148ae" }}>
-            {study.author}
+            {copy.author}
           </p>
         </div>
       </div>

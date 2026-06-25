@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import gsap from "gsap";
 import { useDark } from "@/components/ThemeProvider";
 import AccentWords from "@/components/anim/AccentWords";
+import { isTraditionalChineseLocale, isChineseLocale } from "@/lib/locale";
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 const EMAIL = "info@basic-ware.ai";
@@ -13,7 +14,8 @@ export default function ContactPage() {
   const t = useTranslations("contact");
   const { isDark } = useDark();
   const locale = useLocale();
-  const isZh = locale === "zh";
+  const isZh = isChineseLocale(locale);
+  const isZhTw = isTraditionalChineseLocale(locale);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -197,7 +199,7 @@ export default function ContactPage() {
                 textTransform: "uppercase",
               }}
             >
-              {isZh ? "联系我们" : "Reach us at"}
+              {isZh ? (isZhTw ? "聯繫我們" : "联系我们") : "Reach us at"}
             </p>
 
             <a

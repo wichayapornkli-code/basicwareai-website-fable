@@ -11,6 +11,7 @@ import { CASE_STUDIES, type CaseStudy } from "@/lib/case-studies";
 import { useDark } from "@/components/ThemeProvider";
 import AccentWords from "@/components/anim/AccentWords";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
+import { getContentLocaleKey, mergeWithEnglishFallback } from "@/lib/locale";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,6 +70,13 @@ function AnimatedStat({
 
 const FONT = '"Plus Jakarta Sans", sans-serif';
 
+function getStudyCopy(study: CaseStudy, locale: string) {
+  const key = getContentLocaleKey(locale);
+  if (key === "zh") return mergeWithEnglishFallback(study.en, study.zh);
+  if (key === "zhTw") return mergeWithEnglishFallback(study.en, study.zhTw);
+  return study.en;
+}
+
 function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) {
   const [hovered, setHovered] = useState(false);
   const [mouseYFrac, setMouseYFrac] = useState(0.5);
@@ -76,6 +84,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
   const { isDark } = useDark();
   const imgWrapRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const copy = getStudyCopy(study, locale);
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = imgWrapRef.current;
@@ -189,7 +198,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                   letterSpacing: "-0.154px",
                 }}
               >
-                &ldquo;{study.quote}&rdquo;
+                &ldquo;{copy.quote}&rdquo;
               </p>
 
               {/* Attribution */}
@@ -203,7 +212,7 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
                   letterSpacing: "-0.132px",
                 }}
               >
-                {study.author}
+                {copy.author}
               </p>
             </div>
           </div>
@@ -231,10 +240,10 @@ function CaseStudyCard({ study, locale }: { study: CaseStudy; locale: string }) 
               color: isDark ? "#90c0f0" : "#011e5b",
             }}
           >
-            {study.shortHeadline}
+            {copy.shortHeadline}
           </p>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-            {study.tags.map((tag) => (
+            {copy.tags.map((tag) => (
               <span
                 key={tag}
                 style={{
