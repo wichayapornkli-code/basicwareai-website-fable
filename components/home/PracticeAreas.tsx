@@ -215,7 +215,7 @@ export default function PracticeAreas() {
                       margin: 0,
                       fontFamily: '"Plus Jakarta Sans", sans-serif',
                       fontWeight: 500,
-                      fontSize: "var(--fs-body)",
+                      fontSize: "var(--fs-body-sm)",
                       letterSpacing: "-0.154px",
                       color: "#141414",
                     }}
@@ -398,7 +398,7 @@ export default function PracticeAreas() {
                           margin: 0,
                           fontFamily: '"Plus Jakarta Sans", sans-serif',
                           fontWeight: 500,
-                          fontSize: "var(--fs-body)",
+                          fontSize: "var(--fs-body-sm)",
                           letterSpacing: "-0.154px",
                           color: "#141414",
                         }}
