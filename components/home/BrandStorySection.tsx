@@ -28,12 +28,13 @@ export default function BrandStorySection() {
 
   const headingColor = isDark ? "#e0e0e0" : "#141414";
   const bodyMuted = isDark ? "#a0a0a0" : "#757575";
-  const bg = isDark ? "#0d0d0d" : "#f9f9f9";
+  const bg = isDark ? "#0d0d0d" : "var(--c-bg-muted)";
 
   return (
     <section
       style={{
         backgroundColor: bg,
+        borderTop: isDark ? undefined : "1px solid var(--c-line)",
         padding: "clamp(48px, 6vw, 80px) clamp(20px, 5vw, 40px)",
         color: headingColor,
       }}

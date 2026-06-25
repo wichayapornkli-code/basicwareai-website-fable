@@ -531,10 +531,9 @@ export default function AboutPage() {
 
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                  maxWidth: "56ch",
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)",
+                  gap: "clamp(24px, 3vw, 40px)",
                 }}
               >
                 {[2, 3].map((i) => (
